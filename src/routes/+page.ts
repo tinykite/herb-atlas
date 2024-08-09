@@ -1,23 +1,23 @@
 import type { PageLoad } from './$types';
-import { json, error } from '@sveltejs/kit';
 import * as d3 from 'd3';
+import { json, error } from '@sveltejs/kit';
 
 export const load = (async () => {
-	let formattedData: any[] = [];
+	let farms: any[] = [];
 	const csvUrl =
 		'https://docs.google.com/spreadsheets/d/1hgFHSzxmGEZ0oiJLnalemEr6vp_nHd15m-jc5EH2ahY/gviz/tq?tqx=out:csv';
 
 	try {
-		const data = await d3.csv(csvUrl, (data) => {
+		await d3.csv(csvUrl, (d) => {
 			// const farmName = d3.csvParse(data.Farm);
 			// formattedData.push(farmName);
-			formattedData.push(data);
+			farms.push(d);
 		});
-		console.log(formattedData);
+		console.log(farms);
 	} catch (error) {
 		console.error('Error fetching or parsing CSV data:', error);
 	}
 
-	return { formattedData }
+	return { farms }
 
 }) satisfies PageLoad;
