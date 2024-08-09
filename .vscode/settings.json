@@ -1,0 +1,4 @@
+{
+    "svelte.plugin.svelte.format.config.svelteStrictMode": true,
+    "editor.formatOnSave": true
+}
