@@ -13,7 +13,6 @@ export const load = (async () => {
 			// formattedData.push(farmName);
 			farms.push(d);
 		});
-		console.log(farms);
 	} catch (error) {
 		console.error('Error fetching or parsing CSV data:', error);
 	}

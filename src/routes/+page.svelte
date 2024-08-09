@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+    import Map from '../components/Map.svelte';
     export let data: PageData;
     const { farms } = data
 </script>
@@ -12,3 +13,6 @@
 <li>{farm.Name}</li>
 {/each}
 </ul>
+
+<h2>By Location</h2>
+<Map mapPoints={farms}/>
