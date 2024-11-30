@@ -1,16 +1,16 @@
 <script setup lang="ts">
-    import { PUBLIC_MAP_STYLE } from '$env/static/public';
     import { onMount } from 'svelte';
     import pkg from 'maplibre-gl';
     const {Map, Marker, Popup, FullscreenControl} = pkg;
 
     export let mapPoints; 
+    console.log(mapPoints)
     let mapContainer: HTMLElement
 
     onMount(() => {
         const map = new Map({
             container: mapContainer,
-            style: PUBLIC_MAP_STYLE,
+            style: 'https://api.maptiler.com/maps/dataviz/style.json?key=uCLYsOW1uLfJ3uFvlsku',
         center: [-93.2650, 39.9778],
         zoom: 4
         });
