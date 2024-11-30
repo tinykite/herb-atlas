@@ -1,0 +1,101 @@
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+* {
+	margin: 0;
+}
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+#root {
+	isolation: isolate;
+}
+
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a,
+a:visited,
+a:active {
+	color: inherit;
+}
+
+p,
+ul,
+ol,
+pre {
+	line-height: 1.5;
+	font-weight: normal;
+}
+
+h1,
+h2,
+h3 {
+	font-weight: 600;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.125;
+}
+strong {
+	display: block;
+}
+
+li {
+	margin-block-start: 0.25rem;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-feature-settings: 'liga', 'kern';
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+.u-visually-hidden {
+	position: absolute;
+	left: -10000px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	white-space: nowrap;
+}
