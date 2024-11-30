@@ -4,7 +4,7 @@
     const {Map, Marker, Popup, FullscreenControl} = pkg;
 
     let { mapPoints } = $props();
-    let mapContainer: HTMLElement = $state()
+    let mapContainer: HTMLElement | null = $state()
 
     onMount(() => {
         const map = new Map({
@@ -16,7 +16,7 @@
 
         mapPoints.map(point => {
             const coords = [point.Longitude, point.Latitude]
-            const popup = new Popup({offset: 25}).setHTML(`<h3>${point.Name}</h3><p>${point.CityState}</p>`)
+            const popup = new Popup({offset: 25}).setHTML(`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`)
 
             new Marker({color: "#FF0000"}).setLngLat(coords).setPopup(popup).addTo(map)
         })
@@ -29,6 +29,13 @@
 
 <style>
     .map {
-        height: 65vh;
+        height: 85vh;
+    }
+
+    :global(.maplibregl-popup-content) {
+        display: grid;
+        grid-template-columns: 1fr 0.5rem;
+        align-items: center;
+        padding-block-start: 1.25rem;
     }
 </style>
