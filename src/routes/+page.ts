@@ -1,6 +1,5 @@
 import type { PageLoad } from './$types';
 import * as d3 from 'd3';
-import { json, error } from '@sveltejs/kit';
 
 export const load = (async () => {
 	let farms: any[] = [];

@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
     import Map from '../components/Map.svelte';
-    export let data: PageData;
+    interface Props {
+        data: PageData;
+    }
+
+    let { data }: Props = $props();
     const { farms } = data
 </script>
 

@@ -1,11 +1,10 @@
-<script setup lang="ts">
+<script lang="ts">
     import { onMount } from 'svelte';
     import pkg from 'maplibre-gl';
     const {Map, Marker, Popup, FullscreenControl} = pkg;
 
-    export let mapPoints; 
-    console.log(mapPoints)
-    let mapContainer: HTMLElement
+    let { mapPoints } = $props();
+    let mapContainer: HTMLElement = $state()
 
     onMount(() => {
         const map = new Map({
@@ -26,7 +25,7 @@
     });
 </script>
 
-<div class="map" bind:this={mapContainer} />
+<div class="map" bind:this={mapContainer}></div>
 
 <style>
     .map {
