@@ -37,7 +37,7 @@
 <style>
 	.nav {
 		display: grid;
-		grid-template-columns: 32px 1fr;
+		grid-template-columns: 24px 1fr;
 		align-items: center;
 		gap: 0.5rem;
 		position: absolute;
