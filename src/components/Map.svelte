@@ -11,7 +11,8 @@
             container: mapContainer,
             style: 'https://api.maptiler.com/maps/dataviz/style.json?key=uCLYsOW1uLfJ3uFvlsku',
         center: [-93.2650, 39.9778],
-        zoom: 4
+        zoom: 4,
+        maxZoom: 10,
         });
 
         mapPoints.map(point => {
