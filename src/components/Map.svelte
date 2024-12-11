@@ -43,16 +43,16 @@
 
 			new Marker({ color: '#FF0000' }).setLngLat(coords).setPopup(popup).addTo(map);
 		});
-
-		map.addControl(new FullscreenControl());
 	});
 </script>
 
-<div class="map" bind:this={mapContainer}></div>
+<main class="wrapper">
+	<div class="map" bind:this={mapContainer}></div>
+</main>
 
 <style>
 	.map {
-		height: 85vh;
+		height: 100vh;
 	}
 
 	:global(.maplibregl-popup-content) {

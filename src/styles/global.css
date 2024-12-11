@@ -90,7 +90,7 @@ img {
 	display: block;
 }
 
-.u-visually-hidden {
+.u-visuallyHidden {
 	position: absolute;
 	left: -10000px;
 	top: auto;
@@ -98,4 +98,14 @@ img {
 	height: 1px;
 	overflow: hidden;
 	white-space: nowrap;
+}
+
+.wrapper {
+	display: grid;
+}
+
+.wrapper > * {
+	grid-row: 1;
+	grid-column: 1 / -1;
+	align-items: start;
 }
