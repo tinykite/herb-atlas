@@ -45,6 +45,7 @@
 		top: 1rem;
 		width: 100vw;
 		z-index: 200;
+		width: fit-content;
 	}
 
 	.nav__siteTitle {
