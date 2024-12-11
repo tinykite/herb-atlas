@@ -12,7 +12,7 @@
 	const protocol = new pmtiles.Protocol();
 	maplibregl.addProtocol('pmtiles', protocol.tile);
 
-	const TILE_URL = 'TEST';
+	const TILE_URL = '/planet_z6.pmtiles';
 
 	onMount(() => {
 		const map = new Map({
@@ -28,7 +28,7 @@
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
 					}
 				},
-				layers: layers('protomaps', 'white')
+				layers: layers('protomaps', 'light')
 			},
 			center: [-93.265, 39.9778],
 			zoom: 4,
