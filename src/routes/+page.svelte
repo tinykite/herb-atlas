@@ -44,7 +44,7 @@
 				class="search__input"
 				type="search"
 				id="location"
-				placeholder="Search"
+				placeholder="Search by location"
 				aria-autocomplete="list"
 				autocomplete="off"
 			/>
@@ -89,15 +89,15 @@
 
 	.search__icon {
 		position: absolute;
-		height: 1rem;
+		height: 0.9rem;
 		width: auto;
 		margin-inline-start: 0.75rem;
-		color: #999;
+		color: #5e5e5e;
 	}
 
 	.search__input {
 		border-radius: 1.25rem;
-		padding-inline-start: 2rem;
+		padding-inline-start: 1.85rem;
 		padding-inline-end: 1rem;
 		padding-block: 0.25rem;
 		border: 1px solid #d0d7de;
@@ -109,5 +109,6 @@
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
+		color: #5e5e5e;
 	}
 </style>
