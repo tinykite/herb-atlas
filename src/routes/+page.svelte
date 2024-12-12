@@ -20,24 +20,11 @@
 		clearTimeout(timer);
 		timer = setTimeout(() => {
 			handleLocationSearch();
-		}, 300);
+		}, 1000);
 	};
 
 	const handleLocationSearch = async () => {
-		const url = `https://nominatim.openstreetmap.org/search.php?q=${searchQuery}&countrycodes=us&layer=address&addressdetails=1&format=jsonv2`;
-		try {
-			const response = await fetch(url);
-			if (!response.ok) {
-				throw new Error(`Response status: ${response.status}`);
-			}
-
-			const json = await response.json();
-			locations = json;
-
-			console.log(json);
-		} catch (error) {
-			console.error(error.message);
-		}
+		/* Removed Geocoding lookyp */
 	};
 </script>
 
@@ -97,7 +84,12 @@
 				{#if locations}
 					{#each locations as location}
 						<li class="autocompleteResponse__item" role="option" aria-disabled="true">
-							{location.display_name}
+							<p class="location__commonName">{location.display_name}</p>
+							<p class="location__state">
+								{#if location.name !== location.address.state}
+									{location.address.state}
+								{/if}
+							</p>
 						</li>
 					{/each}
 				{:else}
@@ -192,5 +184,10 @@
 
 	.autocompleteResponse__item--empty {
 		text-align: center;
+	}
+
+	.location__state {
+		text-transform: uppercase;
+		color: #666;
 	}
 </style>
