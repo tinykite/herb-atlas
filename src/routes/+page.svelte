@@ -64,7 +64,7 @@
 		margin-block-start: 1rem;
 		margin-inline: 1.5rem;
 		height: fit-content;
-		color: #004927;
+		color: #0c3307;
 	}
 
 	.nav__logoMark {

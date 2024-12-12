@@ -41,7 +41,7 @@
 				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
 			);
 
-			new Marker({ color: '#004927' }).setLngLat(coords).setPopup(popup).addTo(map);
+			new Marker({ color: '#387030' }).setLngLat(coords).setPopup(popup).addTo(map);
 		});
 	});
 </script>
