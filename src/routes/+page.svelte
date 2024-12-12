@@ -7,6 +7,38 @@
 
 	let { data }: Props = $props();
 	const { farms } = data;
+
+	let locations = $state([]);
+	let searchQuery = $state('');
+	let latestRequestId = $state(0);
+
+	let timer;
+	const debounce = () => {
+		if (searchQuery === '') {
+			locations = [];
+		}
+		clearTimeout(timer);
+		timer = setTimeout(() => {
+			handleLocationSearch();
+		}, 300);
+	};
+
+	const handleLocationSearch = async () => {
+		const url = `https://nominatim.openstreetmap.org/search.php?q=${searchQuery}&countrycodes=us&layer=address&addressdetails=1&format=jsonv2`;
+		try {
+			const response = await fetch(url);
+			if (!response.ok) {
+				throw new Error(`Response status: ${response.status}`);
+			}
+
+			const json = await response.json();
+			locations = json;
+
+			console.log(json);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
 </script>
 
 <div class="wrapper">
@@ -27,28 +59,58 @@
 			<h1 class="nav__mark">Herbalism Atlas</h1>
 		</div>
 
-		<search class="search">
-			<svg
-				class="search__icon"
-				aria-hidden="true"
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
+		<div class="searchWrapper">
+			<search class="search">
+				<svg
+					class="search__icon"
+					aria-hidden="true"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
+				>
+				<label id="search" class="u-visuallyHidden" for="location">Search</label>
+
+				<input
+					class="search__input"
+					type="search"
+					role="combobox"
+					id="location-search"
+					aria-controls="location-results"
+					placeholder="Search by location"
+					aria-autocomplete="list"
+					aria-expanded="false"
+					autocomplete="off"
+					oninput={() => debounce()}
+					bind:value={searchQuery}
+				/>
+			</search>
+			<ul
+				class="autocompleteResponse"
+				id="location-results"
+				aria-labelledby="location-search"
+				role="listbox"
 			>
-			<label id="search" class="u-visuallyHidden" for="location">Search</label>
-			<input
-				class="search__input"
-				type="search"
-				id="location"
-				placeholder="Search by location"
-				aria-autocomplete="list"
-				autocomplete="off"
-			/>
-		</search>
+				{#if locations}
+					{#each locations as location}
+						<li class="autocompleteResponse__item" role="option" aria-disabled="true">
+							{location.display_name}
+						</li>
+					{/each}
+				{:else}
+					<li
+						class="autocompleteResponse__item autocompleteResponse__item--empty"
+						role="option"
+						aria-disabled="true"
+					>
+						No results
+					</li>
+				{/if}
+			</ul>
+		</div>
 	</nav>
 
 	<Map mapPoints={farms} />
@@ -57,7 +119,6 @@
 <style>
 	.nav {
 		display: flex;
-		align-items: center;
 		justify-content: space-between;
 		position: relative;
 		z-index: 100;
@@ -110,5 +171,26 @@
 		top: 50%;
 		transform: translateY(-50%);
 		color: #5e5e5e;
+	}
+
+	.autocompleteResponse {
+		background: white;
+		list-style-type: none;
+		padding: 0;
+		margin-block-start: 1rem;
+		border-radius: 0.25rem;
+		position: absolute;
+		overflow-y: scroll;
+		max-height: 50vh;
+	}
+
+	.autocompleteResponse__item {
+		padding-inline: 2rem;
+		padding-block: 0.5rem;
+		border-bottom: 1px solid #ccc;
+	}
+
+	.autocompleteResponse__item--empty {
+		text-align: center;
 	}
 </style>
