@@ -109,3 +109,14 @@ img {
 	grid-column: 1 / -1;
 	align-items: start;
 }
+
+input {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+*:focus-visible {
+	outline-style: solid;
+	outline-width: 2px;
+	outline-color: #0f62fe;
+	outline-offset: 0.25rem;
+}

@@ -30,7 +30,7 @@
 				},
 				layers: layers('protomaps', 'light')
 			},
-			center: [-93.265, 39.9778],
+			center: [-95.9, 40.9778],
 			zoom: 4,
 			maxZoom: 10
 		});
@@ -41,7 +41,7 @@
 				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
 			);
 
-			new Marker({ color: '#FF0000' }).setLngLat(coords).setPopup(popup).addTo(map);
+			new Marker({ color: '#004927' }).setLngLat(coords).setPopup(popup).addTo(map);
 		});
 	});
 </script>
