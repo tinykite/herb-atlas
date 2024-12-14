@@ -14,20 +14,7 @@
 
 	let filterValue = $state();
 
-	const handleArrowDown = (e) => {
-		const targetClasses = Array.from(e.target.classList);
-		const dataAttributes = e.target.dataset;
-
-		console.log(dataAttributes);
-
-		// if (dataset?.index < locations.length - 1) {
-		// 	const nextIndex = dataset.index + 1;
-		// 	console.log(nextIndex);
-		// }
-	};
-
 	const handleMenuNavigation = (e) => {
-		e.stopPropagation();
 		const dataAttributes = e.target.dataset;
 		const currentIndex = parseInt(dataAttributes.index);
 
@@ -65,10 +52,10 @@
 				showMenu = false;
 				searchQuery = filterValue;
 			default:
+				return;
 		}
 	};
-
-	const handleKeyStroke = (e) => {
+	const handleSearchNavigation = (e) => {
 		switch (e.code) {
 			case 'Escape':
 			case 'Tab':
@@ -113,7 +100,8 @@
 	};
 
 	let timer;
-	const debounce = () => {
+
+	const debounceSearchInput = () => {
 		if (searchQuery === '') {
 			locations = [];
 		}
@@ -150,8 +138,8 @@
 			autocomplete="off"
 			id="location-search"
 			placeholder="Search by city or state"
-			onkeyup={(e) => handleKeyStroke(e)}
-			oninput={() => debounce()}
+			onkeyup={(e) => handleSearchNavigation(e)}
+			oninput={() => debounceSearchInput()}
 			bind:value={searchQuery}
 			tabindex="-1"
 		/>
