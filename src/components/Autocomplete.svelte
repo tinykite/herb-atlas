@@ -35,6 +35,20 @@
 		}
 	};
 
+	const handleClick = (e) => {
+		let value;
+
+		if (e.target.matches('p')) {
+			const parentTarget = e.target.parentElement;
+			value = parentTarget.dataset.value;
+		} else {
+			value = e.target.dataset;
+		}
+
+		searchQuery = value;
+		showMenu = false;
+	};
+
 	const handleMenuNavigation = (e) => {
 		const dataAttributes = e.target.dataset;
 		const currentIndex = parseInt(dataAttributes.index);
@@ -171,6 +185,7 @@
 		aria-labelledby="location-search"
 		role="listbox"
 		bind:this={menu}
+		onclick={(e) => handleClick(e)}
 		onkeydown={(e) => handleMenuNavigation(e)}
 	>
 		{#if showMenu}
