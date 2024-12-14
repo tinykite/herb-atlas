@@ -114,7 +114,7 @@ input {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-*:focus-visible {
+*:focus-visible, *:focus {
 	outline-style: solid;
 	outline-width: 2px;
 	outline-color: #0f62fe;

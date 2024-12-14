@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import Map from '../components/Map.svelte';
+	import Autocomplete from '../components/Autocomplete.svelte';
 	interface Props {
 		data: PageData;
 	}
@@ -8,24 +9,15 @@
 	let { data }: Props = $props();
 	const { farms } = data;
 
-	let locations = $state([]);
-	let searchQuery = $state('');
-	let latestRequestId = $state(0);
+	const farmLocations = farms.reduce((farmLocations, currentFarm) => {
+		const currentLocation = currentFarm.CityState;
 
-	let timer;
-	const debounce = () => {
-		if (searchQuery === '') {
-			locations = [];
+		if (farmLocations.includes(currentLocation)) {
+			return farmLocations;
 		}
-		clearTimeout(timer);
-		timer = setTimeout(() => {
-			handleLocationSearch();
-		}, 1000);
-	};
 
-	const handleLocationSearch = async () => {
-		/* Removed Geocoding lookyp */
-	};
+		return [...farmLocations, currentLocation];
+	}, []);
 </script>
 
 <div class="wrapper">
@@ -45,64 +37,7 @@
 			</svg>
 			<h1 class="nav__mark">Herbalism Atlas</h1>
 		</div>
-
-		<div class="searchWrapper">
-			<search class="search">
-				<svg
-					class="search__icon"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
-				>
-				<label id="search" class="u-visuallyHidden" for="location">Search</label>
-
-				<input
-					class="search__input"
-					type="search"
-					role="combobox"
-					id="location-search"
-					aria-controls="location-results"
-					placeholder="Search by location"
-					aria-autocomplete="list"
-					aria-expanded="false"
-					autocomplete="off"
-					oninput={() => debounce()}
-					bind:value={searchQuery}
-				/>
-			</search>
-			<ul
-				class="autocompleteResponse"
-				id="location-results"
-				aria-labelledby="location-search"
-				role="listbox"
-			>
-				{#if locations}
-					{#each locations as location}
-						<li class="autocompleteResponse__item" role="option" aria-disabled="true">
-							<p class="location__commonName">{location.display_name}</p>
-							<p class="location__state">
-								{#if location.name !== location.address.state}
-									{location.address.state}
-								{/if}
-							</p>
-						</li>
-					{/each}
-				{:else}
-					<li
-						class="autocompleteResponse__item autocompleteResponse__item--empty"
-						role="option"
-						aria-disabled="true"
-					>
-						No results
-					</li>
-				{/if}
-			</ul>
-		</div>
+		<Autocomplete options={farmLocations} />
 	</nav>
 
 	<Map mapPoints={farms} />
@@ -131,63 +66,5 @@
 		font-family: 'pressio-condensed', sans-serif;
 		font-weight: 600;
 		font-style: normal;
-	}
-
-	.search {
-		display: flex;
-		align-items: center;
-		column-gap: 0.5rem;
-		position: relative;
-	}
-
-	.search__icon {
-		position: absolute;
-		height: 0.9rem;
-		width: auto;
-		margin-inline-start: 0.75rem;
-		color: #5e5e5e;
-	}
-
-	.search__input {
-		border-radius: 1.25rem;
-		padding-inline-start: 1.85rem;
-		padding-inline-end: 1rem;
-		padding-block: 0.25rem;
-		border: 1px solid #d0d7de;
-		outline-offset: 4px;
-	}
-
-	.search__input::placeholder {
-		font-size: 0.85rem;
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		color: #5e5e5e;
-	}
-
-	.autocompleteResponse {
-		background: white;
-		list-style-type: none;
-		padding: 0;
-		margin-block-start: 1rem;
-		border-radius: 0.25rem;
-		position: absolute;
-		overflow-y: scroll;
-		max-height: 50vh;
-	}
-
-	.autocompleteResponse__item {
-		padding-inline: 2rem;
-		padding-block: 0.5rem;
-		border-bottom: 1px solid #ccc;
-	}
-
-	.autocompleteResponse__item--empty {
-		text-align: center;
-	}
-
-	.location__state {
-		text-transform: uppercase;
-		color: #666;
 	}
 </style>
