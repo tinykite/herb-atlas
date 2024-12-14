@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	interface Props {
 		options: Array<string>;
 	}
 
-	let searchInput = $state();
+	let searchInput = $state('');
 	let searchQuery = $state('');
 
 	let { options }: Props = $props();
@@ -13,6 +15,25 @@
 	let showMenu = $state(false);
 
 	let filterValue = $state();
+
+	onMount(() => {
+		const { url } = $page;
+
+		if (url?.searchParams) {
+			updateSearchInput(url);
+		}
+	});
+
+	const updateSearchInput = (url) => {
+		const city = url.searchParams.get('city');
+		const state = url.searchParams.get('state');
+
+		if (city && state) {
+			searchQuery = `${city}, ${state}`;
+		} else if (state) {
+			searchQuery = state;
+		}
+	};
 
 	const handleMenuNavigation = (e) => {
 		const dataAttributes = e.target.dataset;
