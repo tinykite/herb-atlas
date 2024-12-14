@@ -60,6 +60,7 @@
 				break;
 
 			case 'Enter':
+			case 'Space':
 				filterValue = e.target.dataset.value;
 				showMenu = false;
 				searchQuery = filterValue;
