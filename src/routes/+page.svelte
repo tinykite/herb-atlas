@@ -3,6 +3,7 @@
 	import type { PageData } from './$types';
 	import Map from '../components/Map.svelte';
 	import Autocomplete from '../components/Autocomplete.svelte';
+	import { statesByAbbreviation } from '$lib/stateData';
 	interface Props {
 		data: PageData;
 	}
@@ -15,17 +16,17 @@
 
 	const farmLocations = farms.reduce((farmLocations, currentFarm) => {
 		const currentLocation = currentFarm.CityState;
-		const currentState = currentFarm.State;
+		const currentState = statesByAbbreviation[currentFarm.State];
 
-		if (farmLocations.includes(currentLocation) && farmLocations.includes(currentState)) {
-			return farmLocations;
+		let options = [];
+
+		if (!farmLocations.includes(currentState)) {
+			options.push(currentState);
 		}
 
-		if (farmLocations.includes(currentState)) {
-			return [...farmLocations, currentLocation];
-		}
+		options.push(currentLocation);
 
-		return [...farmLocations, currentLocation, currentState];
+		return [...farmLocations, ...options];
 	}, []);
 </script>
 
