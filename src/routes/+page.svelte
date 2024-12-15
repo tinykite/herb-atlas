@@ -63,7 +63,16 @@
 						{farm.Name}
 					</h3>
 					<p class="farmList__location">{farm.CityState}</p>
-					<p>Website</p>
+					{#if farm.Url}<p><em><a href={`${farm.Url}`}>Visit {farm.Name} Website</a></em></p>{/if}
+
+					<h4 class="farmList__forSale">What's For Sale</h4>
+					{farm.Categories}
+
+					<h4 class="farmList__forSale">Order Online</h4>
+					{farm['Sells Online']}
+					<p>
+						{#if farm.Website}<a href={`${farm.website}`}>Website</a>`{/if}
+					</p>
 				</li>
 			{/each}
 		</ul>
@@ -78,10 +87,11 @@
 		justify-content: space-between;
 		position: relative;
 		z-index: 100;
-		margin-block-start: 1rem;
-		margin-inline: 1.5rem;
+		padding-block: 1rem;
+		padding-inline: 1.5rem;
 		height: fit-content;
 		color: #0c3307;
+		background: white;
 	}
 
 	.nav__logoMark {
@@ -101,10 +111,11 @@
 		background: white;
 		position: relative;
 		z-index: 200;
-		margin-block-start: 5rem;
-		margin-inline: 1.5rem;
+		padding-block-start: 1.5rem;
+		padding-inline: 1.5rem;
 		padding: 1.5rem;
 		width: 20rem;
+		overflow: auto;
 	}
 
 	.farmList {
@@ -115,7 +126,16 @@
 	}
 
 	.farmList__item {
+		border-top: 1px solid #ccc;
+		padding-block: 1.25rem;
+	}
+
+	.farmList__item:last-of-type {
 		border-bottom: 1px solid #ccc;
+	}
+
+	.farmList__forSale {
+		margin-block-start: 1rem;
 	}
 
 	.wrapper {
