@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	interface Props {
 		options: Array<string>;
@@ -42,11 +43,17 @@
 			const parentTarget = e.target.parentElement;
 			value = parentTarget.dataset.value;
 		} else {
-			value = e.target.dataset;
+			value = e.target.dataset.value;
 		}
 
+		handleUpdate(value);
+	};
+
+	const handleUpdate = (value: string) => {
 		searchQuery = value;
 		showMenu = false;
+
+		goto(`/?query=${value}`);
 	};
 
 	const handleMenuNavigation = (e) => {
@@ -84,8 +91,7 @@
 			case 'Enter':
 			case 'Space':
 				filterValue = e.target.dataset.value;
-				showMenu = false;
-				searchQuery = filterValue;
+				handleUpdate(filterValue);
 			default:
 				return;
 		}
@@ -160,24 +166,27 @@
 			stroke-linecap="round"
 			stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg
 		>
-		<label id="search" class="u-visuallyHidden" for="location">Search</label>
 
-		<input
-			bind:this={searchInput}
-			class="search__input"
-			type="search"
-			role="combobox"
-			aria-controls="location-results"
-			aria-autocomplete="list"
-			aria-expanded="false"
-			autocomplete="off"
-			id="location-search"
-			placeholder="Search by city or state"
-			onkeyup={(e) => handleSearchNavigation(e)}
-			oninput={() => debounceSearchInput()}
-			bind:value={searchQuery}
-			tabindex="-1"
-		/>
+		<form method="POST" action="/">
+			<label id="search" class="u-visuallyHidden" for="location">Search</label>
+			<input
+				bind:this={searchInput}
+				class="search__input"
+				type="search"
+				role="combobox"
+				aria-controls="location-results"
+				aria-autocomplete="list"
+				aria-expanded="false"
+				autocomplete="off"
+				name="location"
+				id="location-search"
+				placeholder="Search by city or state"
+				onkeyup={(e) => handleSearchNavigation(e)}
+				oninput={() => debounceSearchInput()}
+				bind:value={searchQuery}
+				tabindex="-1"
+			/>
+		</form>
 	</div>
 	<ul
 		class="autocomplete"

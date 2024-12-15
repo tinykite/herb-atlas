@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 	import Map from '../components/Map.svelte';
 	import Autocomplete from '../components/Autocomplete.svelte';
@@ -7,16 +8,24 @@
 	}
 
 	let { data }: Props = $props();
+
+	let searchQuery = $derived($page.url.searchParams.get('query'));
+
 	const { farms } = data;
 
 	const farmLocations = farms.reduce((farmLocations, currentFarm) => {
 		const currentLocation = currentFarm.CityState;
+		const currentState = currentFarm.State;
 
-		if (farmLocations.includes(currentLocation)) {
+		if (farmLocations.includes(currentLocation) && farmLocations.includes(currentState)) {
 			return farmLocations;
 		}
 
-		return [...farmLocations, currentLocation];
+		if (farmLocations.includes(currentState)) {
+			return [...farmLocations, currentLocation];
+		}
+
+		return [...farmLocations, currentLocation, currentState];
 	}, []);
 </script>
 
@@ -37,8 +46,28 @@
 			</svg>
 			<h1 class="nav__mark">Herbalism Atlas</h1>
 		</div>
+
 		<Autocomplete options={farmLocations} />
 	</nav>
+
+	<div class="info">
+		<h2>Herb Farms</h2>
+		{#if searchQuery}
+			<p>In {searchQuery}</p>
+		{/if}
+
+		<ul class="farmList">
+			{#each farms as farm}
+				<li class="farmList__item">
+					<h3 class="farmList__name">
+						{farm.Name}
+					</h3>
+					<p class="farmList__location">{farm.CityState}</p>
+					<p>Website</p>
+				</li>
+			{/each}
+		</ul>
+	</div>
 
 	<Map mapPoints={farms} />
 </div>
@@ -66,5 +95,30 @@
 		font-family: 'pressio-condensed', sans-serif;
 		font-weight: 600;
 		font-style: normal;
+	}
+
+	.info {
+		background: white;
+		position: relative;
+		z-index: 200;
+		margin-block-start: 5rem;
+		margin-inline: 1.5rem;
+		padding: 1.5rem;
+		width: 20rem;
+	}
+
+	.farmList {
+		margin-block-start: 1rem;
+		margin-inline: 0;
+		padding: 0;
+		list-style-type: none;
+	}
+
+	.farmList__item {
+		border-bottom: 1px solid #ccc;
+	}
+
+	.wrapper {
+		display: grid;
 	}
 </style>
