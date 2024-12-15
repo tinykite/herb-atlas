@@ -100,16 +100,6 @@ img {
 	white-space: nowrap;
 }
 
-.wrapper {
-	display: grid;
-}
-
-.wrapper > * {
-	grid-row: 1;
-	grid-column: 1 / -1;
-	align-items: start;
-}
-
 input {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

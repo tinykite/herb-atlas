@@ -46,12 +46,17 @@
 	});
 </script>
 
-<main class="wrapper">
-	<div class="map" bind:this={mapContainer}></div>
-</main>
+<div class="map">
+	<div class="map__graphic" bind:this={mapContainer}></div>
+</div>
 
 <style>
 	.map {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+	}
+	.map__graphic {
 		height: 100vh;
 	}
 
