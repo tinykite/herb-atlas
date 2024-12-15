@@ -51,9 +51,9 @@
 	</nav>
 
 	<div class="info">
-		<h2>Herb Farms</h2>
+		{farmLocations.length} total farms
 		{#if searchQuery}
-			<p>In {searchQuery}</p>
+			in {searchQuery}
 		{/if}
 
 		<ul class="farmList">
