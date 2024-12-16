@@ -188,16 +188,16 @@
 			/>
 		</form>
 	</div>
-	<ul
-		class="autocomplete"
-		id="location-results"
-		aria-labelledby="location-search"
-		role="listbox"
-		bind:this={menu}
-		onclick={(e) => handleClick(e)}
-		onkeydown={(e) => handleMenuNavigation(e)}
-	>
-		{#if showMenu}
+	{#if showMenu}
+		<ul
+			class="autocomplete"
+			id="location-results"
+			aria-labelledby="location-search"
+			role="listbox"
+			bind:this={menu}
+			onclick={(e) => handleClick(e)}
+			onkeydown={(e) => handleMenuNavigation(e)}
+		>
 			{#each locations as location, i}
 				<li
 					class="autocomplete__option"
@@ -210,8 +210,8 @@
 					<p class="location__commonName">{location}</p>
 				</li>
 			{/each}
-		{/if}
-		<!-- {:else if searchQuery}
+
+			<!-- {:else if searchQuery}
 			<li
 				class="autocomplete__option autocomplete__option--empty"
 				role="option"
@@ -220,7 +220,8 @@
 				No results
 			</li>
 		{/if} -->
-	</ul>
+		</ul>
+	{/if}
 </search>
 
 <style>
@@ -249,12 +250,15 @@
 	}
 
 	.search__input {
-		border-radius: 1.25rem;
+		border-radius: 9999px;
 		padding-inline-start: 1.85rem;
 		padding-inline-end: 1rem;
 		padding-block: 0.25rem;
 		border: 1px solid #d0d7de;
 		outline-offset: 4px;
+		box-shadow:
+			0 4px 80px 4px rgba(0, 0, 0, 0.02),
+			0 1px 22px 0 rgba(0, 0, 0, 0.08);
 	}
 
 	.search__input::placeholder {
@@ -269,20 +273,20 @@
 		background: white;
 		list-style-type: none;
 		padding: 0;
-		margin-block-start: 1rem;
-		border-radius: 0.25rem;
+		margin-block-start: 1.5rem;
 		position: absolute;
 		overflow: auto;
 		max-height: 50vh;
 		width: 100%;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.257);
+		box-shadow:
+			0 4px 80px 4px rgba(0, 0, 0, 0.02),
+			0 1px 22px 0 rgba(0, 0, 0, 0.08);
 	}
 
 	.autocomplete__option {
 		margin: 0;
 		padding-inline: 2rem;
 		padding-block: 0.5rem;
-		border-bottom: 1px solid #ccc;
 		font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
 			Geneva, Verdana, sans-serif;
 		cursor: pointer;

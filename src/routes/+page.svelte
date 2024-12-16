@@ -3,23 +3,14 @@
 	import type { PageData } from './$types';
 	import Map from '../components/Map.svelte';
 	import Autocomplete from '../components/Autocomplete.svelte';
-	import { statesByAbbreviation } from '$lib/stateData';
+	import { statesByAbbreviation, statesByName } from '$lib/stateData';
+
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
-
-	let searchQuery = $derived($page.url.searchParams.get('query'));
-
 	const { farms } = data;
-
-	const stringToTitlecase = (string: string) => {
-		return string
-			.split(' ')
-			.map((word) => word[0].toUpperCase() + word.slice(1))
-			.join(' ');
-	};
 
 	const farmLocations = farms.reduce((farmLocations, currentFarm) => {
 		const currentLocation = currentFarm.CityState;
@@ -35,6 +26,53 @@
 
 		return [...farmLocations, ...options];
 	}, []);
+
+	const cityStatePairs = farms.reduce((farmLocations, currentFarm) => {
+		const currentLocation = currentFarm.CityState;
+
+		if (farmLocations.includes(currentLocation)) {
+			return farmLocations;
+		}
+
+		return [...farmLocations, currentLocation];
+	}, []);
+
+	let searchQuery = $derived($page.url.searchParams.get('query'));
+	let searchQueryType = $derived.by(() => {
+		if (!searchQuery) {
+			return;
+		}
+		if (searchQuery in statesByName) {
+			return 'state';
+		}
+
+		if (cityStatePairs.includes(searchQuery)) {
+			return 'cityState';
+		}
+	});
+	let filteredResults = $derived.by(() => {
+		if (!searchQuery) {
+			return farms;
+		}
+
+		const query = searchQuery.toLowerCase();
+
+		if (searchQueryType === 'cityState') {
+			return farms.filter((farm) => farm.CityState === searchQuery);
+		}
+
+		if (searchQueryType === 'state') {
+			console.log(farms.filter((farm) => farm.State.toLowerCase() === query));
+			return farms.filter((farm) => farm.State === searchQuery);
+		}
+	});
+
+	const stringToTitlecase = (string: string) => {
+		return string
+			.split(' ')
+			.map((word) => word[0].toUpperCase() + word.slice(1))
+			.join(' ');
+	};
 </script>
 
 <div class="wrapper">
@@ -59,19 +97,29 @@
 	</nav>
 
 	<div class="info">
-		{farmLocations.length} total farms
-		{#if searchQuery}
-			in {searchQuery}
+		<h2>
+			{#if searchQuery}
+				{searchQuery}
+			{:else}
+				United States
+			{/if}
+		</h2>
+
+		{#if !filteredResults}
+			No results
+		{:else if filteredResults?.length === 1}
+			1 farm
+		{:else}
+			{filteredResults.length} farms
 		{/if}
 
 		<ul class="farmList">
-			{#each farms as farm}
+			{#each filteredResults as farm}
 				<li class="farmList__item">
 					<h3 class="farmList__name">
 						{farm.Name}
 					</h3>
 					<p class="farmList__location">{farm.CityState}</p>
-					{#if farm.Url}<p><em><a href={`${farm.Url}`}>Visit {farm.Name} Website</a></em></p>{/if}
 
 					<h4 class="farmList__forSale">What's For Sale</h4>
 					{stringToTitlecase(farm.Categories)}
@@ -99,7 +147,11 @@
 		padding-inline: 1.5rem;
 		height: fit-content;
 		color: #0c3307;
-		background: white;
+		background: rgba(245, 254, 255, 0.8);
+		box-shadow:
+			0 95px 328px 0 rgba(0, 0, 0, 0.02),
+			0 22px 74px 0 rgba(0, 0, 0, 0.04),
+			0 6px 22px 0 rgba(0, 0, 0, 0.08);
 	}
 
 	.nav__logoMark {
@@ -116,14 +168,20 @@
 	}
 
 	.info {
-		background: white;
+		margin-block-start: 2rem;
+		margin-inline-start: 1.5rem;
+		background: #f5feff;
 		position: relative;
-		z-index: 200;
-		padding-block-start: 1.5rem;
+		z-index: 300;
+		padding-block-start: 1.25rem;
 		padding-inline: 1.5rem;
 		padding: 1.5rem;
 		width: 20rem;
-		overflow: auto;
+		border-radius: 1rem;
+		box-shadow:
+			0 100px 80px 0 rgba(0, 0, 0, 0.02),
+			0 22px 18px 0 rgba(0, 0, 0, 0.04),
+			0 6px 5px 0 rgba(0, 0, 0, 0.08);
 	}
 
 	.farmList {
