@@ -147,7 +147,13 @@
 </div>
 
 <style>
+	.wrapper {
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+	}
+
 	.nav {
+		grid-column: 1 / -1;
 		display: flex;
 		justify-content: space-between;
 		position: relative;
@@ -155,8 +161,8 @@
 		padding-block: 1rem;
 		padding-inline: 1.5rem;
 		height: fit-content;
-		color: #0c3307;
-		background: rgba(245, 254, 255, 0.8);
+		color: #123722;
+		background: #fefaef;
 		box-shadow:
 			0 95px 328px 0 rgba(0, 0, 0, 0.02),
 			0 22px 74px 0 rgba(0, 0, 0, 0.04),
@@ -177,15 +183,16 @@
 	}
 
 	.info {
+		grid-column: 1 / 6;
 		margin-block: 2rem;
 		margin-inline-start: 1.5rem;
-		background: #f5feff;
+		color: #123722;
+		background: #fefaef;
 		position: relative;
 		z-index: 300;
 		padding-block-start: 1.25rem;
 		padding-inline: 1.5rem;
 		padding: 1.5rem;
-		width: 20rem;
 		border-radius: 1rem;
 		box-shadow:
 			0 100px 80px 0 rgba(0, 0, 0, 0.02),
@@ -198,6 +205,10 @@
 	}
 
 	.farmList {
+		border-top: 1px solid #ccc;
+		display: grid;
+		column-gap: 32px;
+		grid-template-columns: 1fr 1fr;
 		margin-block-start: 1rem;
 		margin-inline: 0;
 		padding: 0;
@@ -205,12 +216,7 @@
 	}
 
 	.farmList__item {
-		border-top: 1px solid #ccc;
-		padding-block: 1.25rem;
-	}
-
-	.farmList__item:last-of-type {
-		border-bottom: 1px solid #ccc;
+		padding-block-start: 1.25rem;
 	}
 
 	.farmList__forSale {
