@@ -104,16 +104,22 @@
 			{#if searchQuery}
 				{searchQuery}
 			{:else}
-				United States
+				All Farms
 			{/if}
 		</h2>
 
 		{#if !filteredResults}
-			No results
+			<p class="info__description">
+				Sorry, Herbalism Atlas currently doesn't have any farms in <em>{searchQuery}</em>.
+			</p>
+			<p class="info__description">
+				Browse
+				<a href="/">all farms</a>
+			</p>
 		{:else if filteredResults?.length === 1}
-			1 farm
+			<p>1 farm</p>
 		{:else}
-			{filteredResults.length} farms
+			<p>{filteredResults.length} farms</p>
 		{/if}
 
 		<ul class="farmList">
@@ -171,7 +177,7 @@
 	}
 
 	.info {
-		margin-block-start: 2rem;
+		margin-block: 2rem;
 		margin-inline-start: 1.5rem;
 		background: #f5feff;
 		position: relative;
@@ -185,6 +191,10 @@
 			0 100px 80px 0 rgba(0, 0, 0, 0.02),
 			0 22px 18px 0 rgba(0, 0, 0, 0.04),
 			0 6px 5px 0 rgba(0, 0, 0, 0.08);
+	}
+
+	.info__description {
+		margin-block-start: 1rem;
 	}
 
 	.farmList {
