@@ -14,6 +14,13 @@
 
 	const { farms } = data;
 
+	const stringToTitlecase = (string: string) => {
+		return string
+			.split(' ')
+			.map((word) => word[0].toUpperCase() + word.slice(1))
+			.join(' ');
+	};
+
 	const farmLocations = farms.reduce((farmLocations, currentFarm) => {
 		const currentLocation = currentFarm.CityState;
 		const currentState = statesByAbbreviation[currentFarm.State];
@@ -67,7 +74,7 @@
 					{#if farm.Url}<p><em><a href={`${farm.Url}`}>Visit {farm.Name} Website</a></em></p>{/if}
 
 					<h4 class="farmList__forSale">What's For Sale</h4>
-					{farm.Categories}
+					{stringToTitlecase(farm.Categories)}
 
 					<h4 class="farmList__forSale">Order Online</h4>
 					{farm['Sells Online']}
