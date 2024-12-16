@@ -37,12 +37,12 @@
 		return [...farmLocations, currentLocation];
 	}, []);
 
-	let searchQuery = $derived($page.url.searchParams.get('query'));
+	let searchQuery = $derived($page.url.searchParams.get('q'));
 	let searchQueryType = $derived.by(() => {
 		if (!searchQuery) {
 			return;
 		}
-		if (searchQuery in statesByName) {
+		if (searchQuery in statesByName || searchQuery in statesByAbbreviation) {
 			return 'state';
 		}
 
@@ -55,15 +55,18 @@
 			return farms;
 		}
 
-		const query = searchQuery.toLowerCase();
-
 		if (searchQueryType === 'cityState') {
 			return farms.filter((farm) => farm.CityState === searchQuery);
 		}
 
 		if (searchQueryType === 'state') {
-			console.log(farms.filter((farm) => farm.State.toLowerCase() === query));
-			return farms.filter((farm) => farm.State === searchQuery);
+			if (searchQuery in statesByName) {
+				return farms.filter((farm) => farm.State === statesByName[searchQuery]);
+			}
+
+			if (searchQuery in statesByAbbreviation) {
+				return farms.filter((farm) => farm.State === searchQuery);
+			}
 		}
 	});
 

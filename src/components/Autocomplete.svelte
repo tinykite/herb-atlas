@@ -53,7 +53,7 @@
 		searchQuery = value;
 		showMenu = false;
 
-		goto(`/?query=${value}`);
+		goto(`/?q=${value}`);
 	};
 
 	const handleMenuNavigation = (e) => {
