@@ -61,7 +61,7 @@
 	}
 
 	.map__overlay {
-		background: #31a344;
+		/* background: #ffbbbc; */
 		pointer-events: none;
 		position: fixed;
 		width: 100vw;

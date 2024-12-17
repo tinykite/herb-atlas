@@ -80,7 +80,7 @@
 
 <div class="wrapper">
 	<nav class="nav">
-		<h1 class="nav__mark">Local Herbalism Atlas</h1>
+		<h1 class="nav__mark">Atlas of Herbalism</h1>
 
 		<div class="nav__logoMark">
 			<!-- <svg
@@ -118,9 +118,9 @@
 				<a href="/">all locations</a>
 			</p>
 		{:else if filteredResults?.length === 1}
-			<p>1 location</p>
+			<p class="info__locations">1 location</p>
 		{:else}
-			<p>{filteredResults.length} locations</p>
+			<p class="info__locations">{filteredResults.length} locations</p>
 		{/if}
 
 		<ul class="farmList">
@@ -176,10 +176,10 @@
 		position: relative;
 		z-index: 100;
 		padding-block: 1rem;
-		padding-inline: 1.5rem;
+		padding-inline: 3.375rem;
 		height: fit-content;
-		color: #175a06;
-		background: linear-gradient(45deg, #f7fff2, #baff95);
+		color: #385032;
+		background: #faf4e3;
 		box-shadow:
 			0 95px 328px 0 rgba(0, 0, 0, 0.02),
 			0 22px 74px 0 rgba(0, 0, 0, 0.04),
@@ -194,18 +194,18 @@
 	}
 
 	.nav__mark {
-		font-family: 'swear-display-cilati', sans-serif;
-		font-weight: 600;
+		font-family: 'manuka';
+		font-weight: 900;
 		font-style: normal;
-		font-size: 2.25rem;
+		font-size: 2rem;
 	}
 
 	.info {
 		grid-column: 1 / 4;
 		margin-block: 2rem;
-		margin-inline-start: 1.5rem;
-		color: #123722;
-		background: #fefaef;
+		margin-inline-start: 3.375rem;
+		color: #385032;
+		background: #faf4e3;
 		position: relative;
 		z-index: 300;
 		padding-block-start: 1.25rem;
@@ -220,7 +220,7 @@
 
 	.info__title {
 		font-family: 'Tiempos Text';
-		font-weight: 700;
+		font-weight: 800;
 		font-style: normal;
 		font-size: 1.25rem;
 	}
@@ -229,12 +229,15 @@
 		margin-block-start: 1rem;
 	}
 
+	.info__locations {
+		font-style: italic;
+	}
+
 	.farmList {
 		border-top: 1px solid #e8e8e8;
 		display: grid;
 		column-gap: 2rem;
 		row-gap: 1rem;
-		/* grid-template-columns: 1fr 1fr; */
 		margin-block-start: 1rem;
 		margin-inline: 0;
 		padding-block-start: 1rem;
@@ -269,10 +272,7 @@
 	.locationGroup__text {
 		font-size: 1rem;
 		line-height: 1;
-	}
-
-	.farmList__text {
-		margin-block-start: 0.5rem;
+		font-style: italic;
 	}
 
 	.wrapper {
