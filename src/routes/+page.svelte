@@ -198,13 +198,14 @@
 		font-weight: 900;
 		font-style: normal;
 		font-size: 2rem;
+		color: #5b561f;
 	}
 
 	.info {
 		grid-column: 1 / 4;
 		margin-block: 2rem;
 		margin-inline-start: 3.375rem;
-		color: #385032;
+		color: #5b561f;
 		background: #faf4e3;
 		position: relative;
 		z-index: 300;
