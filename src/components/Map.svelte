@@ -50,11 +50,23 @@
 	<div class="map__graphic" bind:this={mapContainer}></div>
 </div>
 
+<div class="map__overlay"></div>
+
 <style>
 	.map {
 		position: fixed;
 		height: 100%;
 		width: 100%;
+		background: #cbf2b6;
+	}
+
+	.map__overlay {
+		background: #31a344;
+		pointer-events: none;
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		mix-blend-mode: saturation;
 	}
 	.map__graphic {
 		height: 100vh;

@@ -83,6 +83,10 @@ body {
 	padding: 0;
 	border: 0;
 	font-feature-settings: 'liga', 'kern';
+	font-family: 'Tiempos Text Regular';
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.5;
 }
 
 img {
@@ -101,7 +105,7 @@ img {
 }
 
 input {
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-family: 'Founders Grotesk';
 }
 
 *:focus-visible, *:focus {
@@ -109,4 +113,64 @@ input {
 	outline-width: 2px;
 	outline-color: #0f62fe;
 	outline-offset: 0.25rem;
+}
+
+@font-face {
+	font-family: 'Founders Grotesk';
+	src: url('/test-founders-grotesk-regular.woff2') format('woff2'),
+		url('/test-founders-grotesk-regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Tiempos Text Regular';
+	src: url('/test-tiempos-text-regular.woff2') format('woff2'),
+		url('/test-tiempos-text-regular.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Tiempos Text';
+	src: url('/test-tiempos-text-medium.woff2') format('woff2'),
+		url('/test-tiempos-text-medium.woff') format('woff');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Tiempos Text';
+	src: url('/test-tiempos-text-semibold.woff2') format('woff2'),
+		url('/test-tiempos-text-semibold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+
+@font-face {
+	font-family: 'Manuka Condensed';
+	src: url('/test-manuka-condensed-black.woff2') format('woff2'),
+		url('/test-manuka-condensed-black.woff') format('woff');
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manuka';
+	src: url('/test-manuka-regular.woff2') format('woff2'),
+		url('/test-manuka-regular.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+
+:root {
+	--heading: "pressio-compressed", sans-serif;
 }

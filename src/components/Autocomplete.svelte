@@ -304,8 +304,6 @@
 		margin: 0;
 		padding-inline: 1rem;
 		padding-block: 0.5rem;
-		font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
-			Geneva, Verdana, sans-serif;
 		cursor: pointer;
 	}
 
