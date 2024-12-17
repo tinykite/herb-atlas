@@ -80,7 +80,7 @@
 
 <div class="wrapper">
 	<nav class="nav">
-		<h1 class="nav__mark">Atlas of Herbalism</h1>
+		<h1 class="nav__mark">Herbalism Atlas</h1>
 
 		<div class="nav__logoMark">
 			<!-- <svg
@@ -194,11 +194,11 @@
 	}
 
 	.nav__mark {
-		font-family: 'manuka';
-		font-weight: 900;
+		font-family: 'abolition', sans-serif;
+		font-weight: 400;
 		font-style: normal;
 		font-size: 2rem;
-		color: #5b561f;
+		color: #397740;
 	}
 
 	.info {
