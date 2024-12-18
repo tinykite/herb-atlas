@@ -2,13 +2,10 @@
 	import { onMount } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
-	import theme from '../lib/theme.json';
-	import layers, { layersWithCustomTheme } from 'protomaps-themes-base';
-	import type { Theme } from 'protomaps-themes-base';
-	import { LIGHT } from '$lib/lightTheme';
+	import { layersWithCustomTheme } from 'protomaps-themes-base';
 	import { HERBALISM_THEME } from '$lib/herbalismTheme';
 
-	const { Map, Marker, Popup, FullscreenControl } = maplibregl;
+	const { Map, Marker, Popup } = maplibregl;
 
 	let { mapPoints } = $props();
 	let mapContainer: HTMLElement | null = $state();
