@@ -5,19 +5,26 @@
 	import { layersWithCustomTheme } from 'protomaps-themes-base';
 	import { HERBALISM_THEME } from '$lib/herbalismTheme';
 
-	const { Map, Marker, Popup } = maplibregl;
+	const { Map, Marker, Popup, LngLat } = maplibregl;
 
 	let { mapPoints } = $props();
-	let mapContainer: HTMLElement | null = $state();
+	let mapContainer: HTMLElement | null | undefined = $state();
 
 	const protocol = new pmtiles.Protocol();
 	maplibregl.addProtocol('pmtiles', protocol.tile);
 
 	const TILE_URL = '/planet_z6.pmtiles';
 
+	interface mapPoint {
+		Latitude: string;
+		Longitude: string;
+		Name: string;
+		CityState: string;
+	}
+
 	onMount(() => {
 		const map = new Map({
-			container: mapContainer,
+			container: mapContainer as HTMLElement,
 			style: {
 				version: 8,
 				glyphs: 'https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf',
@@ -36,8 +43,8 @@
 			maxZoom: 10
 		});
 
-		mapPoints.map((point) => {
-			const coords = [point.Longitude, point.Latitude];
+		mapPoints.map((point: mapPoint) => {
+			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
 			const popup = new Popup({ offset: 25 }).setHTML(
 				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
 			);
@@ -62,7 +69,6 @@
 	}
 
 	.map__overlay {
-		/* background: #cab7da; */
 		pointer-events: none;
 		position: fixed;
 		width: 100vw;
