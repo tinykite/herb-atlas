@@ -18,18 +18,6 @@
 
 	const TILE_URL = '/planet_z6.pmtiles';
 
-	const partialTheme: Partial<Theme> = {
-		landcover: {
-			barren: '#fff',
-			farmland: '#fff',
-			forest: '#fff',
-			glacier: '#fff',
-			grassland: '#fff',
-			scrub: '#fff',
-			urban_area: '#fff'
-		}
-	};
-
 	onMount(() => {
 		const map = new Map({
 			container: mapContainer,
