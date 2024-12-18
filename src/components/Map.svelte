@@ -2,8 +2,11 @@
 	import { onMount } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
-	import layers from 'protomaps-themes-base';
 	import theme from '../lib/theme.json';
+	import layers, { layersWithCustomTheme } from 'protomaps-themes-base';
+	import type { Theme } from 'protomaps-themes-base';
+	import { LIGHT } from '$lib/lightTheme';
+	import { HERBALISM_THEME } from '$lib/herbalismTheme';
 
 	const { Map, Marker, Popup, FullscreenControl } = maplibregl;
 
@@ -14,6 +17,18 @@
 	maplibregl.addProtocol('pmtiles', protocol.tile);
 
 	const TILE_URL = '/planet_z6.pmtiles';
+
+	const partialTheme: Partial<Theme> = {
+		landcover: {
+			barren: '#fff',
+			farmland: '#fff',
+			forest: '#fff',
+			glacier: '#fff',
+			grassland: '#fff',
+			scrub: '#fff',
+			urban_area: '#fff'
+		}
+	};
 
 	onMount(() => {
 		const map = new Map({
@@ -29,7 +44,7 @@
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
 					}
 				},
-				layers: theme
+				layers: layersWithCustomTheme('protomaps', HERBALISM_THEME, 'en')
 			},
 			center: [-95.9, 40.9778],
 			zoom: 4,
