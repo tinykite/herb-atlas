@@ -3,6 +3,7 @@
 	import maplibregl from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
 	import layers from 'protomaps-themes-base';
+	import theme from '../lib/theme.json';
 
 	const { Map, Marker, Popup, FullscreenControl } = maplibregl;
 
@@ -28,7 +29,7 @@
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
 					}
 				},
-				layers: layers('protomaps', 'light')
+				layers: theme
 			},
 			center: [-95.9, 40.9778],
 			zoom: 4,
