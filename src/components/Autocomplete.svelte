@@ -184,7 +184,6 @@
 				onkeyup={(e) => handleSearchNavigation(e)}
 				oninput={() => debounceSearchInput()}
 				bind:value={searchQuery}
-				tabindex="-1"
 			/>
 		</form>
 	</div>
