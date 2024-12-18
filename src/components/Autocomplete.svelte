@@ -270,9 +270,6 @@
 		padding-block: 0.25rem;
 		border: 1px solid rgba(57, 119, 64, 0.6);
 		outline-offset: 4px;
-		box-shadow:
-			0 4px 80px 4px rgba(0, 0, 0, 0.02),
-			0 1px 22px 0 rgba(0, 0, 0, 0.08);
 	}
 	.search__input:focus-visible,
 	.search__input:focus {
@@ -287,10 +284,11 @@
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		color: #5e5e5e;
+		color: rgba(57, 119, 64, 0.9);
 	}
 
 	.autocomplete {
+		border-radius: 0.5rem;
 		background: white;
 		list-style-type: none;
 		padding: 0;
@@ -324,9 +322,9 @@
 	}
 	.autocomplete__option:hover,
 	.autocomplete__option:focus {
-		background-color: #c1e4ff;
+		background-color: #348372;
 		border-color: #c1e4ff;
-		color: #222;
+		color: #fff;
 		outline: none;
 	}
 </style>
