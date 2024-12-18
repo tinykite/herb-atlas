@@ -225,15 +225,15 @@
 				</li>
 			{/each}
 
-			<!-- {:else if searchQuery}
-			<li
-				class="autocomplete__option autocomplete__option--empty"
-				role="option"
-				aria-selected="false"
-			>
-				No results
-			</li>
-		{/if} -->
+			{#if searchQuery.length >= 3 && locations.length === 0}
+				<li
+					class="autocomplete__option autocomplete__option--empty"
+					role="option"
+					aria-selected="false"
+				>
+					No results
+				</li>
+			{/if}
 		</ul>
 	{/if}
 </search>
@@ -247,7 +247,7 @@
 		align-items: center;
 		column-gap: 0.5rem;
 		position: relative;
-		color: #5e5e5e;
+		color: #397740;
 	}
 
 	.search:has(input:focus) {
@@ -268,7 +268,7 @@
 		padding-inline-start: 1.85rem;
 		padding-inline-end: 1rem;
 		padding-block: 0.25rem;
-		border: 1px solid #d0d7de;
+		border: 1px solid rgba(57, 119, 64, 0.6);
 		outline-offset: 4px;
 		box-shadow:
 			0 4px 80px 4px rgba(0, 0, 0, 0.02),
