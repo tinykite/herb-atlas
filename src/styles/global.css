@@ -109,13 +109,6 @@ input {
 	font-family: 'Founders Grotesk';
 }
 
-*:focus-visible, *:focus {
-	outline-style: solid;
-	outline-width: 2px;
-	outline-color: #0f62fe;
-	outline-offset: 0.25rem;
-}
-
 @font-face {
 	font-family: 'Founders Grotesk';
 	src: url('/test-founders-grotesk-regular.woff2') format('woff2'),

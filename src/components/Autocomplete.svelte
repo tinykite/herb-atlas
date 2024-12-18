@@ -274,6 +274,13 @@
 			0 4px 80px 4px rgba(0, 0, 0, 0.02),
 			0 1px 22px 0 rgba(0, 0, 0, 0.08);
 	}
+	.search__input:focus-visible,
+	.search__input:focus {
+		outline-style: solid;
+		outline-width: 2px;
+		outline-color: #0f62fe;
+		outline-offset: 0.25rem;
+	}
 
 	.search__input::placeholder {
 		font-size: 0.85rem;
