@@ -49,7 +49,7 @@
 				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
 			);
 
-			new Marker({ color: '#5b561f' }).setLngLat(coords).setPopup(popup).addTo(map);
+			new Marker({ color: '#44896F' }).setLngLat(coords).setPopup(popup).addTo(map);
 		});
 	});
 </script>
@@ -65,7 +65,6 @@
 		position: fixed;
 		height: 100%;
 		width: 100%;
-		background: #cbf2b6;
 	}
 
 	.map__overlay {

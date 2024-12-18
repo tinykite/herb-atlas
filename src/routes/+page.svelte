@@ -179,7 +179,7 @@
 		padding-inline: 3.375rem;
 		height: fit-content;
 		color: #385032;
-		background: #faf4e3;
+		background: #faf6d4;
 		box-shadow:
 			0 95px 328px 0 rgba(0, 0, 0, 0.02),
 			0 22px 74px 0 rgba(0, 0, 0, 0.04),
@@ -206,7 +206,7 @@
 		margin-block: 2rem;
 		margin-inline-start: 3.375rem;
 		color: #5b561f;
-		background: #faf4e3;
+		background: #faf6d4;
 		position: relative;
 		z-index: 300;
 		padding-block-start: 1.25rem;
