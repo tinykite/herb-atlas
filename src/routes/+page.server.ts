@@ -1,4 +1,5 @@
 import type { Actions } from './$types';
+import { redirect } from '@sveltejs/kit';
 import * as d3 from 'd3';
 
 export async function load() {
@@ -8,8 +9,6 @@ export async function load() {
 
 	try {
 		await d3.csv(csvUrl, (d) => {
-			// const farmName = d3.csvParse(data.Farm);
-			// formattedData.push(farmName);
 			farms.push(d);
 		});
 	} catch (error) {
@@ -19,11 +18,11 @@ export async function load() {
 	return { farms }
 }
 
-// export const actions = {
-// 	default: async ({ request }) => {
-// 		const data = await request.formData();
-// 		console.log(data)
+export const actions = {
+	default: async ({ request }) => {
+		const data = await request.formData();
+		const location = data.get('location')
+		throw redirect(303, `/?q=${location}`);
 
-
-// 	}
-// } satisfies Actions;
+	}
+} satisfies Actions;
