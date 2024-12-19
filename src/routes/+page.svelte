@@ -4,6 +4,7 @@
 	import Map from '../components/Map.svelte';
 	import Autocomplete from '../components/Autocomplete.svelte';
 	import { statesByAbbreviation, statesByName } from '$lib/stateData';
+	import { stringToTitlecase } from '$lib/utilities';
 
 	interface Props {
 		data: PageData;
@@ -42,7 +43,11 @@
 		if (!searchQuery) {
 			return;
 		}
-		if (searchQuery in statesByName || searchQuery in statesByAbbreviation) {
+
+		if (
+			stringToTitlecase(searchQuery) in statesByName ||
+			searchQuery.toUpperCase() in statesByAbbreviation
+		) {
 			return 'state';
 		}
 
@@ -60,22 +65,18 @@
 		}
 
 		if (searchQueryType === 'state') {
-			if (searchQuery in statesByName) {
-				return farms.filter((farm) => farm.State === statesByName[searchQuery]);
+			const titleCaseQuery = stringToTitlecase(searchQuery);
+			const upperCaseQuery = searchQuery.toUpperCase();
+
+			if (titleCaseQuery in statesByName) {
+				return farms.filter((farm) => farm.State === statesByName[titleCaseQuery]);
 			}
 
-			if (searchQuery in statesByAbbreviation) {
-				return farms.filter((farm) => farm.State === searchQuery);
+			if (upperCaseQuery in statesByAbbreviation) {
+				return farms.filter((farm) => farm.State === upperCaseQuery);
 			}
 		}
 	});
-
-	const stringToTitlecase = (string: string) => {
-		return string
-			.split(' ')
-			.map((word) => word[0].toUpperCase() + word.slice(1))
-			.join(' ');
-	};
 </script>
 
 <div class="wrapper">
@@ -93,7 +94,7 @@
 			{/if}
 		</h2>
 
-		{#if !filteredResults}
+		{#if !filteredResults || filteredResults.length === 0}
 			<p class="info__description">
 				Sorry, Herbalism Atlas currently doesn't have any farms in <em>{searchQuery}</em>.
 			</p>
