@@ -187,7 +187,7 @@
 
 	.info {
 		grid-column: 1 / -1;
-		width: max-content;
+		max-width: max-content;
 		margin-block: 2rem;
 		margin-inline: 3.375rem;
 		color: #5b561f;
