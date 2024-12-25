@@ -38,8 +38,8 @@
 				},
 				layers: layersWithCustomTheme('protomaps', HERBALISM_THEME, 'en')
 			},
-			center: [-95.9, 40.9778],
-			zoom: 4,
+			center: [-106, 40.9778],
+			zoom: 3.6,
 			maxZoom: 10
 		});
 
