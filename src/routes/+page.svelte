@@ -194,9 +194,7 @@
 		background: #faf6d4;
 		position: relative;
 		z-index: 300;
-		padding-block-start: 1.25rem;
-		padding-inline: 1.5rem;
-		padding: 1.5rem;
+		padding-block: 1.5rem;
 		border-radius: 1rem;
 		box-shadow:
 			0 100px 80px 0 rgba(0, 0, 0, 0.02),
@@ -204,36 +202,42 @@
 			0 6px 5px 0 rgba(0, 0, 0, 0.08);
 	}
 
+	.info__title,
+	.info__locations {
+		padding-inline: 1.5rem;
+	}
+
 	.info__title {
 		font-family: 'Tiempos Text';
 		font-weight: 800;
 		font-style: normal;
-		font-size: 1.25rem;
-	}
-
-	.info__description {
-		margin-block-start: 1rem;
+		font-size: 1.5rem;
 	}
 
 	.info__locations {
 		font-style: italic;
+		margin-block-end: 1rem;
 	}
 
 	.farmList {
 		border-top: 1px solid #e8e8e8;
 		display: grid;
 		column-gap: 2rem;
-		row-gap: 1rem;
-		margin-block-start: 1rem;
 		margin-inline: 0;
-		padding-block-start: 1rem;
 		padding-inline: 0;
 		list-style-type: none;
 	}
 
 	.farmList__item {
-		padding-block-end: 1.25rem;
+		margin: 0;
+		padding-inline: 1.5rem;
+		padding-block: 1.25rem;
 		border-bottom: 1px solid #e8e8e8;
+		position: relative;
+
+		&:hover {
+			background: white;
+		}
 	}
 
 	.farmList__name {
@@ -241,10 +245,20 @@
 		font-weight: 700;
 		font-style: normal;
 		font-size: 1rem;
+		margin: 0;
+		padding: 0;
 	}
 
 	.farmList__link {
 		text-decoration: none;
+		&:after {
+			content: '';
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
 	}
 
 	.locationGroup {
