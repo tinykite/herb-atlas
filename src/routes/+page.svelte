@@ -111,9 +111,17 @@
 		<ul class="farmList">
 			{#each filteredResults as farm}
 				<li class="farmList__item">
-					<h3 class="farmList__name">
-						{farm.Name}
-					</h3>
+					{#if farm.Url}
+						<h3 class="farmList__name">
+							<a class="farmList__link" href={`${farm.Url}`}>
+								{farm.Name}
+							</a>
+						</h3>
+					{:else}
+						<h3 class="farmList__name">
+							{farm.Name}
+						</h3>
+					{/if}
 					<div class="locationGroup">
 						<svg
 							class="locationGroup__icon"
@@ -131,15 +139,6 @@
 						>
 						<p class="locationGroup__text">{farm.CityState}</p>
 					</div>
-
-					<!-- <h4 class="farmList__forSale">For Sale</h4> -->
-					<!-- <p class="farmList__text">{stringToTitlecase(farm.Categories)}</p> -->
-					<!-- 
-					<h4 class="farmList__forSale">Order Online</h4> -->
-					<!-- {farm['Sells Online']}
-					<p>
-						{#if farm.Website}<a href={`${farm.website}`}>Website</a>`{/if}
-					</p> -->
 				</li>
 			{/each}
 		</ul>
@@ -184,9 +183,10 @@
 	}
 
 	.info {
-		grid-column: 1 / 4;
+		grid-column: 1 / -1;
+		width: max-content;
 		margin-block: 2rem;
-		margin-inline-start: 3.375rem;
+		margin-inline: 3.375rem;
 		color: #5b561f;
 		background: #faf6d4;
 		position: relative;
@@ -238,6 +238,10 @@
 		font-weight: 700;
 		font-style: normal;
 		font-size: 1rem;
+	}
+
+	.farmList__link {
+		text-decoration: none;
 	}
 
 	.locationGroup {
