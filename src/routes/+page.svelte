@@ -237,7 +237,7 @@
 
 		&:hover {
 			background: #184b35;
-			color: #faf6d4;
+			color: #f2f2f2;
 		}
 	}
 
