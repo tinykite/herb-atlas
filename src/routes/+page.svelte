@@ -11,34 +11,10 @@
 	}
 
 	let { data }: Props = $props();
-	const { farms, cityStateGeocodes } = data;
-
-	const farmLocations = farms.reduce((farmLocations, currentFarm) => {
-		const currentLocation = currentFarm.CityState;
-		const currentState = statesByAbbreviation[currentFarm.State];
-
-		let options = [];
-
-		if (!farmLocations.includes(currentState)) {
-			options.push(currentState);
-		}
-
-		options.push(currentLocation);
-
-		return [...farmLocations, ...options];
-	}, []);
-
-	const cityStatePairs = farms.reduce((farmLocations, currentFarm) => {
-		const currentLocation = currentFarm.CityState;
-
-		if (farmLocations.includes(currentLocation)) {
-			return farmLocations;
-		}
-
-		return [...farmLocations, currentLocation];
-	}, []);
+	const { farms, farmLocations, cityStatePairs, cityStateGeocodes } = data;
 
 	let searchQuery = $derived($page.url.searchParams.get('q'));
+
 	let searchQueryType = $derived.by(() => {
 		if (!searchQuery) {
 			return;
@@ -55,6 +31,7 @@
 			return 'cityState';
 		}
 	});
+
 	let filteredResults = $derived.by(() => {
 		if (!searchQuery) {
 			return farms;
