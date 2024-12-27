@@ -11,7 +11,7 @@
 	}
 
 	let { data }: Props = $props();
-	const { farms } = data;
+	const { farms, cityStateGeocodes } = data;
 
 	const farmLocations = farms.reduce((farmLocations, currentFarm) => {
 		const currentLocation = currentFarm.CityState;
