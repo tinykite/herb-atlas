@@ -71,6 +71,7 @@
 					const nextTarget = menu.querySelector(`[data-index="${nextIndex}"]`);
 					nextTarget.focus();
 				}
+				break;
 
 			case 'ArrowDown':
 				e.preventDefault();
@@ -181,7 +182,6 @@
 				autocomplete="off"
 				name="location"
 				id="location-search"
-				placeholder="Search by city or state"
 				onkeyup={(e) => handleSearchNavigation(e)}
 				oninput={() => debounceSearchInput()}
 				bind:value={searchQuery}
@@ -266,6 +266,9 @@
 		padding-block: 0.25rem;
 		border: 1px solid #6f976e;
 		outline-offset: 4px;
+		font-family: 'tiempos', 'serif';
+		font-weight: 500;
+		font-style: normal;
 	}
 
 	.search__input:hover {
@@ -275,16 +278,15 @@
 	.search__input:focus {
 		outline-style: solid;
 		outline-width: 2px;
-		/* outline-color: #0f62fe; */
 		outline-color: #4900fc;
 	}
 
 	.search__input::placeholder {
-		font-size: 0.85rem;
+		font-size: 1rem;
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		color: rgba(57, 119, 64, 0.9);
+		color: rgba(57, 119, 64, 0.7);
 	}
 
 	.autocomplete {
