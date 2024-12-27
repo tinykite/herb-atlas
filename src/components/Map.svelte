@@ -7,8 +7,9 @@
 
 	const { Map, Marker, Popup, LngLat } = maplibregl;
 
-	let { mapPoints } = $props();
+	let { mapPoints, mapCenter } = $props();
 	let mapContainer: HTMLElement | null | undefined = $state();
+	let map = $state();
 
 	const protocol = new pmtiles.Protocol();
 	maplibregl.addProtocol('pmtiles', protocol.tile);
@@ -22,8 +23,21 @@
 		CityState: string;
 	}
 
+	$effect(() => {
+		if (!!map) {
+			const { lat, lng } = map.getCenter();
+
+			if (lng !== parseFloat(mapCenter[0]) || lat !== parseFloat(mapCenter[1])) {
+				map.flyTo({
+					zoom: 6,
+					center: mapCenter
+				});
+			}
+		}
+	});
+
 	onMount(() => {
-		const map = new Map({
+		map = new Map({
 			container: mapContainer as HTMLElement,
 			style: {
 				version: 8,
@@ -38,8 +52,8 @@
 				},
 				layers: layersWithCustomTheme('protomaps', HERBALISM_THEME, 'en')
 			},
-			center: [-106, 40.9778],
-			zoom: 3.6,
+			center: mapCenter,
+			zoom: 3.5,
 			maxZoom: 10
 		});
 
@@ -57,21 +71,11 @@
 	<div class="map__graphic" bind:this={mapContainer}></div>
 </div>
 
-<div class="map__overlay"></div>
-
 <style>
 	.map {
 		position: fixed;
 		height: 100%;
 		width: 100%;
-	}
-
-	.map__overlay {
-		pointer-events: none;
-		position: fixed;
-		width: 100vw;
-		height: 100vh;
-		mix-blend-mode: saturation;
 	}
 	.map__graphic {
 		height: 100vh;

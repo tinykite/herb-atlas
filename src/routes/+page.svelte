@@ -3,8 +3,14 @@
 	import type { PageData } from './$types';
 	import Map from '../components/Map.svelte';
 	import Autocomplete from '../components/Autocomplete.svelte';
-	import { statesByAbbreviation, statesByName } from '$lib/stateData';
+	import {
+		statesByAbbreviation,
+		statesByName,
+		geocodedStateAbbreviations,
+		geocodedStateNames
+	} from '$lib/stateData';
 	import { stringToTitlecase } from '$lib/utilities';
+	import { DEFAULT_MAP_CENTER } from '$lib/mapData';
 
 	interface Props {
 		data: PageData;
@@ -27,9 +33,11 @@
 			return 'state';
 		}
 
-		if (cityStatePairs.includes(searchQuery)) {
+		if (cityStatePairs && cityStatePairs.includes(searchQuery)) {
 			return 'cityState';
 		}
+
+		return 'unknown';
 	});
 
 	let filteredResults = $derived.by(() => {
@@ -52,6 +60,26 @@
 			if (upperCaseQuery in statesByAbbreviation) {
 				return farms.filter((farm) => farm.State === upperCaseQuery);
 			}
+		}
+	});
+
+	let mapCenter = $derived.by(() => {
+		if (!searchQuery || searchQueryType === 'unknown') {
+			return DEFAULT_MAP_CENTER;
+		}
+
+		if (cityStateGeocodes && searchQueryType === 'cityState') {
+			return cityStateGeocodes.get(searchQuery);
+		}
+
+		if (searchQueryType === 'state' && stringToTitlecase(searchQuery) in statesByName) {
+			const coordinates = geocodedStateNames[stringToTitlecase(searchQuery)];
+			return [coordinates.Longitude, coordinates.Latitude];
+		}
+
+		if (searchQueryType === 'state' && searchQuery.toUpperCase() in statesByAbbreviation) {
+			const coordinates = geocodedStateAbbreviations[searchQuery.toUpperCase()];
+			return [coordinates.Longitude, coordinates.Latitude];
 		}
 	});
 </script>
@@ -124,7 +152,7 @@
 		</ul>
 	</div>
 
-	<Map mapPoints={farms} />
+	<Map mapPoints={farms} {mapCenter} />
 </div>
 
 <style>
