@@ -70,7 +70,7 @@ export const HERBALISM_THEME: Theme = {
     roads_label_minor_halo: "#ffffff",
     roads_label_major: "#938a8d",
     roads_label_major_halo: "#ffffff",
-    ocean_label: "#004435",
+    ocean_label: "transparent",
     peak_label: "#7e9aa0",
     subplace_label: "#8f8f8f",
     subplace_label_halo: "#e0e0e0",
