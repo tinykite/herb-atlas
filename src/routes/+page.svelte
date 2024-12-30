@@ -248,7 +248,7 @@
 
 	.farmList__name {
 		font-family: 'Tiempos Text';
-		font-weight: 700;
+		font-weight: 800;
 		font-style: normal;
 		font-size: 1rem;
 		margin: 0;
