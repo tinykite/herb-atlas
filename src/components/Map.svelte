@@ -4,6 +4,7 @@
 	import * as pmtiles from 'pmtiles';
 	import { layersWithCustomTheme } from 'protomaps-themes-base';
 	import { HERBALISM_THEME } from '$lib/herbalismTheme';
+	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
 
 	const { Map, Marker, Popup, LngLat } = maplibregl;
 
@@ -14,7 +15,6 @@
 	const protocol = new pmtiles.Protocol();
 	maplibregl.addProtocol('pmtiles', protocol.tile);
 
-	const TILE_URL = 'https://d3fjev057mpmy5.cloudfront.net/planet_z6/{z}/{x}/{y}.mvt';
 	interface mapPoint {
 		Latitude: string;
 		Longitude: string;
@@ -44,7 +44,7 @@
 				sources: {
 					protomaps: {
 						type: 'vector',
-						tiles: [TILE_URL],
+						tiles: [PUBLIC_MAP_TILE_URL],
 						maxzoom: 6,
 						attribution:
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
