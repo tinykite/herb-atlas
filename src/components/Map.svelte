@@ -14,8 +14,7 @@
 	const protocol = new pmtiles.Protocol();
 	maplibregl.addProtocol('pmtiles', protocol.tile);
 
-	const TILE_URL = '/planet_z6.pmtiles';
-
+	const TILE_URL = 'https://d3fjev057mpmy5.cloudfront.net/planet_z6/{z}/{x}/{y}.mvt';
 	interface mapPoint {
 		Latitude: string;
 		Longitude: string;
@@ -45,7 +44,8 @@
 				sources: {
 					protomaps: {
 						type: 'vector',
-						url: 'pmtiles://' + TILE_URL,
+						tiles: [TILE_URL],
+						maxzoom: 6,
 						attribution:
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
 					}
