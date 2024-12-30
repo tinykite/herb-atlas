@@ -241,8 +241,7 @@
 		position: relative;
 
 		&:hover {
-			background: #184b35;
-			color: #f2f2f2;
+			background: rgba(255, 253, 235, 1);
 		}
 	}
 

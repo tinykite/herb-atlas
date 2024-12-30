@@ -1,7 +1,8 @@
 import type { Theme } from "protomaps-themes-base";
 export const HERBALISM_THEME: Theme = {
     background: "#5AC1A0",
-    earth: "#FAF6D4",
+    // earth: "#FAF6D4",
+    earth: "#E0FEDB",
     park_a: "#cfddd5",
     park_b: "#9cd3b4",
     hospital: "#e4dad9",
@@ -15,7 +16,7 @@ export const HERBALISM_THEME: Theme = {
     glacier: "#e7e7e7",
     sand: "#e2e0d7",
     beach: "#e8e4d0",
-    aerodrome: "#dadbdf",
+    aerodrome: "#FFFDEB",
     runway: "#e9e9ed",
     water: "#59C09F",
     zoo: "#c6dcdc",
@@ -52,7 +53,7 @@ export const HERBALISM_THEME: Theme = {
   
     railway: "#a7b1b3",
     boundaries: "#5AC1A0",
-    waterway_label: "#ffffff",
+    waterway_label: "#004435",
   
     bridges_other_casing: "#e0e0e0",
     bridges_minor_casing: "#e0e0e0",
@@ -69,7 +70,7 @@ export const HERBALISM_THEME: Theme = {
     roads_label_minor_halo: "#ffffff",
     roads_label_major: "#938a8d",
     roads_label_major_halo: "#ffffff",
-    ocean_label: "#fff",
+    ocean_label: "#004435",
     peak_label: "#7e9aa0",
     subplace_label: "#8f8f8f",
     subplace_label_halo: "#e0e0e0",
@@ -93,7 +94,7 @@ export const HERBALISM_THEME: Theme = {
     landcover: {
       grassland: "#E0FEDB",
       barren: "#FFFFD7",
-      urban_area: "rgba(230, 230, 230, 1)",
+      urban_area: "rgba(145, 234, 169, 1)",
       farmland: "#E0FEDB",
       glacier: "rgba(255, 255, 255, 1)",
       scrub: "#E0FEDB",
