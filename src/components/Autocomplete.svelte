@@ -181,7 +181,7 @@
 				aria-expanded="false"
 				autocomplete="off"
 				name="location"
-				id="location-search"
+				id="location"
 				onkeyup={(e) => handleSearchNavigation(e)}
 				oninput={() => debounceSearchInput()}
 				bind:value={searchQuery}
