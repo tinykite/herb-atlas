@@ -62,7 +62,7 @@
 			const popup = new Popup({ offset: 25 }).setHTML(
 				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
 			);
-			new Marker({ color: '#743A78' }).setLngLat(coords).setPopup(popup).addTo(map);
+			new Marker({ color: '#743A78', scale: 0.85 }).setLngLat(coords).setPopup(popup).addTo(map);
 		});
 	});
 </script>
