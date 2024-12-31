@@ -9,4 +9,13 @@
 	let { children }: Props = $props();
 </script>
 
-{@render children?.()}
+<div class="wrapper">
+	{@render children?.()}
+</div>
+
+<style>
+	.wrapper {
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+	}
+</style>

@@ -2,10 +2,11 @@
 	import Autocomplete from './Autocomplete.svelte';
 
 	interface Props {
-		farmLocations: Array<string>;
+		farmLocations?: Array<string>;
+		hideSearch?: boolean;
 	}
 
-	let { farmLocations }: Props = $props();
+	let { farmLocations, hideSearch }: Props = $props();
 </script>
 
 <nav class="nav">
@@ -88,7 +89,9 @@
 		<li class="nav__item"><a class="nav__link" href="/donate">Donate</a></li>
 	</ul>
 
-	<Autocomplete options={farmLocations} />
+	{#if !hideSearch}
+		<Autocomplete options={farmLocations} />
+	{/if}
 </nav>
 
 <style>

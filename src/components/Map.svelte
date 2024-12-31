@@ -8,6 +8,11 @@
 
 	const { Map, Marker, Popup, LngLat } = maplibregl;
 
+	interface Props {
+		mapPoints: Array<any>;
+		mapCenter: Array<Number>;
+	}
+
 	let { mapPoints, mapCenter } = $props();
 	let mapContainer: HTMLElement | null | undefined = $state();
 	let map = $state();
@@ -35,6 +40,10 @@
 		}
 	});
 
+	let popupOffsets = {
+		bottom: [0, -30]
+	};
+
 	onMount(() => {
 		map = new Map({
 			container: mapContainer as HTMLElement,
@@ -59,7 +68,7 @@
 
 		mapPoints.map((point: mapPoint) => {
 			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
-			const popup = new Popup({ offset: 25 }).setHTML(
+			const popup = new Popup({ offset: popupOffsets }).setHTML(
 				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
 			);
 			new Marker({ color: '#743A78', scale: 0.85 }).setLngLat(coords).setPopup(popup).addTo(map);

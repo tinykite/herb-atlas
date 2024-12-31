@@ -62,16 +62,7 @@
 	});
 </script>
 
-<div class="wrapper">
-	<Nav {farmLocations} />
-	<Locations {farms} {searchQuery} {searchQueryType} />
+<Nav {farmLocations} />
+<Locations {farms} {searchQuery} {searchQueryType} />
 
-	<Map mapPoints={farms} {mapCenter} />
-</div>
-
-<style>
-	.wrapper {
-		display: grid;
-		grid-template-columns: repeat(12, 1fr);
-	}
-</style>
+<Map mapPoints={farms} {mapCenter} />
