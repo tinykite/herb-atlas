@@ -71,7 +71,7 @@
 		/* DEBUG ONLY */
 		// map.on('move', updateInfo);
 		// map.on('zoom', updateInfo);
-		updateInfo();
+		// updateInfo();
 
 		mapPoints.map((point: mapPoint) => {
 			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
