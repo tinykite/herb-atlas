@@ -7,6 +7,13 @@
 <Nav hideSearch={true} />
 <main class="main">
 	<h1>Contribute</h1>
+	<p>
+		Anyone is welcome to <a
+			href="https://docs.google.com/forms/d/e/1FAIpQLSe9M3cPNsPAWdqSbASt-eMfCddZspQhYPdB1XRocxvQDnLD5g/viewform?usp=sharing"
+			>suggest a farm</a
+		> to add to the map. Farm submissions will be reviewed before being added. Each farm submitted should
+		be committed to sustainable and generative farming practices.
+	</p>
 </main>
 
 <Map mapPoints={[]} mapCenter={DEFAULT_MAP_CENTER} />
