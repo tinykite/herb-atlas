@@ -99,19 +99,24 @@
 <style>
 	.info {
 		grid-column: 1 / -1;
-		max-width: max-content;
+
 		margin-block: 2rem;
-		margin-inline: 3.375rem;
+
 		color: #397740;
 		background: #faf6d4;
 		position: relative;
 		z-index: 300;
 		padding-block: 1.5rem;
-		border-radius: 1rem;
 		box-shadow:
 			0 100px 80px 0 rgba(0, 0, 0, 0.02),
 			0 22px 18px 0 rgba(0, 0, 0, 0.04),
 			0 6px 5px 0 rgba(0, 0, 0, 0.08);
+
+		@media (min-width: 23rem) {
+			max-width: max-content;
+			margin-inline: 3.375rem;
+			border-radius: 1rem;
+		}
 	}
 
 	.info__title,

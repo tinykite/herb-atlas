@@ -101,6 +101,43 @@ img {
 	white-space: nowrap;
 }
 
+.main {
+	grid-column: 1 / -1;
+	display: grid;
+	gap: 1rem;
+	justify-items: center;
+	margin-block: 2rem;
+	margin-inline: auto;
+	font-size: 1.125rem;
+	color: #5B561F;
+	background: #faf6d4;
+	position: relative;
+	z-index: 300;
+	padding: 1.5rem;
+
+	box-shadow:
+		0 100px 80px 0 rgba(0, 0, 0, 0.02),
+		0 22px 18px 0 rgba(0, 0, 0, 0.04),
+		0 6px 5px 0 rgba(0, 0, 0, 0.08);
+
+	@media (min-width: 30rem) {
+		max-width: 55vw;
+		border-radius: 1rem;
+	}
+}
+
+.main__text:first-of-type {
+	margin-block-start: 0.5rem;
+}
+
+.main__text:last-of-type {
+	margin-block-end: 1rem;
+}
+
+.main__subheading {
+	margin-block-start: 1rem;
+}
+
 @font-face {
 	font-family: 'Tiempos Text';
 	src: url('/tiempos-text-regular.woff2') format('woff2');

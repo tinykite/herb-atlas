@@ -97,9 +97,9 @@
 	.nav {
 		grid-column: 1 / -1;
 		display: flex;
-		flex-shrink: 0;
+		flex-direction: column;
+		gap: 0.5rem;
 		align-items: center;
-		justify-content: flex-end;
 		position: relative;
 		z-index: 100;
 		padding-block: 1rem;
@@ -111,6 +111,11 @@
 			0 95px 328px 0 rgba(0, 0, 0, 0.02),
 			0 22px 74px 0 rgba(0, 0, 0, 0.04),
 			0 6px 22px 0 rgba(0, 0, 0, 0.08);
+
+		@media (min-width: 40rem) {
+			flex-direction: row;
+			justify-content: flex-end;
+		}
 	}
 
 	.nav__logo {
@@ -138,6 +143,12 @@
 	.nav__item {
 		margin-inline-end: 1rem;
 		letter-spacing: 1px;
+	}
+
+	@media (max-width: 40rem) {
+		.nav__item:last-child {
+			margin-inline-end: 0;
+		}
 	}
 
 	.nav__mark {
