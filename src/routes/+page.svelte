@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { PageData } from './$types';
 	import Map from '../components/Map.svelte';
 	import Nav from '../components/Nav.svelte';
@@ -20,7 +20,7 @@
 	let { data }: Props = $props();
 	const { farms, farmLocations, cityStatePairs, cityStateGeocodes } = data;
 
-	let searchQuery = $derived($page.url.searchParams.get('q'));
+	let searchQuery = $derived(page.url.searchParams.get('q'));
 
 	let searchQueryType = $derived.by(() => {
 		if (!searchQuery) {
