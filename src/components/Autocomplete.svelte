@@ -285,12 +285,13 @@
 	}
 
 	.autocomplete {
+		display: grid;
+		position: absolute;
 		border-radius: 0.5rem;
 		background: white;
 		list-style-type: none;
 		padding: 0;
 		margin-block-start: 1.5rem;
-		position: absolute;
 		overflow: auto;
 		max-height: 50vh;
 		width: 100%;
