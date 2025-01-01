@@ -28,4 +28,4 @@
 	</stripe-buy-button>
 </main>
 
-<Map mapPoints={[]} {mapCenter} mapZoom={5} />
+<Map points={[]} center={mapCenter} zoom={5} />
