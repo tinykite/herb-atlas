@@ -74,16 +74,16 @@
 		// map.on('zoom', updateInfo);
 		// updateInfo();
 
-		map.on('load', async () => {
-			mapContainer?.style.setProperty('opacity', 1);
-		});
-
 		points.map((point: mapPoint) => {
 			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
 			const popup = new Popup({ offset: popupOffsets }).setHTML(
 				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
 			);
 			new Marker({ color: '#743A78', scale: 0.85 }).setLngLat(coords).setPopup(popup).addTo(map);
+		});
+
+		map.on('load', async () => {
+			mapContainer?.style.setProperty('opacity', 1);
 		});
 	});
 
