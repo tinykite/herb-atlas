@@ -9,12 +9,13 @@
 	const { Map, Marker, Popup, LngLat } = maplibregl;
 
 	interface Props {
-		points: Array<any>;
+		points: Array<any> | undefined;
 		center: Array<Number>;
 		zoom: Number;
 	}
 
-	let infoDiv: HTMLElement;
+	/* DEBUG ONLY */
+	// let infoDiv: HTMLElement;
 	let { points, center, zoom } = $props();
 	let mapContainer: HTMLElement | null | undefined = $state();
 	let map = $state();
