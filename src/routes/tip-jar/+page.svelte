@@ -6,7 +6,13 @@
 
 <Nav hideSearch={true} />
 <main class="main">
-	<h1>Donate</h1>
+	<h1>Tip Jar</h1>
+	<p>
+		Herb Atlas is a free, single-human endeavor created and maintained by Dakota Sexton. Tips are
+		wildly appreciated. You can submit a <a href="https://buy.stripe.com/00g2ay6zI08mcdWfYY"
+			>one-time Stripe payment</a
+		> to help cover the cost of keeping the site alive.
+	</p>
 </main>
 
 <Map mapPoints={[]} mapCenter={DEFAULT_MAP_CENTER} />

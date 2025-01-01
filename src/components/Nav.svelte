@@ -86,7 +86,7 @@
 	<ul class="nav__list">
 		<li class="nav__item"><a class="nav__link" href="/about">About</a></li>
 		<li class="nav__item"><a class="nav__link" href="/contribute">Contribute</a></li>
-		<li class="nav__item"><a class="nav__link" href="/donate">Donate</a></li>
+		<li class="nav__item"><a class="nav__link" href="/tip-jar">Tip Jar</a></li>
 	</ul>
 
 	{#if !hideSearch}
