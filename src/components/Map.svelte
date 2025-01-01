@@ -9,13 +9,13 @@
 	const { Map, Marker, Popup, LngLat } = maplibregl;
 
 	interface Props {
-		mapPoints: Array<any>;
-		mapCenter: Array<Number>;
-		mapZoom?: Number | undefined;
+		points: Array<any>;
+		center: Array<Number>;
+		zoom: Number;
 	}
 
 	let infoDiv: HTMLElement;
-	let { mapPoints, mapCenter, mapZoom } = $props();
+	let { points, center, zoom } = $props();
 	let mapContainer: HTMLElement | null | undefined = $state();
 	let map = $state();
 
@@ -33,10 +33,10 @@
 		if (!!map) {
 			const { lat, lng } = map.getCenter();
 
-			if (lng !== parseFloat(mapCenter[0]) || lat !== parseFloat(mapCenter[1])) {
+			if (lng !== parseFloat(center[0]) || lat !== parseFloat(center[1])) {
 				map.flyTo({
-					zoom: mapZoom ?? 6,
-					center: mapCenter
+					zoom,
+					center
 				});
 			}
 		}
@@ -63,21 +63,21 @@
 				},
 				layers: layersWithCustomTheme('protomaps', HERBALISM_THEME, 'en')
 			},
-			center: mapCenter,
-			zoom: mapZoom ?? 3.5,
+			center,
+			zoom,
 			maxZoom: 10
 		});
 
 		/* DEBUG ONLY */
-		// map.on('move', updateInfo);
-		// map.on('zoom', updateInfo);
-		// updateInfo();
+		map.on('move', updateInfo);
+		map.on('zoom', updateInfo);
+		updateInfo();
 
 		map.on('load', async () => {
 			mapContainer?.style.setProperty('opacity', 1);
 		});
 
-		mapPoints.map((point: mapPoint) => {
+		points.map((point: mapPoint) => {
 			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
 			const popup = new Popup({ offset: popupOffsets }).setHTML(
 				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
@@ -87,20 +87,20 @@
 	});
 
 	/* DEBUG ONLY */
-	// const updateInfo = () => {
-	// 	const center = map.getCenter();
-	// 	const zoom = map.getZoom();
-	// 	infoDiv.textContent = `Lat: ${center.lat.toFixed(4)}, Lng: ${center.lng.toFixed(
-	// 		4
-	// 	)}, Zoom: ${zoom.toFixed(2)}`;
-	// };
+	const updateInfo = () => {
+		const center = map.getCenter();
+		const zoom = map.getZoom();
+		infoDiv.textContent = `Lat: ${center.lat.toFixed(4)}, Lng: ${center.lng.toFixed(
+			4
+		)}, Zoom: ${zoom.toFixed(2)}`;
+	};
 </script>
 
 <div class="map">
 	<div class="map__graphic" bind:this={mapContainer}></div>
 </div>
 
-<!-- <div class="mapInfo" bind:this={infoDiv} /> -->
+<div class="mapInfo" bind:this={infoDiv} />
 
 <style>
 	.map {
