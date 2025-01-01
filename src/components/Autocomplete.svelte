@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	interface Props {
@@ -18,7 +18,7 @@
 	let filterValue = $state();
 
 	onMount(() => {
-		const { url } = $page;
+		const { url } = page;
 
 		if (url?.searchParams) {
 			updateSearchInput(url);
@@ -104,10 +104,6 @@
 			case 'Tab':
 				locations = [];
 				break;
-			case 'Shift':
-			case 'Space':
-			case 'Delete':
-				break;
 			case 'ArrowDown':
 				if (showMenu && document.activeElement === searchInput) {
 					const firstOption = menu.querySelectorAll('[data-index]')[0];
@@ -116,9 +112,6 @@
 				break;
 			case 'ArrowUp':
 				console.log('arrow up hit');
-				break;
-			case 'enter':
-				console.log('enter hit');
 				break;
 			default:
 				return;
@@ -145,10 +138,12 @@
 	let timer;
 
 	const debounceSearchInput = () => {
+		clearTimeout(timer);
 		if (searchQuery === '') {
 			locations = [];
+			goto('/');
 		}
-		clearTimeout(timer);
+
 		timer = setTimeout(() => {
 			handleLocationSearch();
 		}, 200);
