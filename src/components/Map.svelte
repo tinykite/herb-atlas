@@ -69,9 +69,9 @@
 		});
 
 		/* DEBUG ONLY */
-		map.on('move', updateInfo);
-		map.on('zoom', updateInfo);
-		updateInfo();
+		// map.on('move', updateInfo);
+		// map.on('zoom', updateInfo);
+		// updateInfo();
 
 		map.on('load', async () => {
 			mapContainer?.style.setProperty('opacity', 1);
@@ -87,20 +87,21 @@
 	});
 
 	/* DEBUG ONLY */
-	const updateInfo = () => {
-		const center = map.getCenter();
-		const zoom = map.getZoom();
-		infoDiv.textContent = `Lat: ${center.lat.toFixed(4)}, Lng: ${center.lng.toFixed(
-			4
-		)}, Zoom: ${zoom.toFixed(2)}`;
-	};
+	// const updateInfo = () => {
+	// 	const center = map.getCenter();
+	// 	const zoom = map.getZoom();
+	// 	infoDiv.textContent = `Lat: ${center.lat.toFixed(4)}, Lng: ${center.lng.toFixed(
+	// 		4
+	// 	)}, Zoom: ${zoom.toFixed(2)}`;
+	// };
 </script>
 
 <div class="map">
 	<div class="map__graphic" bind:this={mapContainer}></div>
 </div>
 
-<div class="mapInfo" bind:this={infoDiv} />
+<!-- 
+<div class="mapInfo" bind:this={infoDiv} /> -->
 
 <style>
 	.map {
