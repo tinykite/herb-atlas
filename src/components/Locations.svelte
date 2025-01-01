@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { statesByAbbreviation, statesByName } from '$lib/stateData';
 	import { stringToTitlecase } from '$lib/utilities';
+	import { fade } from 'svelte/transition';
 
 	interface Props {
 		searchQuery: string;
@@ -34,7 +35,7 @@
 	});
 </script>
 
-<div class="info">
+<div class="info" transition:fade>
 	<h2 class="info__title">
 		{#if searchQuery}
 			{searchQuery}

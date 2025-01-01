@@ -2,7 +2,6 @@
 	import { page } from '$app/state';
 	import type { PageData } from './$types';
 	import Map from '../components/Map.svelte';
-	import Nav from '../components/Nav.svelte';
 	import { statesByAbbreviation, statesByName, geocodedStateAbbreviations } from '$lib/stateData';
 	import { stringToTitlecase } from '$lib/utilities';
 	import { DEFAULT_MAP_CENTER } from '$lib/mapData';
@@ -71,7 +70,6 @@
 	});
 </script>
 
-<Nav {farmLocations} />
 <Locations {farms} {searchQuery} {searchQueryType} />
 
 <Map points={farms} center={mapMetadata.center} zoom={mapMetadata.zoom} />

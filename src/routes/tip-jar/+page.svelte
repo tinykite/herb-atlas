@@ -1,7 +1,9 @@
 <script>
+	import { fade } from 'svelte/transition';
+	import { browser } from '$app/environment';
+
 	import Nav from '../../components/Nav.svelte';
 	import Map from '../../components/Map.svelte';
-	import { browser } from '$app/environment';
 
 	const mapCenter = [-71.6455, 48.4918];
 </script>
@@ -11,7 +13,6 @@
 	</script>
 {/if}
 
-<Nav hideSearch={true} />
 <main class="main">
 	<h1 class="main__title">Tip Jar</h1>
 	<p class="main__text">

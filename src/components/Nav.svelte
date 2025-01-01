@@ -5,10 +5,9 @@
 
 	interface Props {
 		farmLocations?: Array<string>;
-		hideSearch?: boolean;
 	}
 
-	let { farmLocations, hideSearch }: Props = $props();
+	let { farmLocations }: Props = $props();
 
 	const currentPage = page.url.pathname;
 </script>
@@ -99,9 +98,7 @@
 		{/each}
 	</ul>
 
-	{#if !hideSearch}
-		<Autocomplete options={farmLocations} />
-	{/if}
+	<Autocomplete options={farmLocations} />
 </nav>
 
 <style>

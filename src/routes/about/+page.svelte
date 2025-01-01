@@ -1,12 +1,12 @@
 <script>
+	import { DEFAULT_MAP_ZOOM } from '$lib/mapData';
+
 	import Nav from '../../components/Nav.svelte';
 	import Map from '../../components/Map.svelte';
-	import { DEFAULT_MAP_ZOOM } from '$lib/mapData';
 
 	const mapCenter = [-96.7431, 78.567];
 </script>
 
-<Nav hideSearch={true} />
 <main class="main">
 	<h1 class="main__title">About</h1>
 	<p class="main__text">
