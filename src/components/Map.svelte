@@ -73,6 +73,10 @@
 		// map.on('zoom', updateInfo);
 		// updateInfo();
 
+		map.on('load', async () => {
+			mapContainer?.style.setProperty('opacity', 1);
+		});
+
 		mapPoints.map((point: mapPoint) => {
 			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
 			const popup = new Popup({ offset: popupOffsets }).setHTML(
@@ -106,6 +110,8 @@
 	}
 	.map__graphic {
 		height: 100vh;
+		opacity: 0;
+		transition: 0.3s ease;
 	}
 
 	.mapInfo {
