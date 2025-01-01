@@ -1,5 +1,7 @@
 <script lang="ts">
 	import Autocomplete from './Autocomplete.svelte';
+	import { navLinks } from '$lib/nav';
+	import { page } from '$app/state';
 
 	interface Props {
 		farmLocations?: Array<string>;
@@ -7,10 +9,12 @@
 	}
 
 	let { farmLocations, hideSearch }: Props = $props();
+
+	const currentPage = page.url.pathname;
 </script>
 
 <nav class="nav">
-	<a href="/" class="nav__link">
+	<a href="/" class="nav__logoWrapper" aria-current={currentPage === '/' ? 'page' : undefined}>
 		<span class="u-visuallyHidden">Herb Atlas</span>
 		<svg
 			aria-hidden="true"
@@ -84,8 +88,15 @@
 	</a>
 
 	<ul class="nav__list">
-		<li class="nav__item"><a class="nav__link" href="/about">About</a></li>
-		<li class="nav__item"><a class="nav__link" href="/tip-jar">Tip Jar</a></li>
+		{#each navLinks as navItem}
+			<li class="nav__item">
+				<a
+					class="nav__link"
+					href={navItem.url}
+					aria-current={navItem.url === currentPage ? 'page' : undefined}>{navItem.name}</a
+				>
+			</li>
+		{/each}
 	</ul>
 
 	{#if !hideSearch}
@@ -151,19 +162,13 @@
 		}
 	}
 
-	.nav__mark {
-		font-family: 'abolition', sans-serif;
-		font-weight: 400;
-		font-style: normal;
-		font-size: 2rem;
-		color: #397740;
-	}
-
 	.nav__link {
 		text-decoration: none;
 	}
 
-	.nav__link:hover {
-		text-decoration: underline;
+	.nav__link:hover,
+	.nav__link:focus-within,
+	.nav__link[aria-current='page'] {
+		border-bottom: 2px solid #397740;
 	}
 </style>
