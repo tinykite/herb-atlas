@@ -121,17 +121,13 @@ img {
 		0 6px 5px 0 rgba(0, 0, 0, 0.08);
 
 	@media (min-width: 30rem) {
-		max-width: 55vw;
+		max-width: 60ch;
 		border-radius: 1rem;
 	}
 }
 
 .main__text:last-of-type {
 	margin-block-end: 1rem;
-}
-
-.main__subheading {
-	margin-block-start: 1rem;
 }
 
 .main__title, .main__subheading {
