@@ -126,16 +126,17 @@ img {
 	}
 }
 
-.main__text:first-of-type {
-	margin-block-start: 0.5rem;
-}
-
 .main__text:last-of-type {
 	margin-block-end: 1rem;
 }
 
 .main__subheading {
 	margin-block-start: 1rem;
+}
+
+.main__title, .main__subheading {
+	font-family: 'franklin-gothic-compressed', sans-serif;
+	font-weight: 600;
 }
 
 @font-face {

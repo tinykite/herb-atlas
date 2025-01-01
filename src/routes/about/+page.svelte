@@ -6,7 +6,7 @@
 
 <Nav hideSearch={true} />
 <main class="main">
-	<h1>About</h1>
+	<h1 class="main__title">About</h1>
 	<p class="main__text">
 		I started Herb Atlas out of a desire to better visualize for myself how to practice sustainable,
 		bioregional herbalism — a term with roots in the bioregionalism movement and the activism of

@@ -12,7 +12,7 @@
 
 <Nav hideSearch={true} />
 <main class="main">
-	<h1>Tip Jar</h1>
+	<h1 class="main__title">Tip Jar</h1>
 	<p class="main__text">
 		Herb Atlas is a free, single-human endeavor created by Dakota Sexton. Tips are wildly
 		appreciated. You can submit a <a href="https://buy.stripe.com/00g2ay6zI08mcdWfYY"
