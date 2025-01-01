@@ -1,7 +1,8 @@
 <script>
 	import Nav from '../../components/Nav.svelte';
 	import Map from '../../components/Map.svelte';
-	import { DEFAULT_MAP_CENTER } from '$lib/mapData';
+
+	const mapCenter = [-96.7431, 78.567];
 </script>
 
 <Nav hideSearch={true} />
@@ -35,4 +36,4 @@
 	</p>
 </main>
 
-<Map mapPoints={[]} mapCenter={DEFAULT_MAP_CENTER} />
+<Map mapPoints={[]} {mapCenter} />

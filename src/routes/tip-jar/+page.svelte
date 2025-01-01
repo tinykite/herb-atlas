@@ -1,8 +1,9 @@
 <script>
 	import Nav from '../../components/Nav.svelte';
 	import Map from '../../components/Map.svelte';
-	import { DEFAULT_MAP_CENTER } from '$lib/mapData';
 	import { browser } from '$app/environment';
+
+	const mapCenter = [-71.6455, 48.4918];
 </script>
 
 {#if browser}
@@ -27,4 +28,4 @@
 	</stripe-buy-button>
 </main>
 
-<Map mapPoints={[]} mapCenter={DEFAULT_MAP_CENTER} />
+<Map mapPoints={[]} {mapCenter} mapZoom={5} />

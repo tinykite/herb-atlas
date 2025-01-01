@@ -11,9 +11,11 @@
 	interface Props {
 		mapPoints: Array<any>;
 		mapCenter: Array<Number>;
+		mapZoom?: Number | undefined;
 	}
 
-	let { mapPoints, mapCenter } = $props();
+	let infoDiv: HTMLElement;
+	let { mapPoints, mapCenter, mapZoom } = $props();
 	let mapContainer: HTMLElement | null | undefined = $state();
 	let map = $state();
 
@@ -33,7 +35,7 @@
 
 			if (lng !== parseFloat(mapCenter[0]) || lat !== parseFloat(mapCenter[1])) {
 				map.flyTo({
-					zoom: 6,
+					zoom: mapZoom ?? 6,
 					center: mapCenter
 				});
 			}
@@ -62,9 +64,14 @@
 				layers: layersWithCustomTheme('protomaps', HERBALISM_THEME, 'en')
 			},
 			center: mapCenter,
-			zoom: 3.5,
+			zoom: mapZoom ?? 3.5,
 			maxZoom: 10
 		});
+
+		/* DEBUG ONLY */
+		// map.on('move', updateInfo);
+		// map.on('zoom', updateInfo);
+		updateInfo();
 
 		mapPoints.map((point: mapPoint) => {
 			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
@@ -74,11 +81,22 @@
 			new Marker({ color: '#743A78', scale: 0.85 }).setLngLat(coords).setPopup(popup).addTo(map);
 		});
 	});
+
+	/* DEBUG ONLY */
+	// const updateInfo = () => {
+	// 	const center = map.getCenter();
+	// 	const zoom = map.getZoom();
+	// 	infoDiv.textContent = `Lat: ${center.lat.toFixed(4)}, Lng: ${center.lng.toFixed(
+	// 		4
+	// 	)}, Zoom: ${zoom.toFixed(2)}`;
+	// };
 </script>
 
 <div class="map">
 	<div class="map__graphic" bind:this={mapContainer}></div>
 </div>
+
+<!-- <div class="mapInfo" bind:this={infoDiv} /> -->
 
 <style>
 	.map {
@@ -88,6 +106,13 @@
 	}
 	.map__graphic {
 		height: 100vh;
+	}
+
+	.mapInfo {
+		position: fixed;
+		top: 20px;
+		z-index: 700;
+		background: white;
 	}
 
 	:global(.maplibregl-popup-content) {
