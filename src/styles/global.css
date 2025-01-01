@@ -107,7 +107,7 @@ img {
 	gap: 1rem;
 	justify-items: center;
 	margin-block: 2rem;
-	margin-inline: auto;
+	max-width: 55ch;
 	font-size: 1.125rem;
 	color: #5B561F;
 	background: #faf6d4;
@@ -120,9 +120,13 @@ img {
 		0 22px 18px 0 rgba(0, 0, 0, 0.04),
 		0 6px 5px 0 rgba(0, 0, 0, 0.08);
 
-	@media (min-width: 30rem) {
-		max-width: 60ch;
+	@media (min-width: 24rem) {
+		margin-inline: 2rem;
 		border-radius: 1rem;
+	}
+
+	@media (min-width: 40rem) {
+		margin-inline: auto;
 	}
 }
 
