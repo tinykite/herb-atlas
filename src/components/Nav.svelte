@@ -112,7 +112,7 @@
 		gap: 0.5rem;
 		align-items: center;
 		position: relative;
-		z-index: 100;
+		z-index: 300;
 		padding-block: 1rem;
 		padding-inline: 3.375rem;
 		height: fit-content;

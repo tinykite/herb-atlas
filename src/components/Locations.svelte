@@ -99,13 +99,11 @@
 <style>
 	.info {
 		grid-column: 1 / -1;
-
 		margin-block: 2rem;
-
 		color: #397740;
 		background: #faf6d4;
 		position: relative;
-		z-index: 300;
+		z-index: 100;
 		padding-block: 1.5rem;
 		box-shadow:
 			0 100px 80px 0 rgba(0, 0, 0, 0.02),
