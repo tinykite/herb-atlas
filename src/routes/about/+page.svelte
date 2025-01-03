@@ -10,30 +10,47 @@
 <main class="main">
 	<h1 class="main__title">About</h1>
 	<p class="main__text">
-		I started Herb Atlas out of a desire to better visualize for myself how to practice sustainable,
-		bioregional herbalism — a term with roots in the bioregionalism movement and the activism of
-		environmentalist Peter Berg.
+		I started Herb Atlas out of a desire to better visualize for myself how to practice more
+		sustainable, bioregional herbalism — a term with roots in the bioregionalism movement and the
+		activism of environmentalist Peter Berg.
 	</p>
 	<p class="main__text">
-		As a budding herbalist, I've also often felt surprised and bewildered by the differences between
-		herbs I could buy from small organic farms and larger resalers. Which may feel obvious. But the
-		differences in smell and taste alone made me wonder if instead of telling what people should buy
-		(organic herbs, which are grown worldwide) it'd be easier to help people understand where to buy
-		them.
-	</p>
-	<p class="main__text">
-		Herb Atlas is a project that intends to map out small local farmers — to help individuals better
-		prioritize where to find medicinal herbs, and what relationships with local farmers they may be
-		able to build.
+		I wanted to make it easy for myself, and others, to discover farms growing and selling plants
+		that are weedy, abundant, or otherwise well-adapted to a region closer to their home. In the
+		process, I'm hoping it also serves as a way to learn about and support sustainable practices
+		like <a
+			href="https://www.climatehubs.usda.gov/hubs/international/topic/no-till-farming-climate-resilience"
+			>no-till farming</a
+		>, an important strategy for climate resilience.
 	</p>
 
+	<p class="main__text">
+		By buying from small, human-scale farms, I've additionally gained much more awareness about how
+		to assess the quality of dried herbs, and why it matters. Which may feel like an obvious benefit
+		— but when I first started buying medicinal herbs, I didn't realize there was more to consider
+		than simply whether or not something was organic.
+	</p>
+
+	<p>
+		I didn't realize that it's abnormal for dried herbs to smell like the dusty pages of an old
+		book. Or that if you're making an herbal infusion of Wood Betony, a rather floral member of the
+		mint family, it's not normal for the flavor to seem kind of off-puttingly woody. Buying from
+		small farms changed that for me.
+	</p>
 	<h2 class="main__subheading">Contribute</h2>
 	<p class="main__text">
 		Anyone is welcome to <a
 			href="https://docs.google.com/forms/d/e/1FAIpQLSe9M3cPNsPAWdqSbASt-eMfCddZspQhYPdB1XRocxvQDnLD5g/viewform?usp=sharing"
 			>suggest a farm</a
 		> to add to the map. Farm submissions will be reviewed before being added. Each farm submitted should
-		be committed to sustainable and generative farming practices.
+		be committed to regenerative farming practices.
+	</p>
+
+	<h2 class="main__subheading">Contact</h2>
+	<p class="main__text">
+		Herbal Atlas is a project created by Dakota Sexton. Please feel free to <a
+			href="mailto:dakota@tinykitelab.com">get in touch</a
+		> for more information, or to flag an issue with any of the information provided by the map.
 	</p>
 </main>
 
