@@ -8,12 +8,14 @@
 	}
 
 	let { farmLocations }: Props = $props();
-
-	const currentPage = page.url.pathname;
 </script>
 
 <nav class="nav">
-	<a href="/" class="nav__logoWrapper" aria-current={currentPage === '/' ? 'page' : undefined}>
+	<a
+		href="/"
+		class="nav__logoWrapper"
+		aria-current={page.url.pathname === '/' ? 'page' : undefined}
+	>
 		<span class="u-visuallyHidden">Herb Atlas</span>
 		<svg
 			aria-hidden="true"
@@ -92,7 +94,7 @@
 				<a
 					class="nav__link"
 					href={navItem.url}
-					aria-current={navItem.url === currentPage ? 'page' : undefined}>{navItem.name}</a
+					aria-current={navItem.url === page.url.pathname ? 'page' : undefined}>{navItem.name}</a
 				>
 			</li>
 		{/each}
