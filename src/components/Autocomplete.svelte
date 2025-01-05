@@ -192,6 +192,7 @@
 				autocomplete="off"
 				name="location"
 				id="location"
+				placeholder="Search by city or state"
 				onkeyup={(e) => handleSearchNavigation(e)}
 				oninput={() => debounceSearchInput()}
 				bind:value={searchQuery}
@@ -262,7 +263,7 @@
 
 	.search__icon {
 		position: absolute;
-		height: 0.9rem;
+		height: 1.125rem;
 		width: auto;
 		margin-inline-start: 0.75rem;
 		color: currentColor;
@@ -270,14 +271,14 @@
 	}
 
 	.search__input {
-		border-radius: 9999px;
-		padding-inline-start: 1.85rem;
+		border-radius: 4rem;
+		padding-inline-start: 2.25rem;
 		padding-inline-end: 1rem;
 		padding-block: 0.25rem;
-		border: 1px solid #6f976e;
-		outline-offset: 4px;
-		font-family: 'tiempos', 'serif';
-		font-weight: 500;
+		border: 1px solid #397740;
+		outline-offset: 2px;
+		font-family: 'tablet-gothic', sans-serif;
+		font-weight: 400;
 		font-style: normal;
 	}
 
@@ -292,11 +293,11 @@
 	}
 
 	.search__input::placeholder {
-		font-size: 1rem;
+		font-size: 0.8rem;
 		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		color: rgba(57, 119, 64, 0.7);
+		top: calc(50% - 5px);
+		transform: translateY(-25%);
+		color: #618164;
 	}
 
 	.autocomplete {
