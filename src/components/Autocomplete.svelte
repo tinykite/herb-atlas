@@ -6,16 +6,16 @@
 		options: Array<string>;
 	}
 
-	let searchInput = $state('');
+	let searchInput = $state('') as unknown as HTMLInputElement;
 	let searchQuery = $state('');
 
 	let { options }: Props = $props();
-	let locations = $state([]);
+	let locations: Array<string> = $state([]);
 
-	let menu = $state();
+	let menu = $state() as unknown as HTMLElement;
 	let showMenu = $state(false);
 
-	let filterValue = $state();
+	let filterValue: string = $state('');
 
 	onMount(() => {
 		const { url } = page;
@@ -25,7 +25,7 @@
 		}
 	});
 
-	const updateSearchInput = (url) => {
+	const updateSearchInput = (url: URL) => {
 		const city = url.searchParams.get('city');
 		const state = url.searchParams.get('state');
 
@@ -36,17 +36,20 @@
 		}
 	};
 
-	const handleClick = (e) => {
+	const handleClick = (event: Event) => {
 		let value;
+		const target = event.target as HTMLElement;
 
-		if (e.target.matches('p')) {
-			const parentTarget = e.target.parentElement;
-			value = parentTarget.dataset.value;
+		if (target.matches('p')) {
+			const parentTarget = target.parentElement;
+			value = parentTarget && parentTarget.dataset.value;
 		} else {
-			value = e.target.dataset.value;
+			value = target.dataset.value;
 		}
 
-		handleUpdate(value);
+		if (value) {
+			handleUpdate(value);
+		}
 	};
 
 	const handleUpdate = (value: string) => {
@@ -56,31 +59,41 @@
 		goto(`/?q=${value}`);
 	};
 
-	const handleMenuNavigation = (e) => {
-		const dataAttributes = e.target.dataset;
+	const handleMenuNavigation = (event: KeyboardEvent) => {
+		if (!event.target) {
+			return;
+		}
+
+		const target = event.target as HTMLElement;
+		const dataAttributes = target.dataset;
+
+		if (!dataAttributes.index) {
+			return;
+		}
+
 		const currentIndex = parseInt(dataAttributes.index);
 
-		switch (e.code) {
+		switch (event.code) {
 			case 'ArrowUp':
 				if (currentIndex === 0) {
 					const nextIndex = locations.length - 1;
-					const nextTarget = menu.querySelector(`[data-index="${nextIndex}"]`);
+					const nextTarget = menu.querySelector(`[data-index="${nextIndex}"]`) as HTMLElement;
 					nextTarget.focus();
 				} else {
 					const nextIndex = currentIndex - 1;
-					const nextTarget = menu.querySelector(`[data-index="${nextIndex}"]`);
+					const nextTarget = menu.querySelector(`[data-index="${nextIndex}"]`) as HTMLElement;
 					nextTarget.focus();
 				}
 				break;
 
 			case 'ArrowDown':
-				e.preventDefault();
+				event.preventDefault();
 				if (currentIndex <= locations.length - 2) {
 					const nextIndex = currentIndex + 1;
-					const nextTarget = menu.querySelector(`[data-index="${nextIndex}"]`);
+					const nextTarget = menu.querySelector(`[data-index="${nextIndex}"]`) as HTMLElement;
 					nextTarget.focus();
 				} else {
-					const nextTarget = menu.querySelector(`[data-index="0"]`);
+					const nextTarget = menu.querySelector(`[data-index="0"]`) as HTMLElement;
 					nextTarget.focus();
 				}
 				break;
@@ -89,29 +102,31 @@
 				locations = [];
 				searchInput.focus();
 				break;
-
+			case 'Tab':
+				searchQuery = '';
+				locations = [];
+				break;
 			case 'Enter':
 			case 'Space':
-				filterValue = e.target.dataset.value;
+				filterValue = (event.target as HTMLElement).dataset.value as string;
 				handleUpdate(filterValue);
 			default:
 				return;
 		}
 	};
-	const handleSearchNavigation = (e) => {
-		switch (e.code) {
+	const handleSearchNavigation = (event: KeyboardEvent) => {
+		switch (event.code) {
 			case 'Escape':
 			case 'Tab':
 				locations = [];
 				break;
 			case 'ArrowDown':
 				if (showMenu && document.activeElement === searchInput) {
-					const firstOption = menu.querySelectorAll('[data-index]')[0];
+					const firstOption = menu.querySelectorAll('[data-index]')[0] as HTMLElement;
 					return firstOption.focus();
 				}
 				break;
 			case 'ArrowUp':
-				console.log('arrow up hit');
 				break;
 			default:
 				return;
@@ -135,7 +150,7 @@
 		return options.filter((option) => option.toLowerCase().includes(targetValue));
 	};
 
-	let timer;
+	let timer: any;
 
 	const debounceSearchInput = () => {
 		clearTimeout(timer);
