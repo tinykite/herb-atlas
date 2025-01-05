@@ -274,7 +274,7 @@
 		border-radius: 4rem;
 		padding-inline-start: 2.25rem;
 		padding-inline-end: 1rem;
-		padding-block: 0.25rem;
+		padding-block: 0.5rem;
 		border: 1px solid #39350f;
 		outline-offset: 2px;
 		font-size: 1rem;
@@ -294,13 +294,12 @@
 	}
 
 	.search__input::placeholder {
-		color: #7d7c73;
 		font-size: 0.8rem;
 		font-family: 'franklin-gothic-urw', sans-serif;
 		font-weight: 500;
 		font-style: normal;
+		color: #757575;
 	}
-
 	.autocomplete {
 		display: grid;
 		position: absolute;
