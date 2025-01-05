@@ -258,7 +258,7 @@
 		align-items: center;
 		column-gap: 0.5rem;
 		position: relative;
-		color: #397740;
+		color: #39350f;
 	}
 
 	.search__icon {
@@ -275,15 +275,16 @@
 		padding-inline-start: 2.25rem;
 		padding-inline-end: 1rem;
 		padding-block: 0.25rem;
-		border: 1px solid #397740;
+		border: 1px solid #39350f;
 		outline-offset: 2px;
+		font-size: 1rem;
 		font-family: 'tablet-gothic', sans-serif;
 		font-weight: 400;
 		font-style: normal;
 	}
 
 	.search__input:hover {
-		border-color: #184b35;
+		border-color: #39350f;
 	}
 	.search__input:focus-visible,
 	.search__input:focus {
@@ -297,7 +298,7 @@
 		position: absolute;
 		top: calc(50% - 5px);
 		transform: translateY(-25%);
-		color: #618164;
+		color: #5d5c4e;
 	}
 
 	.autocomplete {
