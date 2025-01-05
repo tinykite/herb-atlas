@@ -278,7 +278,7 @@
 		border: 1px solid #39350f;
 		outline-offset: 2px;
 		font-size: 1rem;
-		font-family: 'tablet-gothic', sans-serif;
+		font-family: 'franklin-gothic-urw', sans-serif;
 		font-weight: 400;
 		font-style: normal;
 	}
@@ -294,16 +294,11 @@
 	}
 
 	.search__input::placeholder {
+		color: #7d7c73;
 		font-size: 0.8rem;
-		position: absolute;
-		top: calc(50% - 5px);
-		transform: translateY(-25%);
-		color: #5d5c4e;
-	}
-
-	.search__input::-webkit-input-placeholder {
-		position: initial;
-		transform: unset;
+		font-family: 'franklin-gothic-urw', sans-serif;
+		font-weight: 500;
+		font-style: normal;
 	}
 
 	.autocomplete {
