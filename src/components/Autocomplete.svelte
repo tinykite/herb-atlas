@@ -301,6 +301,11 @@
 		color: #5d5c4e;
 	}
 
+	.search__input::-webkit-input-placeholder {
+		position: initial;
+		transform: unset;
+	}
+
 	.autocomplete {
 		display: grid;
 		position: absolute;
