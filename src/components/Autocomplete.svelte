@@ -282,12 +282,6 @@
 		font-weight: 400;
 		font-style: normal;
 	}
-
-	.search__input::-webkit-search-cancel-button {
-		position: absolute;
-		right: 1rem;
-	}
-
 	.search__input:hover {
 		border-color: #39350f;
 	}
@@ -305,6 +299,12 @@
 		font-style: normal;
 		color: #757575;
 	}
+
+	.search__input::-webkit-search-cancel-button {
+		position: absolute;
+		right: 1rem;
+	}
+
 	.autocomplete {
 		display: grid;
 		position: absolute;
