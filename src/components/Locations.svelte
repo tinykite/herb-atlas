@@ -129,6 +129,10 @@
 		font-style: normal;
 		font-size: 1.5rem;
 	}
+	.info__description {
+		padding-inline: 1.5rem;
+		padding-block-start: 1rem;
+	}
 
 	.info__locations {
 		font-style: italic;
