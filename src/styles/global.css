@@ -141,7 +141,7 @@ img {
 
 @font-face {
 	font-family: 'Tiempos Text';
-	src: url('/tiempos-text-regular.woff2') format('woff2');
+	src: url('/fonts/tiempos/tiempos-text-regular.woff2') format('woff2');
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -149,7 +149,7 @@ img {
 
 @font-face {
 	font-family: 'Tiempos Text';
-	src: url('/tiempos-text-bold.woff2') format('woff2');
+	src: url('/fonts/tiempos/tiempos-text-bold.woff2') format('woff2');
 	font-weight: 800;
 	font-style: normal;
 	font-display: swap;
@@ -157,7 +157,7 @@ img {
 
 @font-face {
 	font-family: 'Tiempos Text';
-	src: url('/tiempos-text-regular-italic.woff2') format('woff2');
+	src: url('/fonts/tiempos/tiempos-text-regular-italic.woff2') format('woff2');
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;

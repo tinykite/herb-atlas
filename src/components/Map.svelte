@@ -2,9 +2,8 @@
 	import { onMount } from 'svelte';
 	import maplibregl from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
-	import { layersWithCustomTheme } from 'protomaps-themes-base';
-	import { HERBALISM_THEME } from '$lib/herbalismTheme';
 	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
+	import customLayers from '$lib/testTheme';
 
 	const { Map, Marker, Popup, LngLat } = maplibregl;
 
@@ -52,7 +51,7 @@
 			container: mapContainer as HTMLElement,
 			style: {
 				version: 8,
-				glyphs: 'https://protomaps.github.io/basemaps-assets/fonts/Noto%20Sans%20Regular/0-255.pbf',
+				glyphs: '/fonts/{fontstack}/{range}.pbf',
 				sprite: 'https://protomaps.github.io/basemaps-assets/sprites/v4/light',
 				sources: {
 					protomaps: {
@@ -63,7 +62,7 @@
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
 					}
 				},
-				layers: layersWithCustomTheme('protomaps', HERBALISM_THEME, 'en')
+				layers: customLayers as maplibregl.LayerSpecification[]
 			},
 			center,
 			zoom,
