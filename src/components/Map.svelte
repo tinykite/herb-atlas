@@ -52,7 +52,7 @@
 			container: mapContainer as HTMLElement,
 			style: {
 				version: 8,
-				glyphs: 'https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf',
+				glyphs: 'https://protomaps.github.io/basemaps-assets/fonts/Noto%20Sans%20Regular/0-255.pbf',
 				sprite: 'https://protomaps.github.io/basemaps-assets/sprites/v4/light',
 				sources: {
 					protomaps: {
@@ -74,6 +74,12 @@
 		// map.on('move', updateInfo);
 		// map.on('zoom', updateInfo);
 		// updateInfo();
+
+		map.on('zoom', () => {
+			const layers = map.getStyle().layers;
+			console.log('hi');
+			console.log(layers);
+		});
 
 		points.map((point: mapPoint) => {
 			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
