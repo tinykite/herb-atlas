@@ -125,11 +125,16 @@
 		if (searchQuery.length < 2) {
 			return;
 		}
+
 		const autocompleteSuggestions = filterOptions(searchQuery);
 
 		if (autocompleteSuggestions.length) {
 			locations = autocompleteSuggestions;
 			showMenu = true;
+		}
+
+		if (!autocompleteSuggestions.length && locations.length) {
+			locations = [];
 		}
 	};
 
