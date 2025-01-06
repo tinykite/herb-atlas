@@ -91,9 +91,6 @@
 				searchInput.focus();
 				break;
 			case 'Tab':
-				searchQuery = '';
-				locations = [];
-				break;
 			case 'Enter':
 			case 'Space':
 				filterValue = (event.target as HTMLElement).dataset.value as string;
@@ -113,8 +110,6 @@
 					const firstOption = menu.querySelectorAll('[data-index]')[0] as HTMLElement;
 					return firstOption.focus();
 				}
-				break;
-			case 'ArrowUp':
 				break;
 			default:
 				return;
