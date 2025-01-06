@@ -178,7 +178,7 @@
 				role="combobox"
 				aria-controls="location-results"
 				aria-autocomplete="list"
-				aria-expanded="false"
+				aria-expanded={showMenu}
 				autocomplete="off"
 				name="location"
 				id="location"
