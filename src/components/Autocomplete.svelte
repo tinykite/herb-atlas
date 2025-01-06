@@ -86,8 +86,6 @@
 				}
 				break;
 			case 'Escape':
-				searchQuery = '';
-				locations = [];
 				searchInput.focus();
 				break;
 			case 'Tab':
