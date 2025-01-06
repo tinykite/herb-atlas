@@ -77,7 +77,7 @@
 		points.map((point: mapPoint) => {
 			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
 			const popup = new Popup({ offset: popupOffsets }).setHTML(
-				`<div><h3>${point.Name}</h3><p>${point.CityState}</p></div>`
+				`<div class="marker__popup"><h3 class="marker__heading">${point.Name}</h3><p>${point.CityState}</p></div>`
 			);
 			new Marker({ color: '#743A78', scale: 0.85 }).setLngLat(coords).setPopup(popup).addTo(map);
 		});
@@ -128,5 +128,16 @@
 		grid-template-columns: 1fr 0.5rem;
 		align-items: center;
 		padding-block-start: 1.25rem;
+	}
+
+	:global(.marker__popup) {
+		font-family: 'franklin-gothic-urw', sans-serif;
+		font-weight: 500;
+		font-style: normal;
+	}
+
+	:global(.marker__heading) {
+		font-weight: 500;
+		font-style: normal;
 	}
 </style>
