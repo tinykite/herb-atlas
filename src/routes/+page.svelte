@@ -12,7 +12,7 @@
 	}
 
 	let { data }: Props = $props();
-	const { farms, farmLocations, cityStatePairs, cityStateGeocodes } = data;
+	const { farms, cityStatePairs, cityStateGeocodes } = data;
 
 	let searchQuery = $derived(page.url.searchParams.get('q'));
 
@@ -46,7 +46,7 @@
 		if (cityStateGeocodes && searchQueryType === 'cityState') {
 			return {
 				center: cityStateGeocodes.get(searchQuery),
-				zoom: 6
+				zoom: 8
 			};
 		}
 
@@ -56,7 +56,7 @@
 
 			return {
 				center: [metadata.longitude, metadata.latitude],
-				zoom: metadata?.zoom ?? 6
+				zoom: metadata?.zoom ?? 5.5
 			};
 		}
 
@@ -64,7 +64,7 @@
 			const metadata = geocodedStateAbbreviations[searchQuery.toUpperCase()];
 			return {
 				mapCenter: [metadata.longitude, metadata.latitude],
-				zoom: metadata?.zoom ?? 6
+				zoom: metadata?.zoom ?? 5.5
 			};
 		}
 	});
