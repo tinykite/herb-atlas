@@ -230,7 +230,7 @@
 					role="option"
 					aria-selected="false"
 				>
-					No farms in "{searchQuery}"
+					No farms in {searchQuery}
 				</li>
 			{/if}
 		</ul>
