@@ -273,7 +273,7 @@
 	.search__input {
 		border-radius: 4rem;
 		padding-inline-start: 2.25rem;
-		padding-inline-end: 1rem;
+		padding-inline-end: 2.25rem;
 		padding-block: 0.5rem;
 		border: 1px solid #39350f;
 		outline-offset: 2px;
@@ -281,6 +281,11 @@
 		font-family: 'franklin-gothic-urw', sans-serif;
 		font-weight: 400;
 		font-style: normal;
+	}
+
+	.search__input::-webkit-search-cancel-button {
+		position: absolute;
+		right: 1rem;
 	}
 
 	.search__input:hover {
@@ -307,7 +312,7 @@
 		background: white;
 		list-style-type: none;
 		padding: 0;
-		margin-block-start: 1.5rem;
+		margin-block-start: 1rem;
 		overflow: auto;
 		max-height: 50vh;
 		width: 100%;
