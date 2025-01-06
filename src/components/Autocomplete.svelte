@@ -18,23 +18,11 @@
 	let filterValue: string = $state('');
 
 	onMount(() => {
-		const { url } = page;
-
-		if (url?.searchParams) {
-			updateSearchInput(url);
+		const pageQuery = page.url.searchParams.get('q');
+		if (!!pageQuery) {
+			searchQuery = pageQuery;
 		}
 	});
-
-	const updateSearchInput = (url: URL) => {
-		const city = url.searchParams.get('city');
-		const state = url.searchParams.get('state');
-
-		if (city && state) {
-			searchQuery = `${city}, ${state}`;
-		} else if (state) {
-			searchQuery = state;
-		}
-	};
 
 	const handleClick = (event: Event) => {
 		let value;
@@ -156,7 +144,9 @@
 		clearTimeout(timer);
 		if (searchQuery === '') {
 			locations = [];
-			goto('/');
+			if (page.url.searchParams.get('q')) {
+				goto('/');
+			}
 		}
 
 		timer = setTimeout(() => {
@@ -242,7 +232,7 @@
 					role="option"
 					aria-selected="false"
 				>
-					No results
+					No farms in "{searchQuery}"
 				</li>
 			{/if}
 		</ul>
