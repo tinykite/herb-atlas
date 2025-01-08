@@ -75,8 +75,8 @@
 		svgImage.src = svgStringToImageSrc(markerIcon);
 
 		map.on('click', 'farms', (e) => {
-			const cityState = e.features[0].properties.cityState;
-			goto(`/?q=${cityState}`);
+			const name = e.features[0].properties.name;
+			goto(`/?q=${name}&type=farm`);
 		});
 
 		map.on('mouseenter', 'farms', () => {

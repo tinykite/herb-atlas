@@ -2,8 +2,8 @@
 	import { page } from '$app/state';
 	import type { PageData } from './$types';
 	import Map from '../components/Map.svelte';
-	import { statesByAbbreviation, statesByName, geocodedStateAbbreviations } from '$lib/stateData';
-	import { stringToTitlecase } from '$lib/utilities';
+	import { statesByName, geocodedStateAbbreviations } from '$lib/stateData';
+	import { getQueryType, stringToTitlecase } from '$lib/utilities';
 	import { DEFAULT_MAP_CENTER } from '$lib/mapData';
 	import Locations from '../components/Locations.svelte';
 
@@ -11,38 +11,44 @@
 		data: PageData;
 	}
 
+	const getStateQueryType = ({ searchQuery }) => {
+		if (stringToTitlecase(searchQuery) in statesByName) {
+			return 'fullName';
+		}
+
+		return 'abbreviation';
+	};
+
+	const getStateMetadata = ({ searchQuery }) => {
+		const stateQueryType = getStateQueryType({ searchQuery });
+		let location;
+
+		if (stateQueryType === 'fullName') {
+			const abbreviation = statesByName[stringToTitlecase(searchQuery)];
+			location = geocodedStateAbbreviations[abbreviation];
+		}
+
+		if (stateQueryType === 'abbreviation') {
+			location = geocodedStateAbbreviations[searchQuery.toUpperCase()];
+		}
+
+		return {
+			center: [location.longitude, location.latitude],
+			zoom: location?.zoom ?? 5.5
+		};
+	};
+
 	let { data }: Props = $props();
 	const { farms, cityStatePairs, cityStateGeocodes, farmGeoJSON } = data;
 
 	let searchQuery = $derived(page.url.searchParams.get('q'));
+	let type = $derived(page.url.searchParams.get('type'));
 
 	let searchQueryType = $derived.by(() => {
-		if (!searchQuery) {
-			return;
-		}
-
-		if (
-			stringToTitlecase(searchQuery) in statesByName ||
-			searchQuery.toUpperCase() in statesByAbbreviation
-		) {
-			return 'state';
-		}
-
-		if (cityStatePairs && cityStatePairs.includes(searchQuery)) {
-			return 'cityState';
-		}
-
-		return 'unknown';
+		return getQueryType({ query: searchQuery, type, cityStatePairs });
 	});
 
 	let mapMetadata = $derived.by(() => {
-		if (!searchQuery || searchQueryType === 'unknown') {
-			return {
-				center: DEFAULT_MAP_CENTER,
-				zoom: 3.5
-			};
-		}
-
 		if (cityStateGeocodes && searchQueryType === 'cityState') {
 			return {
 				center: cityStateGeocodes.get(searchQuery),
@@ -50,59 +56,24 @@
 			};
 		}
 
-		if (searchQueryType === 'state' && stringToTitlecase(searchQuery) in statesByName) {
-			const stateAbbreviation = statesByName[stringToTitlecase(searchQuery)];
-			const metadata = geocodedStateAbbreviations[stateAbbreviation];
-
+		if (searchQueryType === 'farm') {
 			return {
-				center: [metadata.longitude, metadata.latitude],
-				zoom: metadata?.zoom ?? 5.5
+				center: [-114, 45],
+				zoom: 8
 			};
-		}
-
-		if (searchQueryType === 'state' && searchQuery.toUpperCase() in statesByAbbreviation) {
-			const metadata = geocodedStateAbbreviations[searchQuery.toUpperCase()];
-			return {
-				mapCenter: [metadata.longitude, metadata.latitude],
-				zoom: metadata?.zoom ?? 5.5
-			};
-		}
-	});
-
-	let filteredResults = $derived.by(() => {
-		if (!searchQuery) {
-			return farms;
-		}
-
-		if (searchQueryType === 'cityState') {
-			return farms.filter((farm) => farm.CityState === searchQuery);
 		}
 
 		if (searchQueryType === 'state') {
-			const titleCaseQuery = stringToTitlecase(searchQuery);
-			const upperCaseQuery = searchQuery.toUpperCase();
-
-			if (titleCaseQuery in statesByName) {
-				return farms.filter((farm) => farm.State === statesByName[titleCaseQuery]);
-			}
-
-			if (upperCaseQuery in statesByAbbreviation) {
-				return farms.filter((farm) => farm.State === upperCaseQuery);
-			}
+			return getStateMetadata({ searchQuery });
 		}
-	});
 
-	let inactiveFarms = $derived.by(() => {
-		return farms?.filter((farm) => !filteredResults?.includes(farm));
+		return {
+			center: DEFAULT_MAP_CENTER,
+			zoom: 3.5
+		};
 	});
 </script>
 
 <Locations {farms} {searchQuery} {searchQueryType} />
 
-<Map
-	points={filteredResults}
-	inactivepoints={inactiveFarms}
-	geoJSON={farmGeoJSON}
-	center={mapMetadata.center}
-	zoom={mapMetadata.zoom}
-/>
+<Map geoJSON={farmGeoJSON} center={mapMetadata.center} zoom={mapMetadata.zoom} />

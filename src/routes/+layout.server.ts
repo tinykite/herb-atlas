@@ -10,7 +10,6 @@ export const load: LayoutServerLoad = async () => {
     try {
         const cityStatePairs = new Set();
         const farmLocations = new Set();
-
         const cityStateGeocodes = new Map();
 
         // Fetch and parse CSV, specifying the Farm type for the result
