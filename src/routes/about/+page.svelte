@@ -26,16 +26,16 @@
 
 	<p class="main__text">
 		By buying from small, human-scale farms, I've additionally gained much more awareness about how
-		to assess the quality of dried herbs, and why it matters. Which may feel like an obvious benefit
-		— but when I first started buying medicinal herbs, I didn't realize there was more to consider
-		than simply whether or not something was organic.
+		to assess the quality of dried herbs through their color, taste, and smell — and learned why it
+		matters. Which may feel like an obvious benefit — but when I first started buying medicinal
+		herbs, I didn't realize there was more to consider than simply whether or not something was
+		organic.
 	</p>
 
 	<p>
 		I didn't realize that it's abnormal for dried herbs to smell like the dusty pages of an old
-		book. Or that if you're making an herbal infusion of Wood Betony, a rather floral member of the
-		mint family, it's not normal for the flavor to seem kind of off-puttingly woody. Buying from
-		small farms changed that for me.
+		book. Or that it's not normal for a floral member of the mint family to taste kind of
+		off-puttingly woody.
 	</p>
 	<h2 class="main__subheading">Contribute</h2>
 	<p class="main__text">
