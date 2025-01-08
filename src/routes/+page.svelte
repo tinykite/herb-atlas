@@ -12,7 +12,7 @@
 	}
 
 	let { data }: Props = $props();
-	const { farms, cityStatePairs, cityStateGeocodes } = data;
+	const { farms, cityStatePairs, cityStateGeocodes, farmGeoJSON } = data;
 
 	let searchQuery = $derived(page.url.searchParams.get('q'));
 
@@ -68,8 +68,41 @@
 			};
 		}
 	});
+
+	let filteredResults = $derived.by(() => {
+		if (!searchQuery) {
+			return farms;
+		}
+
+		if (searchQueryType === 'cityState') {
+			return farms.filter((farm) => farm.CityState === searchQuery);
+		}
+
+		if (searchQueryType === 'state') {
+			const titleCaseQuery = stringToTitlecase(searchQuery);
+			const upperCaseQuery = searchQuery.toUpperCase();
+
+			if (titleCaseQuery in statesByName) {
+				return farms.filter((farm) => farm.State === statesByName[titleCaseQuery]);
+			}
+
+			if (upperCaseQuery in statesByAbbreviation) {
+				return farms.filter((farm) => farm.State === upperCaseQuery);
+			}
+		}
+	});
+
+	let inactiveFarms = $derived.by(() => {
+		return farms?.filter((farm) => !filteredResults?.includes(farm));
+	});
 </script>
 
 <Locations {farms} {searchQuery} {searchQueryType} />
 
-<Map points={farms} center={mapMetadata.center} zoom={mapMetadata.zoom} />
+<Map
+	points={filteredResults}
+	inactivepoints={inactiveFarms}
+	geoJSON={farmGeoJSON}
+	center={mapMetadata.center}
+	zoom={mapMetadata.zoom}
+/>

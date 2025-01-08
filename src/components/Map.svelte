@@ -4,18 +4,20 @@
 	import * as pmtiles from 'pmtiles';
 	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
 	import customLayers from '$lib/testTheme';
+	import { goto } from '$app/navigation';
+	import { svgStringToImageSrc } from '$lib/utilities';
+	import { markerIcon } from '$lib/marker';
 
-	const { Map, Marker, Popup, LngLat } = maplibregl;
-
+	const { Map } = maplibregl;
 	interface Props {
-		points: Array<any> | undefined;
 		center: Array<Number>;
 		zoom: Number;
+		geoJSON: GeoJSON.FeatureCollection<GeoJSON.Geometry>;
 	}
 
 	/* DEBUG ONLY */
 	// let infoDiv: HTMLElement;
-	let { points, center, zoom } = $props();
+	let { center, zoom, geoJSON } = $props();
 	let mapContainer: HTMLElement | null | undefined = $state();
 	let map = $state();
 
@@ -42,10 +44,6 @@
 		}
 	});
 
-	let popupOffsets = {
-		bottom: [0, -30]
-	};
-
 	onMount(() => {
 		map = new Map({
 			container: mapContainer as HTMLElement,
@@ -69,27 +67,54 @@
 			maxZoom: 10
 		});
 
+		// Create an image from SVG
+		const svgImage = new Image(23, 35);
+		svgImage.onload = () => {
+			map.addImage('svg', svgImage);
+		};
+		svgImage.src = svgStringToImageSrc(markerIcon);
+
+		map.on('click', 'farms', (e) => {
+			const cityState = e.features[0].properties.cityState;
+			goto(`/?q=${cityState}`);
+		});
+
+		map.on('mouseenter', 'farms', () => {
+			map.getCanvas().style.cursor = 'pointer';
+		});
+
+		map.on('mouseleave', 'farms', () => {
+			map.getCanvas().style.cursor = '';
+		});
+
 		/* DEBUG ONLY */
 		// map.on('move', updateInfo);
 		// map.on('zoom', updateInfo);
 		// updateInfo();
 
-		map.on('zoom', () => {
-			const layers = map.getStyle().layers;
-			console.log('hi');
-			console.log(layers);
-		});
-
-		points.map((point: mapPoint) => {
-			const coords = new LngLat(parseFloat(point.Longitude), parseFloat(point.Latitude));
-			const popup = new Popup({ offset: popupOffsets }).setHTML(
-				`<div class="marker__popup"><h3 class="marker__heading">${point.Name}</h3><p>${point.CityState}</p></div>`
-			);
-			new Marker({ color: '#743A78', scale: 0.85 }).setLngLat(coords).setPopup(popup).addTo(map);
-		});
+		// map.on('zoom', () => {
+		// 	const layers = map.getStyle().layers;
+		// 	console.log('hi');
+		// 	console.log(layers);
+		// });
 
 		map.on('load', async () => {
 			mapContainer?.style.setProperty('opacity', 1);
+			map.addSource('locations', {
+				type: 'geojson',
+				data: geoJSON
+			});
+			map.addLayer({
+				id: 'farms',
+				type: 'symbol',
+				source: 'locations',
+				layout: {
+					'icon-anchor': 'top',
+					'icon-image': 'svg', // Using a built-in icon (you can choose other symbols)
+					'icon-size': 0.85, // Size of the icon
+					'icon-allow-overlap': true // Allow icon to overlap with other features
+				}
+			});
 		});
 	});
 
@@ -110,6 +135,8 @@
 <!-- 
 <div class="mapInfo" bind:this={infoDiv} /> -->
 
+<div class="mapInfo"></div>
+
 <style>
 	.map {
 		position: fixed;
@@ -123,9 +150,8 @@
 	}
 
 	.mapInfo {
-		position: fixed;
-		top: 20px;
-		z-index: 700;
+		position: absolute;
+		z-index: 1000000;
 		background: white;
 	}
 

@@ -5,3 +5,7 @@ export const stringToTitlecase = (string: string) => {
         .map((word) => word[0].toUpperCase() + word.slice(1))
         .join(' ');
 };
+
+export const svgStringToImageSrc = (svgString) => {
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
+};
