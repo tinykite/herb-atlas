@@ -39,7 +39,7 @@
 	};
 
 	let { data }: Props = $props();
-	const { farms, cityStatePairs, cityStateGeocodes, farmGeoJSON } = data;
+	const { farms, cityStatePairs, cityStateGeocodes, farmGeoJSON, farmCoordinatesByName } = data;
 
 	let searchQuery = $derived(page.url.searchParams.get('q'));
 	let type = $derived(page.url.searchParams.get('type'));
@@ -56,9 +56,9 @@
 			};
 		}
 
-		if (searchQueryType === 'farm') {
+		if (farmCoordinatesByName && searchQueryType === 'farm') {
 			return {
-				center: [-114, 45],
+				center: farmCoordinatesByName.get(searchQuery),
 				zoom: 8
 			};
 		}

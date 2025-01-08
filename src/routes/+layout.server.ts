@@ -8,8 +8,12 @@ export const load: LayoutServerLoad = async () => {
     'https://docs.google.com/spreadsheets/d/1hgFHSzxmGEZ0oiJLnalemEr6vp_nHd15m-jc5EH2ahY/gviz/tq?tqx=out:csv';
 
     try {
+        // Ordinarily, you'd be able to query each of these things in a database. 
+        // Herb Atlas is currently set up to read from Google Sheets
+        // So these sets and maps serve as ways to efficiently enough query the data instead.
         const cityStatePairs = new Set();
         const farmLocations = new Set();
+        const farmCoordinatesByName = new Map()
         const cityStateGeocodes = new Map();
 
         // Fetch and parse CSV, specifying the Farm type for the result
@@ -27,6 +31,7 @@ export const load: LayoutServerLoad = async () => {
 
             cityStatePairs.add(CityState);
             farmLocations.add(CityState);
+            farmCoordinatesByName.set(d.Name, [d.Longitude, d.Latitude])
 
             if (!cityStateGeocodes.has(d.CityState)) {
                 cityStateGeocodes.set(d.CityState, [d.Longitude, d.Latitude]);
@@ -60,6 +65,7 @@ export const load: LayoutServerLoad = async () => {
             farms,
             cityStateGeocodes,
             farmLocations: [...farmLocations],
+            farmCoordinatesByName,
             cityStatePairs: [...cityStatePairs],
         };
     } catch (error) {
