@@ -27,7 +27,7 @@
 			href="https://www.climatehubs.usda.gov/hubs/international/topic/no-till-farming-climate-resilience"
 			>no-till farming</a
 		>. Buying from human-scale farms can additionally teach you to better understand color, smell,
-		and taste as key indicator's of an herb's quality.
+		and taste as key indicators of an herb's quality.
 	</p>
 
 	<p>
