@@ -125,7 +125,7 @@ export const statesByAbbreviation = {
     "KS": {"latitude": "39.011902", "longitude": "-98.484246"},
     "KY": {"latitude": "37.839333", "longitude": "-84.270018"},
     "LA": {"latitude": "31.244823", "longitude": "-92.145024"},
-    "MA": {"latitude": "42.407211", "longitude": "-71.382437"},
+    "MA": {"latitude": "42.407211", "longitude": "-71.382437", "zoom": 7},
     "MD": {"latitude": "39.045755", "longitude": "-76.641271"},
     "ME": {"latitude": "45.253783", "longitude": "-69.445469"},
     "MI": {"latitude": "44.314844", "longitude": "-85.602364"},
@@ -159,4 +159,3 @@ export const statesByAbbreviation = {
     "WV": {"latitude": "38.597626", "longitude": "-80.454903"},
     "WY": {"latitude": "43.075968", "longitude": "-107.290284"}
   }
-  
