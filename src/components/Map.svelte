@@ -118,7 +118,7 @@
 					'text-max-width': 20,
 					'text-field': ['get', 'name'],
 					'text-variable-anchor': ['bottom'],
-					'text-variable-anchor-offset': ['bottom', [0, 3.5], 'left', [1.5, 1.5]],
+					'text-variable-anchor-offset': ['bottom', [0, 3.5], 'left', [1, 1]],
 					'text-optional': true
 				},
 				paint: {
