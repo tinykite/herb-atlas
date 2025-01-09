@@ -110,9 +110,23 @@
 				source: 'locations',
 				layout: {
 					'icon-anchor': 'top',
-					'icon-image': 'svg', // Using a built-in icon (you can choose other symbols)
-					'icon-size': 0.85, // Size of the icon
-					'icon-allow-overlap': true // Allow icon to overlap with other features
+					'icon-image': 'svg',
+					'icon-size': 0.85,
+					'icon-allow-overlap': true,
+					'text-font': ['Libre Franklin Medium'],
+					'text-size': 13,
+					'text-max-width': 20,
+					'text-field': ['get', 'name'],
+					'text-variable-anchor': ['bottom'],
+					'text-variable-anchor-offset': ['bottom', [0, 3.5], 'left', [1.5, 1.5]],
+					'text-optional': true
+				},
+				paint: {
+					'text-color': 'green',
+					'text-halo-color': 'white',
+					'text-halo-width': 1,
+					'text-halo-blur': 1,
+					'text-opacity': ['interpolate', ['linear'], ['zoom'], 7.9, 0, 8, 1]
 				}
 			});
 		});
