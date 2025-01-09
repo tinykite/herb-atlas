@@ -11,7 +11,7 @@
 	<h1 class="main__title">About</h1>
 	<p class="main__text">
 		Herb Atlas is an interactive map that highlights small, human-scale farms growing medicinal
-		herbs with a committment to sustainble and regenerative farming practices. The project was
+		herbs with a committment to sustainable and regenerative farming practices. The project was
 		inspired by a desire to better familiarize myself with bioregionalism herbalism — a term with
 		roots in the bioregionalism movement and the activism of environmentalist Peter Berg.
 	</p>
