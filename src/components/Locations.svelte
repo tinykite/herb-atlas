@@ -198,14 +198,17 @@
 		margin-block-start: 0.5rem;
 	}
 
-	.location--listItem:not(:last-child) {
+	.location--listItem {
 		margin: 0;
 		position: relative;
-		border-bottom: 1px solid #e8e8e8;
 
 		&:hover {
 			background: rgba(255, 253, 235, 1);
 		}
+	}
+
+	.location--listItem:not(:last-child) {
+		border-bottom: 1px solid #e8e8e8;
 	}
 
 	.location__name {
