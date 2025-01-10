@@ -1,8 +1,5 @@
 <script>
-	import { fade } from 'svelte/transition';
 	import { browser } from '$app/environment';
-
-	import Nav from '../../components/Nav.svelte';
 	import Map from '../../components/Map.svelte';
 
 	const mapCenter = [-71.6455, 48.4918];
@@ -28,4 +25,4 @@
 	</stripe-buy-button>
 </main>
 
-<Map points={[]} center={mapCenter} zoom={5} />
+<Map geoJSON={[]} center={mapCenter} zoom={5} />

@@ -1,7 +1,5 @@
 <script>
 	import { DEFAULT_MAP_ZOOM } from '$lib/mapData';
-
-	import Nav from '../../components/Nav.svelte';
 	import Map from '../../components/Map.svelte';
 
 	const mapCenter = [-96.7431, 78.567];
@@ -53,4 +51,4 @@
 	</p>
 </main>
 
-<Map points={[]} center={mapCenter} zoom={DEFAULT_MAP_ZOOM} />
+<Map geoJSON={[]} center={mapCenter} zoom={DEFAULT_MAP_ZOOM} />
