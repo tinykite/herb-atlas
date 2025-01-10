@@ -2,6 +2,8 @@
 	import { statesByAbbreviation, statesByName } from '$lib/stateData';
 	import { stringToTitlecase } from '$lib/utilities';
 	import { fade } from 'svelte/transition';
+	import { page } from '$app/state';
+	import Return from './Return.svelte';
 
 	interface Props {
 		searchQuery: string;
@@ -120,6 +122,10 @@
 			</p>
 		</div>
 	{/if}
+
+	{#if !!page.url.searchParams.get('q')}
+		<Return />
+	{/if}
 </div>
 
 <style>
@@ -130,7 +136,7 @@
 		background: #faf6d4;
 		position: relative;
 		z-index: 100;
-		padding-block: 1.5rem;
+		padding-block-start: 1.5rem;
 		box-shadow:
 			0 100px 80px 0 rgba(0, 0, 0, 0.02),
 			0 22px 18px 0 rgba(0, 0, 0, 0.04),
@@ -178,7 +184,7 @@
 		margin-block-start: 0.5rem;
 	}
 
-	.location--listItem {
+	.location--listItem:not(:last-child) {
 		margin: 0;
 		position: relative;
 		border-bottom: 1px solid #e8e8e8;
