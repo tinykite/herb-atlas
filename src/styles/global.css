@@ -112,7 +112,7 @@ img {
 	color: #5B561F;
 	background: #faf6d4;
 	position: relative;
-	z-index: 300;
+	z-index: 100;
 	padding: 1.5rem;
 
 	box-shadow:
