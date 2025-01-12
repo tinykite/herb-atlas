@@ -1,17 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import maplibregl, {
-		type MapEventType,
-		type Map as MapType,
-		type LayerSpecification
-	} from 'maplibre-gl';
+	import maplibregl, { type Map as MapType, type LayerSpecification } from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
 	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
 	import customLayers from '$lib/testTheme';
 	import { goto } from '$app/navigation';
 	import { svgStringToImageSrc } from '$lib/utilities';
 	import { markerIcon } from '$lib/marker';
-	import { DEFAULT_MARKER_LAYOUT } from '$lib/mapData';
+	import { addMarkerLayer } from '$lib/mapData';
 
 	const { Map } = maplibregl;
 	interface Props {
@@ -39,31 +35,6 @@
 			}
 		}
 	});
-
-	interface MarkerLayerType {
-		map: MapType;
-		layerId: string;
-		sourceId: string;
-		iconImage: string;
-		paint: {};
-	}
-
-	const addMarkerLayer = ({ map, layerId, sourceId, iconImage, paint }: MarkerLayerType) => {
-		map.addLayer({
-			id: layerId,
-			type: 'symbol',
-			source: sourceId,
-			layout: getLayout(iconImage) as any,
-			paint
-		});
-	};
-
-	const getLayout = (iconImage: string) => {
-		return {
-			...DEFAULT_MARKER_LAYOUT,
-			'icon-image': iconImage
-		};
-	};
 
 	onMount(() => {
 		map = new Map({
@@ -101,21 +72,8 @@
 		};
 		markerImage.src = svgStringToImageSrc(markerIcon);
 
-		map.on('click', 'farms', (e: MapEventType) => {
-			const name = e.features[0].properties.name;
-			goto(`/?q=${name}&type=farm`);
-		});
-
-		map.on('mouseenter', 'farms', () => {
-			map.getCanvas().style.cursor = 'pointer';
-		});
-
-		map.on('mouseleave', 'farms', () => {
-			map.getCanvas().style.cursor = '';
-		});
-
 		map.on('load', async () => {
-			mapContainer?.style.setProperty('opacity', 1);
+			mapContainer?.style.setProperty('opacity', '1');
 			map.addSource('locations', {
 				type: 'geojson',
 				data: geoJSON
@@ -134,6 +92,19 @@
 					'text-opacity': ['interpolate', ['linear'], ['zoom'], 7.9, 0, 8, 1]
 				}
 			});
+		});
+
+		map.on('click', 'markers', (e) => {
+			const name = e.features[0].properties.name;
+			goto(`/?q=${name}&type=farm`);
+		});
+
+		map.on('mouseenter', 'markers', () => {
+			map.getCanvas().style.cursor = 'pointer';
+		});
+
+		map.on('mouseleave', 'markers', () => {
+			map.getCanvas().style.cursor = '';
 		});
 	});
 </script>
