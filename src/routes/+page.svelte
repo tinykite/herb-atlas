@@ -4,7 +4,7 @@
 	import Map from '../components/Map.svelte';
 	import { statesByName, geocodedStateAbbreviations } from '$lib/stateData';
 	import { getQueryType, stringToTitlecase } from '$lib/utilities';
-	import { DEFAULT_MAP_CENTER } from '$lib/mapData';
+	import { DEFAULT_MAP_CENTER } from '$lib/map';
 	import Locations from '../components/Locations.svelte';
 
 	interface Props {

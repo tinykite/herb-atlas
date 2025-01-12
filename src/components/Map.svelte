@@ -3,9 +3,9 @@
 	import maplibregl, { type Map as MapType, type LayerSpecification } from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
 	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
-	import customLayers from '$lib/testTheme';
+	import customLayers from '$lib/herbalismThemeAdvanced';
 	import { goto } from '$app/navigation';
-	import { addMarkerLayer, loadMapImage } from '$lib/mapData';
+	import { addMarkerLayer, loadMapImage } from '$lib/map';
 	import markerImage from '$lib/assets/marker.png';
 
 	const { Map } = maplibregl;
@@ -87,8 +87,10 @@
 		});
 
 		map.on('click', 'markers', (e) => {
-			const name = e.features[0].properties.name;
-			goto(`/?q=${name}&type=farm`);
+			if (e.features && e.features.length) {
+				const name = e.features[0].properties.name;
+				goto(`/?q=${name}&type=farm`);
+			}
 		});
 
 		map.on('mouseenter', 'markers', () => {

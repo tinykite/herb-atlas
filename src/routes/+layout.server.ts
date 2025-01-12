@@ -1,6 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { statesByAbbreviation } from '$lib/stateData';
-import type { Farm } from '$lib/mapData';
+import type { Farm } from '$lib/map';
 import * as d3 from 'd3';
 
 export const load: LayoutServerLoad = async () => {
