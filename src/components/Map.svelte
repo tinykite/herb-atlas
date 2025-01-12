@@ -1,12 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import maplibregl from 'maplibre-gl';
+	import maplibregl, {
+		type MapEventType,
+		type Map as MapType,
+		type LayerSpecification
+	} from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
 	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
 	import customLayers from '$lib/testTheme';
 	import { goto } from '$app/navigation';
 	import { svgStringToImageSrc } from '$lib/utilities';
 	import { markerIcon } from '$lib/marker';
+	import { DEFAULT_MARKER_LAYOUT } from '$lib/mapData';
 
 	const { Map } = maplibregl;
 	interface Props {
@@ -15,21 +20,12 @@
 		geoJSON: GeoJSON.FeatureCollection<GeoJSON.Geometry>;
 	}
 
-	/* DEBUG ONLY */
-	// let infoDiv: HTMLElement;
 	let { center, zoom, geoJSON } = $props();
 	let mapContainer: HTMLElement | null | undefined = $state();
-	let map = $state();
+	let map = $state() as MapType;
 
 	const protocol = new pmtiles.Protocol();
 	maplibregl.addProtocol('pmtiles', protocol.tile);
-
-	interface mapPoint {
-		Latitude: string;
-		Longitude: string;
-		Name: string;
-		CityState: string;
-	}
 
 	$effect(() => {
 		if (!!map) {
@@ -43,6 +39,31 @@
 			}
 		}
 	});
+
+	interface MarkerLayerType {
+		map: MapType;
+		layerId: string;
+		sourceId: string;
+		iconImage: string;
+		paint: {};
+	}
+
+	const addMarkerLayer = ({ map, layerId, sourceId, iconImage, paint }: MarkerLayerType) => {
+		map.addLayer({
+			id: layerId,
+			type: 'symbol',
+			source: sourceId,
+			layout: getLayout(iconImage) as any,
+			paint
+		});
+	};
+
+	const getLayout = (iconImage: string) => {
+		return {
+			...DEFAULT_MARKER_LAYOUT,
+			'icon-image': iconImage
+		};
+	};
 
 	onMount(() => {
 		map = new Map({
@@ -60,7 +81,7 @@
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
 					}
 				},
-				layers: customLayers as maplibregl.LayerSpecification[]
+				layers: customLayers as LayerSpecification[]
 			},
 			center,
 			zoom,
@@ -70,11 +91,17 @@
 		// Create an image from SVG
 		const markerImage = new Image(23, 35);
 		markerImage.onload = () => {
-			map.addImage('markerImage', markerImage);
+			map.addImage('markerImage', markerImage, {
+				'text-color': 'green',
+				'text-halo-color': 'white',
+				'text-halo-width': 1,
+				'text-halo-blur': 1,
+				'text-opacity': ['interpolate', ['linear'], ['zoom'], 7.9, 0, 8, 1]
+			});
 		};
 		markerImage.src = svgStringToImageSrc(markerIcon);
 
-		map.on('click', 'farms', (e) => {
+		map.on('click', 'farms', (e: MapEventType) => {
 			const name = e.features[0].properties.name;
 			goto(`/?q=${name}&type=farm`);
 		});
@@ -87,40 +114,18 @@
 			map.getCanvas().style.cursor = '';
 		});
 
-		/* DEBUG ONLY */
-		// map.on('move', updateInfo);
-		// map.on('zoom', updateInfo);
-		// updateInfo();
-
-		// map.on('zoom', () => {
-		// 	const layers = map.getStyle().layers;
-		// 	console.log('hi');
-		// 	console.log(layers);
-		// });
-
 		map.on('load', async () => {
 			mapContainer?.style.setProperty('opacity', 1);
 			map.addSource('locations', {
 				type: 'geojson',
 				data: geoJSON
 			});
-			map.addLayer({
-				id: 'farms',
-				type: 'symbol',
-				source: 'locations',
-				layout: {
-					'icon-anchor': 'center',
-					'icon-image': 'markerImage',
-					'icon-size': 0.85,
-					'icon-allow-overlap': true,
-					'text-font': ['Libre Franklin Medium'],
-					'text-size': 13,
-					'text-max-width': 20,
-					'text-field': ['get', 'name'],
-					'text-variable-anchor': ['bottom'],
-					'text-variable-anchor-offset': ['bottom', [0, 2.5], 'left', [1, 0]],
-					'text-optional': true
-				},
+
+			addMarkerLayer({
+				map,
+				layerId: 'markers',
+				sourceId: 'locations',
+				iconImage: 'markerImage',
 				paint: {
 					'text-color': 'green',
 					'text-halo-color': 'white',
@@ -131,23 +136,11 @@
 			});
 		});
 	});
-
-	/* DEBUG ONLY */
-	// const updateInfo = () => {
-	// 	const center = map.getCenter();
-	// 	const zoom = map.getZoom();
-	// 	infoDiv.textContent = `Lat: ${center.lat.toFixed(4)}, Lng: ${center.lng.toFixed(
-	// 		4
-	// 	)}, Zoom: ${zoom.toFixed(2)}`;
-	// };
 </script>
 
 <div class="map">
 	<div class="map__graphic" bind:this={mapContainer}></div>
 </div>
-
-<!-- 
-<div class="mapInfo" bind:this={infoDiv} /> -->
 
 <div class="mapInfo"></div>
 
@@ -161,29 +154,5 @@
 		height: 100vh;
 		opacity: 0;
 		transition: 0.3s ease;
-	}
-
-	.mapInfo {
-		position: absolute;
-		z-index: 1000000;
-		background: white;
-	}
-
-	:global(.maplibregl-popup-content) {
-		display: grid;
-		grid-template-columns: 1fr 0.5rem;
-		align-items: center;
-		padding-block-start: 1.25rem;
-	}
-
-	:global(.marker__popup) {
-		font-family: 'franklin-gothic-urw', sans-serif;
-		font-weight: 500;
-		font-style: normal;
-	}
-
-	:global(.marker__heading) {
-		font-weight: 500;
-		font-style: normal;
 	}
 </style>
