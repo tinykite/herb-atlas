@@ -68,11 +68,11 @@
 		});
 
 		// Create an image from SVG
-		const svgImage = new Image(23, 35);
-		svgImage.onload = () => {
-			map.addImage('svg', svgImage);
+		const markerImage = new Image(23, 35);
+		markerImage.onload = () => {
+			map.addImage('markerImage', markerImage);
 		};
-		svgImage.src = svgStringToImageSrc(markerIcon);
+		markerImage.src = svgStringToImageSrc(markerIcon);
 
 		map.on('click', 'farms', (e) => {
 			const name = e.features[0].properties.name;
@@ -110,7 +110,7 @@
 				source: 'locations',
 				layout: {
 					'icon-anchor': 'center',
-					'icon-image': 'svg',
+					'icon-image': 'markerImage',
 					'icon-size': 0.85,
 					'icon-allow-overlap': true,
 					'text-font': ['Libre Franklin Medium'],
