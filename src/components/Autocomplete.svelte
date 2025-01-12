@@ -7,7 +7,7 @@
 	}
 
 	let searchInput = $state('') as unknown as HTMLInputElement;
-	let searchQuery = $state('');
+	let searchQuery = $state(page.url.searchParams.get('q'));
 
 	let { options }: Props = $props();
 	let locations: Array<string> = $state([]);
@@ -16,13 +16,6 @@
 	let showMenu = $state(false);
 
 	let filterValue: string = $state('');
-
-	onMount(() => {
-		const pageQuery = page.url.searchParams.get('q');
-		if (!!pageQuery) {
-			searchQuery = pageQuery;
-		}
-	});
 
 	const handleClick = (event: Event) => {
 		let value;
