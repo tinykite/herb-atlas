@@ -1,6 +1,7 @@
 <script lang="ts">
 	// Importing this in the layout, instead of app.html, to enable HMR
 	import '../styles/global.css';
+	import '../styles/maplibre.css';
 	import type { PageData } from './$types';
 	import Nav from '../components/Nav.svelte';
 
