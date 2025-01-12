@@ -1,5 +1,5 @@
 <script>
-	import { DEFAULT_MAP_ZOOM } from '$lib/mapData';
+	import { DEFAULT_MAP_ZOOM } from '$lib/map';
 	import Map from '../../components/Map.svelte';
 
 	const mapCenter = [-96.7431, 78.567];
