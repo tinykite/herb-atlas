@@ -1,7 +1,4 @@
 import { type Map as MapType} from 'maplibre-gl'
-
-export const DEFAULT_MAP_CENTER = [-106, 40.9778]
-export const DEFAULT_MAP_ZOOM = 3.5
 export interface Farm {
     Name: string;
     State: string;
@@ -19,6 +16,15 @@ export interface MarkerLayerType {
     iconImage: string;
     paint: object;
 }
+
+interface ImageLayerType {
+    map: MapType,
+    imageUrl: string,
+    imageId: string
+}
+
+export const DEFAULT_MAP_CENTER = [-106, 40.9778]
+export const DEFAULT_MAP_ZOOM = 3.5
 
 export const DEFAULT_MARKER_LAYOUT = {
     'icon-anchor': 'center',
@@ -49,3 +55,12 @@ export const addMarkerLayer = ({ map, layerId, sourceId, iconImage, paint }: Mar
         paint
     });
 };
+
+export const loadMapImage = async ({map, imageUrl, imageId}: ImageLayerType ) => {
+    try {
+        const image = await map.loadImage(imageUrl);
+        map.addImage(imageId, image.data);
+      } catch (error) {
+        console.error(`Error loading image (${imageUrl}):`, error);
+      }
+}

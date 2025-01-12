@@ -5,9 +5,8 @@
 	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
 	import customLayers from '$lib/testTheme';
 	import { goto } from '$app/navigation';
-	import { svgStringToImageSrc } from '$lib/utilities';
-	import { markerIcon } from '$lib/marker';
-	import { addMarkerLayer } from '$lib/mapData';
+	import { addMarkerLayer, loadMapImage } from '$lib/mapData';
+	import markerImage from '$lib/assets/marker.png';
 
 	const { Map } = maplibregl;
 	interface Props {
@@ -59,25 +58,18 @@
 			maxZoom: 10
 		});
 
-		// Create an image from SVG
-		const markerImage = new Image(23, 35);
-		markerImage.onload = () => {
-			map.addImage('markerImage', markerImage, {
-				'text-color': 'green',
-				'text-halo-color': 'white',
-				'text-halo-width': 1,
-				'text-halo-blur': 1,
-				'text-opacity': ['interpolate', ['linear'], ['zoom'], 7.9, 0, 8, 1]
-			});
-		};
-		markerImage.src = svgStringToImageSrc(markerIcon);
-
 		map.on('load', async () => {
 			mapContainer?.style.setProperty('opacity', '1');
 			map.addSource('locations', {
 				type: 'geojson',
 				data: geoJSON
 			});
+
+			try {
+				await loadMapImage({ map, imageUrl: markerImage, imageId: 'markerImage' });
+			} catch (error) {
+				console.error('Error loading marker images:', error);
+			}
 
 			addMarkerLayer({
 				map,
