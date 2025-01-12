@@ -45,7 +45,7 @@
 
 	<h2 class="main__subheading">Contact</h2>
 	<p class="main__text">
-		Herbal Atlas is a project created by Dakota Sexton. Please feel free to <a
+		Herb Atlas is a project created by Dakota Sexton. Please feel free to <a
 			href="mailto:dakota@tinykitelab.com">get in touch</a
 		> for more information, or to flag an issue with any of the information provided by the map.
 	</p>
