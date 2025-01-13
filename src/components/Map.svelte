@@ -50,14 +50,14 @@
 						attribution:
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
 
-						maxzoom: 6
+						maxzoom: 6.9
 					}
 				},
 				layers: customLayers as LayerSpecification[]
 			},
 			center,
 			zoom,
-			maxZoom: 8,
+			maxZoom: 6.9,
 			minZoom: 3.5
 		});
 
@@ -86,7 +86,7 @@
 					'text-halo-color': 'white',
 					'text-halo-width': 1,
 					'text-halo-blur': 1,
-					'text-opacity': ['interpolate', ['linear'], ['zoom'], 7.9, 0, 8, 1]
+					'text-opacity': ['interpolate', ['linear'], ['zoom'], 6.8, 0, 6.9, 1]
 				}
 			});
 
