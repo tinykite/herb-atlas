@@ -7,6 +7,7 @@
 	import { goto } from '$app/navigation';
 	import { addMarkerLayer, loadMapImage } from '$lib/map';
 	import markerImage from '$lib/assets/marker.png';
+	import markerImageHovered from '$lib/assets/markerhovered.png';
 
 	const { Map } = maplibregl;
 	interface Props {
@@ -46,27 +47,31 @@
 					protomaps: {
 						type: 'vector',
 						tiles: [PUBLIC_MAP_TILE_URL],
-						maxzoom: 6,
 						attribution:
-							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
+							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
+
+						maxzoom: 6
 					}
 				},
 				layers: customLayers as LayerSpecification[]
 			},
 			center,
 			zoom,
-			maxZoom: 10
+			maxZoom: 8,
+			minZoom: 3.5
 		});
 
 		map.on('load', async () => {
 			mapContainer?.style.setProperty('opacity', '1');
 			map.addSource('locations', {
 				type: 'geojson',
-				data: geoJSON
+				data: geoJSON,
+				generateId: true
 			});
 
 			try {
 				await loadMapImage({ map, imageUrl: markerImage, imageId: 'markerImage' });
+				await loadMapImage({ map, imageUrl: markerImageHovered, imageId: 'markerImageHovered' });
 			} catch (error) {
 				console.error('Error loading marker images:', error);
 			}
@@ -84,6 +89,16 @@
 					'text-opacity': ['interpolate', ['linear'], ['zoom'], 7.9, 0, 8, 1]
 				}
 			});
+
+			addMarkerLayer({
+				map,
+				layerId: 'markersHovered',
+				sourceId: 'locations',
+				iconImage: 'markerImageHovered',
+				paint: {
+					'icon-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0]
+				}
+			});
 		});
 
 		map.on('click', 'markers', (e) => {
@@ -93,12 +108,20 @@
 			}
 		});
 
-		map.on('mouseenter', 'markers', () => {
+		let hoveredFeatureId: number | null = null;
+
+		map.on('mouseenter', 'markers', (e) => {
 			map.getCanvas().style.cursor = 'pointer';
+
+			if (e.features && e.features.length > 0) {
+				hoveredFeatureId = e.features[0].id as number;
+				map.setFeatureState({ source: 'locations', id: hoveredFeatureId }, { hover: true });
+			}
 		});
 
 		map.on('mouseleave', 'markers', () => {
 			map.getCanvas().style.cursor = '';
+			map.setFeatureState({ source: 'locations', id: hoveredFeatureId }, { hover: false });
 		});
 	});
 </script>
