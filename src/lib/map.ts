@@ -13,8 +13,8 @@ export interface MarkerLayerType {
     map: MapType;
     layerId: string;
     sourceId: string;
-    iconImage: string;
-    paint: object;
+    iconImage?: string;
+    paint: object | undefined;
 }
 
 interface ImageLayerType {
@@ -34,28 +34,28 @@ export const DEFAULT_MARKER_LAYOUT = {
 
 export const getLayout = ({layerId, iconImage}: {layerId: string, iconImage: string}) => {
 
-    if (layerId === 'markers') {
+    if (layerId === 'markers' || layerId === 'markersHovered') {
         return {
             ...DEFAULT_MARKER_LAYOUT,
-            'text-font': ['Libre Franklin Medium'],
-            'text-size': 13,
-            'text-max-width': 20,
-            'text-field': ['get', 'name'],
-            'text-variable-anchor': ['bottom'],
-            'text-variable-anchor-offset': ['bottom', [0, 2.5], 'left', [1, 0]],
-            'text-optional': true,
             'icon-image': iconImage
         };
     }
 
     return {
         ...DEFAULT_MARKER_LAYOUT,
-        'icon-image': iconImage
+        'text-font': ['Libre Franklin Medium'],
+        'text-size': 13,
+        'text-max-width': 20,
+        'text-field': ['get', 'name'],
+        'text-variable-anchor': ['bottom'],
+        'text-variable-anchor-offset': ['bottom', [0, 2.5], 'left', [1, 0]],
+        'text-optional': true,
+        'text-allow-overlap': true
     }
 
 };
 
-export const addMarkerLayer = ({ map, layerId, sourceId, iconImage, paint }: MarkerLayerType) => {
+export const addMarkerLayer = ({ map, layerId, sourceId, iconImage, paint = {} }: MarkerLayerType) => {
     map.addLayer({
         id: layerId,
         type: 'symbol',

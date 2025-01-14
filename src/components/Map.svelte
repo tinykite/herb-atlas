@@ -78,9 +78,8 @@
 
 			addMarkerLayer({
 				map,
-				layerId: 'markers',
+				layerId: 'labels',
 				sourceId: 'locations',
-				iconImage: 'markerImage',
 				paint: {
 					'text-color': 'green',
 					'text-halo-color': 'white',
@@ -88,6 +87,13 @@
 					'text-halo-blur': 1,
 					'text-opacity': ['interpolate', ['linear'], ['zoom'], 6.8, 0, 6.9, 1]
 				}
+			});
+
+			addMarkerLayer({
+				map,
+				layerId: 'markers',
+				sourceId: 'locations',
+				iconImage: 'markerImage'
 			});
 
 			addMarkerLayer({
