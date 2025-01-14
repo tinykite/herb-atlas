@@ -2,7 +2,7 @@
 	import { DEFAULT_MAP_ZOOM } from '$lib/map';
 	import Map from '../../components/Map.svelte';
 
-	const mapCenter = [-96.7431, 78.567];
+	const mapCenter = [-71.6455, 48.4918];
 </script>
 
 <main class="main">

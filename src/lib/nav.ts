@@ -4,7 +4,7 @@ export const navLinks = [
         url: '/about'
     }, 
     {
-        name: 'Tip Jar',
-        url: '/tip-jar'
+        name: 'Contribute',
+        url: '/contribute'
     }
 ]
