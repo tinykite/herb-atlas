@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import Page from '../routes/+page.svelte';
 	interface Props {
 		options: Array<string>;
 	}
