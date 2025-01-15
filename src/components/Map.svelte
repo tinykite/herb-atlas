@@ -114,7 +114,7 @@
 							'case',
 							['boolean', ['feature-state', 'hover'], false],
 							'black',
-							'#753A78'
+							'#763A78'
 						],
 						'circle-radius': ['step', ['get', 'point_count'], 18, 3, 20, 4, 24, 5, 40]
 					}
@@ -126,7 +126,7 @@
 					source: 'locations',
 					filter: ['has', 'point_count'],
 					layout: {
-						'text-font': ['Libre Franklin Medium'],
+						'text-font': ['Libre Franklin Regular'],
 						'text-field': '{point_count_abbreviated}',
 						'text-size': 12
 					},
@@ -134,6 +134,7 @@
 						'text-color': 'white'
 					}
 				});
+				``;
 
 				addMarkerLayer({
 					map,
