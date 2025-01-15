@@ -4,22 +4,28 @@
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/state';
 	import Return from './Return.svelte';
+	import { type DSVParsedArray } from 'd3';
+	import { type Farm } from '$lib/map';
 
 	interface Props {
 		searchQuery: string | null;
-		searchQueryType: string;
-		farms: any;
+		searchQueryType: string | undefined;
+		locations: DSVParsedArray<Farm> | undefined;
 	}
 
-	let { searchQuery, searchQueryType, farms }: Props = $props();
+	let { searchQuery, searchQueryType, locations }: Props = $props();
 
 	let filteredResults = $derived.by(() => {
+		if (!locations) {
+			return;
+		}
+
 		if (!searchQuery) {
-			return farms;
+			return locations;
 		}
 
 		if (searchQueryType === 'cityState') {
-			return farms.filter((farm) => farm.CityState === searchQuery);
+			return locations.filter((location) => location.CityState === searchQuery);
 		}
 
 		if (searchQueryType === 'state') {
@@ -27,16 +33,18 @@
 			const upperCaseQuery = searchQuery.toUpperCase();
 
 			if (titleCaseQuery in statesByName) {
-				return farms.filter((farm) => farm.State === statesByName[titleCaseQuery]);
+				return locations.filter(
+					(location) => location.State === statesByName[titleCaseQuery as keyof typeof statesByName]
+				);
 			}
 
 			if (upperCaseQuery in statesByAbbreviation) {
-				return farms.filter((farm) => farm.State === upperCaseQuery);
+				return locations.filter((location) => location.State === upperCaseQuery);
 			}
 		}
 
 		if (searchQueryType === 'farm') {
-			return farms.filter((farm) => farm.Name === searchQuery);
+			return locations.filter((location) => location.Name === searchQuery);
 		}
 	});
 </script>
@@ -74,7 +82,7 @@
 			{/if}
 		</h2>
 
-		{#if searchQueryType === 'farm'}
+		{#if searchQueryType === 'farm' && filteredResults}
 			{@render locationDetail(filteredResults[0].CityState)}
 		{:else if !filteredResults || filteredResults.length === 0}
 			<p class="locations__description">
@@ -91,7 +99,8 @@
 		{/if}
 	</div>
 
-	{#if !searchQueryType || searchQueryType !== 'farm'}
+	<!-- Locations -->
+	{#if (!searchQueryType || searchQueryType !== 'farm') && filteredResults}
 		<ul class="locationList">
 			{#each filteredResults as location}
 				<li class="location location--listItem">
@@ -106,7 +115,7 @@
 		</ul>
 	{/if}
 
-	{#if searchQueryType === 'farm'}
+	{#if searchQueryType === 'farm' && filteredResults}
 		<div class="location">
 			<h3 class="location__heading">About the Farm</h3>
 

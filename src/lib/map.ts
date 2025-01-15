@@ -7,6 +7,7 @@ export interface Farm {
     Url: string;
     Longitude: number;
     Latitude: number;
+    Description?: string;
 }
 
 export interface MarkerLayerType {
