@@ -1,4 +1,4 @@
-import { type Map as MapType} from 'maplibre-gl'
+import { type LayerSpecification, type Map as MapType} from 'maplibre-gl'
 export interface Farm {
     Name: string;
     State: string;
@@ -48,28 +48,30 @@ export const getLayout = ({layerId, iconImage}: {layerId: string, iconImage: str
         };
     }
 
-    return {
-        ...DEFAULT_MARKER_LAYOUT,
-        'text-font': ['Libre Franklin Medium'],
-        'text-size': 13,
-        'text-max-width': 20,
-        'text-field': ['get', 'name'],
-        'text-variable-anchor': ['bottom'],
-        'text-variable-anchor-offset': ['bottom', [0, 2.5], 'left', [1, 0]],
-        'text-optional': true,
-        'text-allow-overlap': true
+    if (layerId === 'labels') {
+        return {
+            ...DEFAULT_MARKER_LAYOUT,
+            'text-font': ['Libre Franklin Medium'],
+            'text-size': 13,
+            'text-max-width': 20,
+            'text-field': ['get', 'name'],
+            'text-variable-anchor': ['bottom'],
+            'text-variable-anchor-offset': ['bottom', [0, 2.5], 'left', [1, 0]],
+            'text-optional': true,
+            'text-allow-overlap': true
+        }
     }
 
 };
 
-export const addMarkerLayer = ({ map, layerId, sourceId, iconImage, paint = {} }: MarkerLayerType) => {
+export const addMarkerLayer = ({ map, layerId, sourceId, iconImage = '', paint = {} }: MarkerLayerType) => {
     map.addLayer({
         id: layerId,
         type: 'symbol',
         source: sourceId,
         layout: getLayout({layerId, iconImage}),
         paint
-    });
+    } as LayerSpecification);
 };
 
 export const loadMapImage = async ({map, imageUrl, imageId}: ImageLayerType ) => {
