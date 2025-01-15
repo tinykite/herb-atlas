@@ -14,12 +14,12 @@ export const svgStringToImageSrc = (svgString: string) => {
 
 const queryTypes = ['farm']
 
-export const getQueryType = ({query, type, cityStatePairs}: {query: string, type: string, cityStatePairs: Array<string>}) => {
+export const getQueryType = ({query, type, cityStatePairs}: {query: string | null, type: string | null, cityStatePairs: unknown[] | undefined}) => {
 	if (!query) {
 		return
 	}
 
-	if (queryTypes.includes(type)) {
+	if (type && queryTypes.includes(type)) {
 		return type
 	}
 	
