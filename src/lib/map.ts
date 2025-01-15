@@ -58,7 +58,7 @@ export const getLayout = ({layerId, iconImage}: {layerId: string, iconImage: str
             'text-variable-anchor': ['bottom'],
             'text-variable-anchor-offset': ['bottom', [0, 2.5], 'left', [1, 0]],
             'text-optional': true,
-            'text-allow-overlap': true
+            'text-allow-overlap': true,
         }
     }
 
@@ -69,6 +69,7 @@ export const addMarkerLayer = ({ map, layerId, sourceId, iconImage = '', paint =
         id: layerId,
         type: 'symbol',
         source: sourceId,
+        filter: ['!', ['has', 'point_count']],
         layout: getLayout({layerId, iconImage}),
         paint
     } as LayerSpecification);

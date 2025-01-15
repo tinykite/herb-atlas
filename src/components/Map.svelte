@@ -56,7 +56,7 @@
 			},
 			center,
 			zoom,
-			maxZoom: 6.9,
+			maxZoom: 7,
 			minZoom: 3.5
 		});
 
@@ -67,7 +67,10 @@
 				map.addSource('locations', {
 					type: 'geojson',
 					data: geoJSON,
-					generateId: true
+					generateId: true,
+					cluster: true,
+					clusterMaxZoom: 14, // Max zoom to cluster points on
+					clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
 				});
 
 				try {
@@ -75,6 +78,32 @@
 				} catch (error) {
 					console.error('Error loading marker images:', error);
 				}
+
+				map.addLayer({
+					id: 'clusters',
+					type: 'circle',
+					source: 'locations',
+					filter: ['has', 'point_count'],
+					paint: {
+						'circle-color': '#633065',
+						'circle-radius': ['step', ['get', 'point_count'], 20, 3, 25, 5, 30]
+					}
+				});
+
+				map.addLayer({
+					id: 'cluster-count',
+					type: 'symbol',
+					source: 'locations',
+					filter: ['has', 'point_count'],
+					layout: {
+						'text-font': ['Libre Franklin Medium'],
+						'text-field': '{point_count_abbreviated}',
+						'text-size': 12
+					},
+					paint: {
+						'text-color': 'white'
+					}
+				});
 
 				addMarkerLayer({
 					map,
@@ -98,6 +127,19 @@
 			}
 		});
 
+		map.on('click', 'clusters', async (e) => {
+			const features = map.queryRenderedFeatures(e.point, {
+				layers: ['clusters']
+			});
+			const clusterId = features[0].properties.cluster_id;
+
+			const zoom = await map.getSource('locations').getClusterExpansionZoom(clusterId);
+			map.easeTo({
+				center: features[0].geometry.coordinates,
+				zoom
+			});
+		});
+
 		map.on('click', 'markers', (e) => {
 			if (e.features && e.features.length) {
 				const name = e.features[0].properties.name;
@@ -110,6 +152,14 @@
 		});
 
 		map.on('mouseleave', 'markers', () => {
+			map.getCanvas().style.cursor = '';
+		});
+
+		map.on('mouseenter', 'clusters', (e) => {
+			map.getCanvas().style.cursor = 'pointer';
+		});
+
+		map.on('mouseleave', 'clusters', () => {
 			map.getCanvas().style.cursor = '';
 		});
 	});
