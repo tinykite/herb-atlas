@@ -49,14 +49,14 @@
 						attribution:
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
 
-						maxzoom: 7
+						maxzoom: 6.9
 					}
 				},
 				layers: customLayers as LayerSpecification[]
 			},
 			center,
 			zoom,
-			maxZoom: 7,
+			maxZoom: 6.9,
 			minZoom: 3.5
 		});
 
@@ -69,8 +69,8 @@
 					data: geoJSON,
 					generateId: true,
 					cluster: true,
-					clusterMaxZoom: 14, // Max zoom to cluster points on
-					clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+					clusterMaxZoom: 5,
+					clusterRadius: 50
 				});
 
 				try {
