@@ -155,7 +155,7 @@
 	.locations {
 		grid-column: 1 / -1;
 		margin-block: 2rem;
-		color: #397740;
+		color: #006b38;
 		background: #faf6d4;
 		position: relative;
 		z-index: 100;

@@ -131,7 +131,7 @@
 	.nav__logo {
 		height: 1.75rem;
 		width: auto;
-		fill: #397740;
+		fill: #006b38;
 		justify-self: flex-start;
 	}
 
@@ -146,7 +146,7 @@
 		font-family: 'franklin-gothic-compressed', sans-serif;
 		font-weight: 600;
 		font-style: normal;
-		color: #397740;
+		color: #006b38;
 		font-size: 1.125rem;
 	}
 
@@ -168,6 +168,6 @@
 	.nav__link:hover,
 	.nav__link:focus-within,
 	.nav__link[aria-current='page'] {
-		border-bottom: 2px solid #397740;
+		border-bottom: 2px solid #006b38;
 	}
 </style>
