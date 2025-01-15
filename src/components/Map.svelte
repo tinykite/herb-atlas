@@ -62,37 +62,40 @@
 
 		map.on('load', async () => {
 			mapContainer?.style.setProperty('opacity', '1');
-			map.addSource('locations', {
-				type: 'geojson',
-				data: geoJSON,
-				generateId: true
-			});
 
-			try {
-				await loadMapImage({ map, imageUrl: markerImage, imageId: 'markerImage' });
-			} catch (error) {
-				console.error('Error loading marker images:', error);
-			}
+			if (!!geoJSON && geoJSON?.features?.length) {
+				map.addSource('locations', {
+					type: 'geojson',
+					data: geoJSON,
+					generateId: true
+				});
 
-			addMarkerLayer({
-				map,
-				layerId: 'labels',
-				sourceId: 'locations',
-				paint: {
-					'text-color': 'green',
-					'text-halo-color': 'white',
-					'text-halo-width': 1,
-					'text-halo-blur': 1,
-					'text-opacity': ['interpolate', ['linear'], ['zoom'], 6.8, 0, 6.9, 1]
+				try {
+					await loadMapImage({ map, imageUrl: markerImage, imageId: 'markerImage' });
+				} catch (error) {
+					console.error('Error loading marker images:', error);
 				}
-			});
 
-			addMarkerLayer({
-				map,
-				layerId: 'markers',
-				sourceId: 'locations',
-				iconImage: 'markerImage'
-			});
+				addMarkerLayer({
+					map,
+					layerId: 'labels',
+					sourceId: 'locations',
+					paint: {
+						'text-color': 'green',
+						'text-halo-color': 'white',
+						'text-halo-width': 1,
+						'text-halo-blur': 1,
+						'text-opacity': ['interpolate', ['linear'], ['zoom'], 6.8, 0, 6.9, 1]
+					}
+				});
+
+				addMarkerLayer({
+					map,
+					layerId: 'markers',
+					sourceId: 'locations',
+					iconImage: 'markerImage'
+				});
+			}
 		});
 
 		map.on('click', 'markers', (e) => {
