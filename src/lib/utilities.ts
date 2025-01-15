@@ -8,13 +8,13 @@ export const stringToTitlecase = (string: string) => {
         .join(' ');
 };
 
-export const svgStringToImageSrc = (svgString) => {
+export const svgStringToImageSrc = (svgString: string) => {
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
 };
 
 const queryTypes = ['farm']
 
-export const getQueryType = ({query, type, cityStatePairs}) => {
+export const getQueryType = ({query, type, cityStatePairs}: {query: string, type: string, cityStatePairs: Array<string>}) => {
 	if (!query) {
 		return
 	}
@@ -33,3 +33,11 @@ export const getQueryType = ({query, type, cityStatePairs}) => {
 
 	return 'unknown'
 }
+
+export const getStateQueryType = ({ searchQuery }: { searchQuery: string }) => {
+	if (stringToTitlecase(searchQuery) in statesByName) {
+		return 'fullName';
+	}
+
+	return 'abbreviation';
+};

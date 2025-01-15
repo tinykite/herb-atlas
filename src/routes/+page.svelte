@@ -6,18 +6,11 @@
 	import { getQueryType, stringToTitlecase } from '$lib/utilities';
 	import { DEFAULT_MAP_CENTER, type Location } from '$lib/map';
 	import Locations from '../components/Locations.svelte';
+	import { getStateQueryType } from '$lib/utilities';
 
 	interface Props {
 		data: PageData;
 	}
-
-	const getStateQueryType = ({ searchQuery }: { searchQuery: string }) => {
-		if (stringToTitlecase(searchQuery) in statesByName) {
-			return 'fullName';
-		}
-
-		return 'abbreviation';
-	};
 
 	const getStateMetadata = ({ searchQuery }: { searchQuery: string }) => {
 		const stateQueryType = getStateQueryType({ searchQuery });
