@@ -4,14 +4,14 @@
 	import Map from '../components/Map.svelte';
 	import { statesByName, geocodedStateAbbreviations } from '$lib/stateData';
 	import { getQueryType, stringToTitlecase } from '$lib/utilities';
-	import { DEFAULT_MAP_CENTER } from '$lib/map';
+	import { DEFAULT_MAP_CENTER, type Location } from '$lib/map';
 	import Locations from '../components/Locations.svelte';
 
 	interface Props {
 		data: PageData;
 	}
 
-	const getStateQueryType = ({ searchQuery }) => {
+	const getStateQueryType = ({ searchQuery }: { searchQuery: string }) => {
 		if (stringToTitlecase(searchQuery) in statesByName) {
 			return 'fullName';
 		}
@@ -19,17 +19,25 @@
 		return 'abbreviation';
 	};
 
-	const getStateMetadata = ({ searchQuery }) => {
+	const getStateMetadata = ({ searchQuery }: { searchQuery: string }) => {
 		const stateQueryType = getStateQueryType({ searchQuery });
-		let location;
+		let location: Location = {
+			latitude: '0',
+			longitude: '0'
+		};
 
 		if (stateQueryType === 'fullName') {
-			const abbreviation = statesByName[stringToTitlecase(searchQuery)];
-			location = geocodedStateAbbreviations[abbreviation];
+			const abbreviation =
+				statesByName[stringToTitlecase(searchQuery) as keyof typeof statesByName];
+			location =
+				geocodedStateAbbreviations[abbreviation as keyof typeof geocodedStateAbbreviations];
 		}
 
 		if (stateQueryType === 'abbreviation') {
-			location = geocodedStateAbbreviations[searchQuery.toUpperCase()];
+			location =
+				geocodedStateAbbreviations[
+					searchQuery.toUpperCase() as keyof typeof geocodedStateAbbreviations
+				];
 		}
 
 		return {
@@ -41,7 +49,7 @@
 	let { data }: Props = $props();
 	const { farms, cityStatePairs, cityStateGeocodes, farmGeoJSON, farmCoordinatesByName } = data;
 
-	let searchQuery = $derived(page.url.searchParams.get('q'));
+	let searchQuery: string | null = $derived(page.url.searchParams.get('q'));
 	let type = $derived(page.url.searchParams.get('type'));
 
 	let searchQueryType = $derived.by(() => {
@@ -63,7 +71,7 @@
 			};
 		}
 
-		if (searchQueryType === 'state') {
+		if (searchQuery && searchQueryType === 'state') {
 			return getStateMetadata({ searchQuery });
 		}
 

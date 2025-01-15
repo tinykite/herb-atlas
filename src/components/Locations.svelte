@@ -6,7 +6,7 @@
 	import Return from './Return.svelte';
 
 	interface Props {
-		searchQuery: string;
+		searchQuery: string | null;
 		searchQueryType: string;
 		farms: any;
 	}
