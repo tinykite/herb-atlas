@@ -7,7 +7,6 @@
 	import { goto } from '$app/navigation';
 	import { addMarkerLayer, loadMapImage } from '$lib/map';
 	import markerImage from '$lib/assets/marker.png';
-	import markerImageHovered from '$lib/assets/markerhovered.png';
 
 	const { Map } = maplibregl;
 	interface Props {
@@ -71,7 +70,6 @@
 
 			try {
 				await loadMapImage({ map, imageUrl: markerImage, imageId: 'markerImage' });
-				await loadMapImage({ map, imageUrl: markerImageHovered, imageId: 'markerImageHovered' });
 			} catch (error) {
 				console.error('Error loading marker images:', error);
 			}
@@ -103,8 +101,6 @@
 				goto(`/?q=${name}&type=farm`);
 			}
 		});
-
-		let hoveredFeatureId: number | null = null;
 
 		map.on('mouseenter', 'markers', (e) => {
 			map.getCanvas().style.cursor = 'pointer';

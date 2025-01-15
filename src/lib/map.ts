@@ -34,7 +34,7 @@ export const DEFAULT_MARKER_LAYOUT = {
 
 export const getLayout = ({layerId, iconImage}: {layerId: string, iconImage: string}) => {
 
-    if (layerId === 'markers' || layerId === 'markersHovered') {
+    if (layerId === 'markers') {
         return {
             ...DEFAULT_MARKER_LAYOUT,
             'icon-image': iconImage
