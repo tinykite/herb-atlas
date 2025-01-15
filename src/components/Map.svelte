@@ -49,7 +49,7 @@
 						attribution:
 							'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
 
-						maxzoom: 6.9
+						maxzoom: 7
 					}
 				},
 				layers: customLayers as LayerSpecification[]
