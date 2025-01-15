@@ -1,12 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import maplibregl, { type Map as MapType, type LayerSpecification } from 'maplibre-gl';
+	import maplibregl, {
+		type Map as MapType,
+		type LayerSpecification,
+		type MapMouseEvent
+	} from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
 	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
 	import customLayers from '$lib/herbalismThemeAdvanced';
 	import { goto } from '$app/navigation';
 	import { addMarkerLayer, loadMapImage } from '$lib/map';
 	import markerImage from '$lib/assets/marker.png';
+	import markerImageHovered from '$lib/assets/markerHovered.png';
 
 	const { Map } = maplibregl;
 	interface Props {
@@ -34,6 +39,25 @@
 			}
 		}
 	});
+
+	let hoveredStateId: string | null;
+
+	const handleHoverEnter = (e: MapMouseEvent) => {
+		if (e.features.length > 0) {
+			if (hoveredStateId) {
+				map.setFeatureState({ source: 'locations', id: hoveredStateId }, { hover: false });
+			}
+			hoveredStateId = e.features[0].id;
+			map.setFeatureState({ source: 'locations', id: hoveredStateId }, { hover: true });
+		}
+	};
+
+	const handleHoverExit = (e: MapMouseEvent) => {
+		if (hoveredStateId) {
+			map.setFeatureState({ source: 'locations', id: hoveredStateId }, { hover: false });
+		}
+		hoveredStateId = null;
+	};
 
 	onMount(() => {
 		map = new Map({
@@ -75,6 +99,7 @@
 
 				try {
 					await loadMapImage({ map, imageUrl: markerImage, imageId: 'markerImage' });
+					await loadMapImage({ map, imageUrl: markerImageHovered, imageId: 'markerImageHovered' });
 				} catch (error) {
 					console.error('Error loading marker images:', error);
 				}
@@ -85,8 +110,13 @@
 					source: 'locations',
 					filter: ['has', 'point_count'],
 					paint: {
-						'circle-color': '#633065',
-						'circle-radius': ['step', ['get', 'point_count'], 20, 3, 25, 5, 30]
+						'circle-color': [
+							'case',
+							['boolean', ['feature-state', 'hover'], false],
+							'black',
+							'#753A78'
+						],
+						'circle-radius': ['step', ['get', 'point_count'], 18, 3, 20, 4, 24, 5, 40]
 					}
 				});
 
@@ -124,6 +154,16 @@
 					sourceId: 'locations',
 					iconImage: 'markerImage'
 				});
+
+				addMarkerLayer({
+					map,
+					layerId: 'markersHovered',
+					sourceId: 'locations',
+					iconImage: 'markerImageHovered',
+					paint: {
+						'icon-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0]
+					}
+				});
 			}
 		});
 
@@ -133,9 +173,16 @@
 			});
 			const clusterId = features[0].properties.cluster_id;
 
-			const zoom = await map.getSource('locations').getClusterExpansionZoom(clusterId);
+			const meta = map.getSource('locations') as any;
+
+			if (!meta) {
+				return;
+			}
+
+			const zoom = await meta.getClusterExpansionZoom(clusterId);
+			const coordinates = features[0].geometry?.coordinates;
 			map.easeTo({
-				center: features[0].geometry.coordinates,
+				center: coordinates,
 				zoom
 			});
 		});
@@ -149,18 +196,22 @@
 
 		map.on('mouseenter', 'markers', (e) => {
 			map.getCanvas().style.cursor = 'pointer';
+			handleHoverEnter(e);
 		});
 
-		map.on('mouseleave', 'markers', () => {
+		map.on('mouseleave', 'markers', (e) => {
 			map.getCanvas().style.cursor = '';
+			handleHoverExit(e);
 		});
 
 		map.on('mouseenter', 'clusters', (e) => {
 			map.getCanvas().style.cursor = 'pointer';
+			handleHoverEnter(e);
 		});
 
-		map.on('mouseleave', 'clusters', () => {
+		map.on('mouseleave', 'clusters', (e) => {
 			map.getCanvas().style.cursor = '';
+			handleHoverExit(e);
 		});
 	});
 </script>
