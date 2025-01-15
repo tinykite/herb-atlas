@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import Page from '../routes/+page.svelte';
 	interface Props {
 		options: Array<string>;
 	}
 
 	let searchInput = $state('') as unknown as HTMLInputElement;
-	let searchQuery = $state(page.url.searchParams.get('q'));
+	let searchQuery = $state();
 
 	let { options }: Props = $props();
 	let locations: Array<string> = $state([]);
@@ -108,6 +108,10 @@
 	};
 
 	const handleLocationSearch = () => {
+		if (!searchQuery) {
+			return;
+		}
+
 		if (searchQuery.length < 2) {
 			return;
 		}
