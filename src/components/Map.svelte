@@ -126,7 +126,7 @@
 					source: 'locations',
 					filter: ['has', 'point_count'],
 					layout: {
-						'text-font': ['Libre Franklin Regular'],
+						'text-font': ['Libre Franklin Bold'],
 						'text-field': '{point_count_abbreviated}',
 						'text-size': 12
 					},
