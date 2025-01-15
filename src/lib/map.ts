@@ -14,7 +14,7 @@ export interface MarkerLayerType {
     layerId: string;
     sourceId: string;
     iconImage?: string;
-    paint: object | undefined;
+    paint?: object;
 }
 
 interface ImageLayerType {
@@ -28,7 +28,7 @@ export const DEFAULT_MAP_ZOOM = 3.5
 
 export const DEFAULT_MARKER_LAYOUT = {
     'icon-anchor': 'center',
-    'icon-size': 0.85,
+    'icon-size': ["get", "iconSize"],
     'icon-allow-overlap': true,
 };
 

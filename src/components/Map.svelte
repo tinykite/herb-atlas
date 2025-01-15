@@ -95,16 +95,6 @@
 				sourceId: 'locations',
 				iconImage: 'markerImage'
 			});
-
-			addMarkerLayer({
-				map,
-				layerId: 'markersHovered',
-				sourceId: 'locations',
-				iconImage: 'markerImageHovered',
-				paint: {
-					'icon-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0]
-				}
-			});
 		});
 
 		map.on('click', 'markers', (e) => {
@@ -118,16 +108,10 @@
 
 		map.on('mouseenter', 'markers', (e) => {
 			map.getCanvas().style.cursor = 'pointer';
-
-			if (e.features && e.features.length > 0) {
-				hoveredFeatureId = e.features[0].id as number;
-				map.setFeatureState({ source: 'locations', id: hoveredFeatureId }, { hover: true });
-			}
 		});
 
 		map.on('mouseleave', 'markers', () => {
 			map.getCanvas().style.cursor = '';
-			map.setFeatureState({ source: 'locations', id: hoveredFeatureId }, { hover: false });
 		});
 	});
 </script>
@@ -148,5 +132,13 @@
 		height: 100vh;
 		opacity: 0;
 		transition: 0.3s ease;
+	}
+
+	.mapInfo {
+		position: absolute;
+		z-index: 300;
+		top: 0;
+		left: 0;
+		background: white;
 	}
 </style>

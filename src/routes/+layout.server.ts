@@ -55,6 +55,7 @@ export const load: LayoutServerLoad = async () => {
                         city: farm.City,
                         cityState: farm.CityState,
                         url: farm.Url,
+                        iconSize: 0.85
                     },
                 };
             }),
