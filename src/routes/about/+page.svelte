@@ -38,7 +38,7 @@
 	<p>
 		This website was created in Minneapolis, in Mni Sóta Makoce. As the <a
 			href="https://nativegov.org/about/our-land-acknowledgement-statement/"
-			>Native Governence Center</a
+			>Native Governance Center</a
 		>
 		so well describes,
 	</p>
