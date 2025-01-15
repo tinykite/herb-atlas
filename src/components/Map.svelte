@@ -113,10 +113,10 @@
 						'circle-color': [
 							'case',
 							['boolean', ['feature-state', 'hover'], false],
-							'black',
-							'#763A78'
+							'#002104',
+							['step', ['get', 'point_count'], '#ae017e', 3, '#7a0177', 5, '#49006a']
 						],
-						'circle-radius': ['step', ['get', 'point_count'], 18, 3, 20, 4, 24, 5, 40]
+						'circle-radius': ['step', ['get', 'point_count'], 18, 4, 24, 5, 42]
 					}
 				});
 
@@ -126,7 +126,7 @@
 					source: 'locations',
 					filter: ['has', 'point_count'],
 					layout: {
-						'text-font': ['Libre Franklin Bold'],
+						'text-font': ['Libre Franklin Regular'],
 						'text-field': '{point_count_abbreviated}',
 						'text-size': 12
 					},
