@@ -6,7 +6,7 @@
 	}
 
 	let searchInput = $state('') as unknown as HTMLInputElement;
-	let searchQuery = $state();
+	let searchQuery: string | undefined = $state();
 
 	let { options }: Props = $props();
 	let locations: Array<string> = $state([]);
@@ -220,7 +220,7 @@
 				</li>
 			{/each}
 
-			{#if searchQuery.length >= 3 && locations.length === 0}
+			{#if searchQuery && searchQuery.length >= 3 && locations.length === 0}
 				<li
 					class="autocomplete__option autocomplete__option--empty"
 					role="option"
