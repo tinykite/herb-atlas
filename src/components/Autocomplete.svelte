@@ -273,7 +273,7 @@
 	.search__input:focus {
 		outline-style: solid;
 		outline-width: 2px;
-		outline-color: #4900fc;
+		outline-color: #49016a;
 	}
 
 	.search__input::placeholder {
@@ -293,7 +293,7 @@
 		display: grid;
 		position: absolute;
 		border-radius: 0.5rem;
-		background: white;
+		background: #fafafa;
 		list-style-type: none;
 		padding: 0;
 		margin-block-start: 1rem;
@@ -327,7 +327,7 @@
 	.autocomplete__option:hover,
 	.autocomplete__option:focus {
 		background-color: #4c3a78;
-		color: #fff;
+		color: #fafafa;
 		outline: none;
 	}
 </style>

@@ -144,7 +144,7 @@
 						'text-size': 12
 					},
 					paint: {
-						'text-color': 'white'
+						'text-color': '#fafafa'
 					}
 				});
 				``;
