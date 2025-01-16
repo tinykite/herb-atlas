@@ -3,7 +3,10 @@
 	import maplibregl, {
 		type Map as MapType,
 		type LayerSpecification,
-		type MapMouseEvent
+		type MapMouseEvent,
+		type LngLatLike,
+		type GeoJSONSource,
+		type MapGeoJSONFeature
 	} from 'maplibre-gl';
 	import * as pmtiles from 'pmtiles';
 	import { PUBLIC_MAP_TILE_URL } from '$env/static/public';
@@ -12,6 +15,7 @@
 	import { addMarkerLayer, loadMapImage } from '$lib/map';
 	import markerImage from '$lib/assets/marker.png';
 	import markerImageHovered from '$lib/assets/markerHovered.png';
+	import Page from '../routes/+page.svelte';
 
 	const { Map } = maplibregl;
 	interface Props {
@@ -40,14 +44,23 @@
 		}
 	});
 
-	let hoveredStateId: string | null;
+	let hoveredStateId: string | number | null;
 
-	const handleHoverEnter = (e: MapMouseEvent) => {
-		if (e.features.length > 0) {
-			if (hoveredStateId) {
-				map.setFeatureState({ source: 'locations', id: hoveredStateId }, { hover: false });
+	const handleHoverEnter = (e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
+		const features = e.features;
+
+		if (!features) {
+			return;
+		}
+
+		if (features.length > 0) {
+			const id = features[0].id;
+
+			if (!id) {
+				return;
 			}
-			hoveredStateId = e.features[0].id;
+
+			hoveredStateId = id;
 			map.setFeatureState({ source: 'locations', id: hoveredStateId }, { hover: true });
 		}
 	};
@@ -168,22 +181,27 @@
 			}
 		});
 
-		map.on('click', 'clusters', async (e) => {
+		map.on('click', 'clusters', async (e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
 			const features = map.queryRenderedFeatures(e.point, {
 				layers: ['clusters']
 			});
-			const clusterId = features[0].properties.cluster_id;
 
-			const meta = map.getSource('locations') as any;
+			if (!features || features.length === 0) {
+				return;
+			}
+
+			const feature = features[0];
+			const clusterId = feature.properties.cluster_id;
+			const meta = map.getSource('locations') as GeoJSONSource;
 
 			if (!meta) {
 				return;
 			}
 
+			const coordinates = (feature.geometry as GeoJSON.Point).coordinates;
 			const zoom = await meta.getClusterExpansionZoom(clusterId);
-			const coordinates = features[0].geometry?.coordinates;
 			map.easeTo({
-				center: coordinates,
+				center: coordinates as LngLatLike,
 				zoom
 			});
 		});
