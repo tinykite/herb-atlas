@@ -4,7 +4,8 @@ export interface Farm {
     State: string;
     City: string;
     CityState: string;
-    Url: string;
+    Url?: string;
+    Email?: string;
     Longitude: number;
     Latitude: number;
     Description?: string;
