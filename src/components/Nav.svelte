@@ -10,6 +10,7 @@
 	let { farmLocations }: Props = $props();
 </script>
 
+<a class="u-skipLink" href="#main">Skip to Main Content</a>
 <nav class="nav">
 	<a
 		href="/"

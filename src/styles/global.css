@@ -91,16 +91,6 @@ img {
 	display: block;
 }
 
-.u-visuallyHidden {
-	position: absolute;
-	left: -10000px;
-	top: auto;
-	width: 1px;
-	height: 1px;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
 .main {
 	grid-column: 1 / -1;
 	display: grid;
@@ -161,4 +151,41 @@ img {
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;
+}
+
+.maplibregl-ctrl-bottom-right {
+	display: none;
+}
+
+.u-visuallyHidden {
+	position: absolute;
+	left: -10000px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.u-skipLink {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translateY(-100%);
+	background: black;
+	color: white;
+	font-family: 'franklin-gothic-compressed', sans-serif;
+	font-weight: 600;
+	padding-block: 1.5rem;
+	padding-inline: 2rem;
+	text-decoration: none;
+	z-index: 400;
+
+	&:visited {
+		color: white;
+	}
+
+	&:focus {
+		transform: translateY(0);
+	}
 }

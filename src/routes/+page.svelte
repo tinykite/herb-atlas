@@ -75,6 +75,7 @@
 	});
 </script>
 
-<Locations locations={farms} {searchQuery} {searchQueryType} />
-
+<main id="main">
+	<Locations locations={farms} {searchQuery} {searchQueryType} />
+</main>
 <Map geoJSON={farmGeoJSON} center={mapMetadata.center} zoom={mapMetadata.zoom} />

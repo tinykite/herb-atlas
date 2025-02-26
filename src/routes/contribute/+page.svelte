@@ -11,7 +11,7 @@
 	</script>
 {/if}
 
-<main class="main">
+<main class="main" id="main">
 	<h1 class="main__title">Contribute</h1>
 	<p class="main__text">
 		Anyone is welcome to <a
