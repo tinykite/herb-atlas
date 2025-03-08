@@ -181,7 +181,7 @@
 		background: #faf6d4;
 		position: relative;
 		z-index: 100;
-		padding-block-start: 1.5rem;
+		padding-block: 1.5rem;
 		box-shadow:
 			0 100px 80px 0 rgba(0, 0, 0, 0.02),
 			0 22px 18px 0 rgba(0, 0, 0, 0.04),
@@ -269,7 +269,7 @@
 		display: flex;
 		gap: 0.25rem;
 		align-items: center;
-		margin-block-start: 0.25rem;
+		margin-block-start: 0.5rem;
 	}
 
 	.locationMarker__icon {
