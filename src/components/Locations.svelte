@@ -177,6 +177,7 @@
 	.locations {
 		grid-column: 1 / -1;
 		margin-block: 2rem;
+		margin-inline: auto;
 		color: #006b38;
 		background: #faf6d4;
 		position: relative;

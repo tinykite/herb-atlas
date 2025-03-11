@@ -93,41 +93,8 @@ img {
 
 .main {
 	grid-column: 1 / -1;
-	display: grid;
-	gap: 1rem;
-	justify-items: center;
-	margin-block: 2rem;
-	max-width: 55ch;
-	font-size: 1.125rem;
-	color: #005109;
-	background: #faf6d4;
-	position: relative;
-	z-index: 100;
-	padding: 1.5rem;
-
-	box-shadow:
-		0 100px 80px 0 rgba(0, 0, 0, 0.02),
-		0 22px 18px 0 rgba(0, 0, 0, 0.04),
-		0 6px 5px 0 rgba(0, 0, 0, 0.08);
-
-	@media (min-width: 24rem) {
-		margin-inline: 2rem;
-		border-radius: 1rem;
-	}
-
-	@media (min-width: 40rem) {
-		margin-inline: auto;
-	}
 }
 
-.main__text:last-of-type {
-	margin-block-end: 1rem;
-}
-
-.main__title, .main__subheading {
-	font-family: 'franklin-gothic-compressed', sans-serif;
-	font-weight: 600;
-}
 
 @font-face {
 	font-family: 'Tiempos Text';
