@@ -5,7 +5,7 @@
 	const mapCenter = [-96.7431, 78.567];
 </script>
 
-<main class="main" id="main">
+<main class="main" id="main" class="main">
 	<h1 class="main__title">About</h1>
 	<p class="main__text">
 		Herb Atlas is an interactive map that highlights small, human-scale farms growing medicinal
