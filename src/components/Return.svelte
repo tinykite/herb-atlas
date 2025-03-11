@@ -1,4 +1,4 @@
-<div class="test">
+<div class="return">
 	<a href="/" class="return">
 		<svg
 			class="return__icon"
@@ -24,7 +24,8 @@
 		align-items: center;
 		column-gap: 0.5rem;
 		text-decoration: none;
-		margin-inline: 1.5rem;
+		margin-inline: 0.85rem;
+		margin-block-start: 0.5rem;
 		font-style: italic;
 	}
 
