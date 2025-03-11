@@ -129,7 +129,7 @@
 
 	const filterOptions = (value: string): string[] => {
 		const targetValue = value.toLowerCase();
-		return options.filter((option) => option.toLowerCase().includes(targetValue));
+		return options.filter((option) => option.toLowerCase().includes(targetValue)).sort();
 	};
 
 	let timer: any;
